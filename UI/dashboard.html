@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Property Pro Lite is a platform where people can create and/or search properties for sale or rent.">	  
+    <meta name="author" content="RUGUMBIRA Jordy Bastien">
+    <title>Property Pro Lite | Dashboard</title>
+    <link rel="stylesheet" href="./css/style.css">
+  </head>
+
+<body>
+  
+  <nav class="navbar"style="margin-top: -0px;">
+        <div class="container">
+            <a class="site-title" href="index.html">Property Pro Lite</a>
+    
+            <ul class="menu-lg">
+                <li>
+                    <a class="active" href="index.html"> Home</a>
+                </li>
+                <li>
+                    <a href="properties.html"> Properties</a>
+                </li>
+                <li>
+                    <a href="index.html">Logout</a>
+                </li>
+            </ul>
+        </div>
+        
+    </nav>
+
+  
+  <div class="dashboard">
+    <div class="container">
+      <div class="row">
+        <div class="dashboard-content">
+          <h1 class="underline"style="text-align: center;">Dashboard</h1>
+          <p class="welcome">Welcome</p>
+          
+          <div class="dashboard-topbar">
+            <a href="add-property.html" class="button-add">
+              <img src="img/icons/add.png">
+              Add Property</a>
+
+          </div>
+
+          
+          <div>
+            <h4>Registered properties(Scroll left on mobile to view all columns)</h4>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Status</th>
+                  <th>Type</th>
+                  <th>State</th>
+                  <th>City</th>
+                  <th>Address</th>
+                  <th>Price</th>
+                  <th>Created on</th>
+                  <th>Owner Email</th>
+                  <th>Owner Phone</th>
+                  <th>Operations</th>
+                  <th />
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td><span class="sold">Sold</span></td>
+                  <td>2 bedroom</td>
+                  <td>Kigali</td>
+                  <td>Kigali</td>
+                  <td>Kicukiro, niboye</td>
+                  <td>80,000,000 RWF</td>
+                  <td>19-06-2019 </td>
+                  <td>abcd@gmail.com</td>
+                  <td>+250785634779</td>
+                  <td>
+                        <div class="dashboard-buttons">
+                                <button class="button-edit"onclick="location.href='edit-property.html'">
+                                                Edit
+                                </button>
+                                <button class="button-delete"onclick="location.href='delete-property.html'">
+                                    Delete
+                                </button>
+                                <button class="button-status"onclick="location.href='set-status.html'">
+                                        Status
+                                </button>
+                        </div>
+                  </td>
+                </tr>
+                <tr>
+                        <td>2</td>
+                        <td><span class="available">Available</span></td>
+                        <td>2 bedroom</td>
+                        <td>Kigali</td>
+                        <td>Kigali</td>
+                        <td>Kicukiro, niboye</td>
+                        <td>80,000,000 RWF</td>
+                        <td>19-06-2019 </td>
+                        <td>abcd@gmail.com</td>
+                        <td>+250785634779</td>
+                        <td>
+                                <div class="dashboard-buttons">
+                                        <button class="button-edit"onclick="location.href='edit-property.html'">
+                                                        Edit
+                                        </button>
+                                        <button class="button-delete"onclick="location.href='delete-property.html'">
+                                            Delete
+                                        </button>
+                                        <button class="button-status"onclick="location.href='set-status.html'">
+                                                Status
+                                        </button>
+                                </div>
+                        </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+    <footer class="footer">
+        Copyright &copy; 2019 Property Pro Lite
+    </footer>
+
+</body>
+
+</html>
