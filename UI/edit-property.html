@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="Property Pro Lite is a platform where people can create and/or search properties for sale or rent.">	  
+  	<meta name="author" content="RUGUMBIRA Jordy Bastien">
+    <title>Property Pro Lite | Edit Property</title>
+    <link rel="stylesheet" href="./css/style.css">
+  </head>
+    <body class="bg-grey">
+        <nav class="navbar"style="margin-top: -100px;">
+            <div class="container">
+                <a class="site-title" href="index.html">Property Pro Lite</a>        
+                <ul class="menu-lg">
+                        <li>
+                                <a class="active" href="index.html"> Home</a>
+                        </li>
+                        <li>
+                                <a href="properties.html"> Properties</a>
+                        </li>
+                        <li>
+                                <a href="dashboard.html"> Dashboard</a>
+                        </li>
+                        <li>
+                                <a href="index.html">Logout</a>
+                        </li>
+                </ul>
+            </div>
+            
+        </nav>
+        <div class="signup-content">
+            <div class="signup-form">
+                        <h1 style="text-align: center;">Property Pro Lite</h1>
+                        <div class="form-content">
+                            <p class="line-on-side"><span>Edit Property</span></p>
+                            <div>   
+                                <form>                                    
+                                    <fieldset class="signup-fieldset">
+                                        <label>Owner Name</label><span class="important">*</span>
+                                        <input type="text" class="signup-fields" id="name" name="name" placeholder="Owner name" value="Rugumbira Jordy Bastien" required autofocus="">
+                                    </fieldset>
+                                    <fieldset class="signup-fieldset">
+                                            <label>Price</label><span class="important">*</span>
+                                            <input type="text" class="signup-fields" id="price" name="price" placeholder="Price" value="80,000,000" required autofocus="">
+                                    </fieldset>
+                                    <fieldset class="signup-fieldset">
+                                            <label>State</label><span class="important">*</span>
+                                            <input type="text" class="signup-fields" id="state" name="state" placeholder="State" value="Kigali" required autofocus="">
+                                    </fieldset>
+                                    <fieldset class="signup-fieldset">
+                                            <label>City</label><span class="important">*</span>
+                                            <input type="text" class="signup-fields" id="city" name="city" placeholder="City" value="Kigali" required autofocus="">
+                                    </fieldset>
+                                    <fieldset class="signup-fieldset">
+                                        <label>Address</label><span class="important">*</span>
+                                        <input type="text" class="signup-fields" id="address" name="address" placeholder="Address" value="Kicukiro, Niboye" required>
+                                    </fieldset>
+                                    <fieldset class="signup-fieldset">
+                                        <label>Set Status</label><span class="important">*</span>
+                                        <select id="status" name="status" class="signup-fields"required>
+                                                <option value="" selected=""disabled>Set status</option>
+                                                
+                                                <option value="sold">Sold</option>
+                                                <option value="available">Available</option>
+                                                
+                                        </select>
+                                    </fieldset>
+                                    <fieldset class="signup-fieldset">
+                                            <label>Type</label><span class="important">*</span>
+                                            <select id="type" name="type" class="signup-fields"required>
+                                                    <option value="" selected=""disabled>Set Type</option>
+                                                    
+                                                    <option value="2bedroom">2 Bedroom</option>
+                                                    <option value="3bedroom">3 Bedroom</option>
+                                                    
+                                            </select>
+                                    </fieldset>
+                                    <fieldset class="signup-fieldset">
+                                            <label>Type</label><span class="important">*</span>
+                                            <input class="signup-fields"type="file"name="photo"id="photo"required>
+                                            <span>jpeg, jpg, png, gif </span>
+                                    </fieldset>                                        
+                                    <div class="add-props-buttons">
+                                        <button type="submit" href="#" class="button-add">Update</button>
+                                        <button onclick="location.href='dashboard.html'" class="button-status">Cancel</button>
+                                    </div>
+                                    
+                                </form>
+                            </div><br>
+                        </div>
+                    
+            </div>
+        </div>
+        <footer class="footer">
+                Copyright &copy; 2019 Property Pro Lite
+        </footer>
+
+    </body>
+</html>
