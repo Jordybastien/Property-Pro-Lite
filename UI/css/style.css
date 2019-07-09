@@ -2,6 +2,12 @@
 tr{
     cursor: pointer;
 }
+tr:hover{
+    box-shadow: 0 7px 12px 0 rgba(62,57,107,.16);
+}
+.thumbnail{
+    width:50px;
+}
 .menusm{
 display:none;
 }
@@ -53,7 +59,7 @@ width:30%;
     width:18px;
 }
 .table{
-    width: 70%;
+    width: 90%;
     max-width: 100%;
     margin-bottom: 1rem;
     background-color: transparent;
@@ -1190,11 +1196,11 @@ footer{
         text-align: center;
     }
     #properties-container .content .types {
-        width: 100%;
-        height: 100%;
-        margin-top: 0px;
-        margin-left: 5px;
-        margin-bottom: 10px;
+        width: 70%;
+        height: 75%;
+        margin-top: 50px;
+        margin-left: 60px;
+        margin-bottom: 50px;
         border: 1px solid;
         border-radius: 20px;
         border-color: #ffa200;
@@ -1456,10 +1462,11 @@ footer{
         text-align: center;
     }
     #properties-container .content .types {
-        width: 100%;
-        height: 100%;
-        /* margin-top: -550px; */
-        margin-left: 5px;
+        width: 70%;
+        height: 75%;
+        margin-top: 50px;
+        margin-left: 60px;
+        margin-bottom: 50px;
         border: 1px solid;
         border-radius: 20px;
         border-color: #ffa200;
@@ -1480,11 +1487,11 @@ footer{
         text-align: center;
     }
     #properties-container .content .types {
-        width: 100%;
-        height: 100%;
-        margin-top: 0px;
-        margin-left: 5px;
-        margin-bottom: 10px;
+        width: 70%;
+        height: 75%;
+        margin-top: 50px;
+        margin-left: 60px;
+        margin-bottom: 50px;
         border: 1px solid;
         border-radius: 20px;
         border-color: #ffa200;
@@ -1743,10 +1750,11 @@ footer{
         text-align: center;
     }
     #properties-container .content .types {
-        width: 100%;
-        height: 100%;
-        /* margin-top: -550px; */
-        margin-left: 5px;
+        width: 70%;
+        height: 75%;
+        margin-top: 50px;
+        margin-left: 60px;
+        margin-bottom: 50px;
         border: 1px solid;
         border-radius: 20px;
         border-color: #ffa200;
@@ -1767,11 +1775,11 @@ footer{
         text-align: center;
     }
     #properties-container .content .types {
-        width: 100%;
-        height: 100%;
-        margin-top: 0px;
-        margin-left: 5px;
-        margin-bottom: 10px;
+        width: 70%;
+        height: 75%;
+        margin-top: 50px;
+        margin-left: 60px;
+        margin-bottom: 50px;
         border: 1px solid;
         border-radius: 20px;
         border-color: #ffa200;
@@ -2048,11 +2056,11 @@ footer{
         text-align: center;
     }
     #properties-container .content .types {
-        width: 100%;
-        height: 100%;
-        margin-top: 0px;
-        margin-left: 5px;
-        margin-bottom: 10px;
+        width: 70%;
+        height: 75%;
+        margin-top: 50px;
+        margin-left: 60px;
+        margin-bottom: 50px;
         border: 1px solid;
         border-radius: 20px;
         border-color: #ffa200;
@@ -2662,14 +2670,15 @@ color: #464855;    font-weight: 100;
     margin-left: auto;
 }
 #properties-container .content .types{
-    width:20%;
-    height:100%;
-    margin-top: -550px;
-    margin-left: 5px;
+    width: 15%;
+    height: 100%;
+    margin-top: -490px;
+    margin-left: 100px;
     border: 1px solid;
     border-radius: 20px;
     border-color: #ffa200;
     background: #fff;
+    padding-bottom: 30px;
 }
 #properties-container .content .display{
     width:80%;
