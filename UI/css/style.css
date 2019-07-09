@@ -1,4 +1,15 @@
 /*HomePage*/
+tr{
+    cursor: pointer;
+}
+.menusm{
+display:none;
+}
+.line-on-side span {
+    background-color: #fff!important;
+    padding-left: 20px!important;
+    padding-right: 20px!important;
+}
 .bg-grey{
     background-color: #f4f4f4;
 }
@@ -1026,6 +1037,12 @@ footer{
 
 /* @media screen and (max-width: 768px) { */
 @media only screen and (max-width: 600px){
+    .menusm{
+        display:block!important;
+    }
+    .menulg{
+        display:none!important;
+    }
     .dashboard {
         background-color: #fff;
         color: #000;
@@ -1238,10 +1255,10 @@ footer{
         top: 0;
         left: 0;
         width: 100%;
-        height: 575px;
+        height: 530px;
         padding-top: 0px;
         color: #f8f9fa!important;
-        margin-top: 98px;
+        margin-top: 145px;
         padding-bottom: 0px;
     }
     .navbar .container {
@@ -1342,6 +1359,12 @@ footer{
     }
 }
 @media only screen and (min-width: 600px){
+    .menusm{
+        display:block!important;
+    }
+    .menulg{
+        display:none!important;
+    }
     .navbar {
         background-color: #fff!important;
         margin-top: 25px;
@@ -1520,10 +1543,10 @@ footer{
         top: 0;
         left: 0;
         width: 100%;
-        height: 575px;
+        height: 530px;
         padding-top: 0px;
         color: #f8f9fa!important;
-        margin-top: 98px;
+        margin-top: 145px;
         padding-bottom: 0px;
     }
     .navbar .container {
@@ -1624,6 +1647,12 @@ footer{
     }
 }
 @media only screen and (min-width: 768px){
+    .menusm{
+        display:none!important;
+    }
+    .menulg{
+        display:block!important;
+    }
     .navbar {
         background-color: #fff!important;
         margin-top: 25px;
@@ -1898,6 +1927,12 @@ footer{
     }
 }
 @media only screen and (min-width: 992px){
+    .menusm{
+        display:none!important;
+    }
+    .menulg{
+        display:block!important;
+    }
     .navbar {
         background-color: #fff!important;
         margin-top: 25px;
@@ -2173,6 +2208,12 @@ footer{
     }
 }
 @media only screen and (min-width: 1200px){
+    .menusm{
+        display:none!important;
+    }
+    .menulg{
+        display:block!important;
+    }
     #property-container .content .display .row .info {
         width: 45%!important;
         float: left;
@@ -2671,6 +2712,11 @@ color: #464855;    font-weight: 100;
     width: 100%;
     border-radius: 15px 15px 0px 0px;
 }
+.respic{
+    width: 229px;
+    border-radius: 15px 15px 0px 0px;
+    height: 150px;
+}
 #properties-container .content .display a .box .sold{
     background: #D90F45;
     color: #fff;
@@ -2689,7 +2735,7 @@ color: #464855;    font-weight: 100;
     /* font-size: .8em; */
     padding: 0px 5px 0px 5px;
     /* width: 30px; */
-    margin-left: 150px;
+    margin-left: 140px;
     margin-top: -13px;
     margin-right: 10px;
 }
@@ -2854,6 +2900,7 @@ color: #464855;    font-weight: 100;
     /* margin-bottom:50px; */
     padding-bottom: 50px;
     padding-top: 10px;
+    
     /* background-image: url('../img/slides/img1.jpg');
     background-position: center;
     background-repeat: no-repeat;
@@ -2878,6 +2925,7 @@ color: #464855;    font-weight: 100;
     padding-bottom: 10px;
     box-shadow: 0 7px 12px 0 rgba(62,57,107,.16);
     margin-left:50px;
+    height: 190px;
 }
 #how-it-works .container .box .content{
     display:flex;
