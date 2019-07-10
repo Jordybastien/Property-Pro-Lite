@@ -1,4 +1,89 @@
+.ftdash{
+    margin-top: 0px!important;
+}
+.navdash{
+    margin-top: 0px!important;
+}
+.putcenter{
+    text-align: center!important;
+}
+.nvaddp{
+    margin-top: -100px!important;
+}
+.infopic{
+    width: 30px!important;    
+    margin-right: 5px!important;
+}
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }
+  
+
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+
+  .slider2 {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider2:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider2 {
+    background-color: #ffa200;
+  }
+  
+  input:focus + .slider2 {
+    box-shadow: 0 0 1px #ffa200;
+  }
+  
+  input:checked + .slider2:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+  
+  /* Rounded sliders */
+  .slider2.round {
+    border-radius: 34px;
+  }
+  
+  .slider2.round:before {
+    border-radius: 50%;
+  }
+
+
+
 /*HomePage*/
+.addonsul{
+    display:grid!important;    
+    margin-left: 150px!important;
+    margin-top: -30px!important;
+}
 tr{
     cursor: pointer;
 }
@@ -1264,7 +1349,7 @@ footer{
         height: 530px;
         padding-top: 0px;
         color: #f8f9fa!important;
-        margin-top: 145px;
+        margin-top: 123px;
         padding-bottom: 0px;
     }
     .navbar .container {
@@ -1553,7 +1638,7 @@ footer{
         height: 530px;
         padding-top: 0px;
         color: #f8f9fa!important;
-        margin-top: 145px;
+        margin-top: 123px;
         padding-bottom: 0px;
     }
     .navbar .container {
