@@ -52,12 +52,12 @@
               <thead>
                 <tr>
                   <th>#</th>
+                  <th>Image</th>
                   <th>Status</th>
                   <th>Type</th>
                   <th>State</th>
                   <th>City</th>
-                  <th>Address</th>
-                  <th>Image</th>
+                  <th>Address</th>                  
                   <th>Price</th>
                   <th>Created on</th>
                   <th>Owner Email</th>
@@ -68,18 +68,23 @@
               </thead>
               <tbody>
                 
-                <tr class="clickablelink"onclick="location.href='property.html'">
-                  <td>1</td>
-                  <td><span class="sold">Sold</span></td>
-                  <td>2 bedroom</td>
-                  <td>Kigali</td>
-                  <td>Kigali</td>                  
-                  <td>Kicukiro, niboye</td>
-                  <td><img src="./img/properties/1.jpg"class="thumbnail"></td>
-                  <td>80,000,000 RWF</td>
-                  <td>19/06/2019 </td>
-                  <td>abcd@gmail.com</td>
-                  <td>+250785634779</td>
+                <tr class="clickablelink">
+                  <td onclick="location.href='property.html'">1</td>
+                  <td onclick="location.href='property.html'"><img src="./img/properties/1.jpg"class="thumbnail"></td>
+                  <td>
+                      <label class="switch">
+                          <input type="checkbox">
+                          <span class="slider2 round"></span>
+                      </label>
+                  </td>
+                  <td onclick="location.href='property.html'">2 bedroom</td>
+                  <td onclick="location.href='property.html'">Kigali</td>
+                  <td onclick="location.href='property.html'">Kigali</td>                  
+                  <td onclick="location.href='property.html'">Kicukiro, niboye</td>                  
+                  <td onclick="location.href='property.html'">80,000,000 RWF</td>
+                  <td onclick="location.href='property.html'">19/06/2019 </td>
+                  <td onclick="location.href='property.html'">abcd@gmail.com</td>
+                  <td onclick="location.href='property.html'">+250785634779</td>
                   <td>
                         <div class="dashboard-buttons">
                                 <button class="button-edit"onclick="location.href='edit-property.html'">
@@ -88,26 +93,28 @@
                                 <button class="button-delete"onclick="location.href='delete-property.html'">
                                     Delete
                                 </button>
-                                <!-- <button class="button-status"onclick="location.href='set-status.html'">
-                                        Mark as sold
-                                </button> -->
                         </div>
                   </td>                  
                 </tr>
                 
                 
-                <tr class="clickablelink"onclick="location.href='property.html'">
-                        <td>2</td>
-                        <td><span class="available">Available</span></td>
-                        <td>2 bedroom</td>
-                        <td>Kigali</td>
-                        <td>Kigali</td>
-                        <td>Kicukiro, niboye</td>
+                <tr class="clickablelink">
+                        <td onclick="location.href='property.html'">2</td>
                         <td><img src="./img/properties/2.jpg"class="thumbnail"></td>
-                        <td>80,000,000 RWF</td>
-                        <td>19/06/2019 </td>
-                        <td>abcd@gmail.com</td>                        
-                        <td>+250785634779</td>
+                        <td>
+                            <label class="switch">
+                                <input type="checkbox">
+                                <span class="slider2 round"></span>
+                            </label>
+                        </td>
+                        <td onclick="location.href='property.html'">2 bedroom</td>
+                        <td onclick="location.href='property.html'">Kigali</td>
+                        <td onclick="location.href='property.html'">Kigali</td>
+                        <td onclick="location.href='property.html'">Kicukiro, niboye</td>                        
+                        <td onclick="location.href='property.html'">80,000,000 RWF</td>
+                        <td onclick="location.href='property.html'">19/06/2019 </td>
+                        <td onclick="location.href='property.html'">abcd@gmail.com</td>                        
+                        <td onclick="location.href='property.html'">+250785634779</td>
                         <td>
                                 <div class="dashboard-buttons">
                                         <button class="button-edit"onclick="location.href='edit-property.html'">
@@ -136,7 +143,7 @@
   </div>
 
   <!-- Footer -->
-    <footer class="footer">
+    <footer class="footer"style="margin-top: 0px!important;">
         Copyright &copy; 2019 Property Pro Lite
     </footer>
 
