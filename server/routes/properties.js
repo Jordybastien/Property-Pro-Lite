@@ -8,7 +8,7 @@ import jwt from 'jsonwebtoken';
 
 import {
   getAllproperties,
-  // getPropertyById,
+  getPropertyById,
   // createProperty,
   // deleteProperty,
   // propertyIsSold,
@@ -20,7 +20,7 @@ const router = express.Router();
 const connection = connect();
 router.get('/getProperties', getAllproperties);
 
-// router.get('/properties/:id', getPropertyById);
+router.get('/properties/:id', getPropertyById);
 
 // router.get('/getProperty/:type', getPropertiesByType);
 
