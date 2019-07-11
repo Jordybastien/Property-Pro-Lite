@@ -2,7 +2,7 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import users from '../models/User';
 import validateRegInput from '../MIDDLEWARE/userRegistration';
-// import validateLogin from '../MIDDLEWARE/login';
+import validateLogin from '../MIDDLEWARE/login';
 import responses from '../helpers/responses';
 
 // Signup
@@ -65,42 +65,42 @@ export const createUser = (req, res) => {
 // }
 };
 // Login
-// export const loginUser = (req, res) => {
-//   const { errors, isValid } = validateLogin(req.body);
-//   // check validation
-//   if (!isValid) {
-//     return res.status(400).json(errors);
-//   }
-//   const { email } = req.body;
-//   const { password } = req.body;
+export const loginUser = (req, res) => {
+  const { errors, isValid } = validateLogin(req.body);
+  // check validation
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+  const { email } = req.body;
+  const { password } = req.body;
 
 
-//   // Login functionality
-//   // check for user
-//   const logUser = users.filter(user => user.email === email);
-//   console.log(logUser);
+  // Login functionality
+  // check for user
+  const logUser = users.filter(user => user.email === email);
+  console.log(logUser);
 
-//   if (logUser.length > 0) {
-//     // check password
+  if (logUser.length > 0) {
+    // check password
 
-//     if (bcrypt.compareSync(password, logUser[0].password)) {
-//       // User matched
-//       // create JWT payload
-//             //Token      
-//             jwt.sign(logUser[0], 'rugumbira', { expiresIn: 3600 }, (err, token) => {
+    if (bcrypt.compareSync(password, logUser[0].password)) {
+      // User matched
+      // create JWT payload
+            //Token      
+            jwt.sign(logUser[0], 'rugumbira', { expiresIn: 3600 }, (err, token) => {
 
-//               const payload= {
-//                 token,
-//                 "firstname":logUser[0].first_name,
-//                 "lastname":logUser[0].last_name,
-//                 "email":logUser[0].email,
-//                 "phoneNumber":logUser[0].phoneNumber,
-//                 "address":logUser[0].address,
-//               }
-//               responses.response(res,201,payload,false);  
-//             });
-//     } else {
-//       responses.response(res,401,'Credentials do not match', true);
-//     }
-//   }
-// };
+              const payload= {
+                token,
+                "firstname":logUser[0].first_name,
+                "lastname":logUser[0].last_name,
+                "email":logUser[0].email,
+                "phoneNumber":logUser[0].phoneNumber,
+                "address":logUser[0].address,
+              }
+              responses.response(res,201,payload,false);  
+            });
+    } else {
+      responses.response(res,401,'Credentials do not match', true);
+    }
+  }
+};
