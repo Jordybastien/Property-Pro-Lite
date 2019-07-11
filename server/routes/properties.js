@@ -10,7 +10,7 @@ import {
   getAllproperties,
   getPropertyById,
   createProperty,
-  // deleteProperty,
+  deleteProperty,
   // propertyIsSold,
   // updateProperty,
   getPropertiesByType,
@@ -28,7 +28,7 @@ router.post('/postProperty', connection, createProperty);
 
 // router.patch('/updateProperty/:id', updateProperty);
 
-// router.delete('/deleteProperty/:id', deleteProperty);
+router.delete('/deleteProperty/:id', deleteProperty);
 
 // router.patch('/masProperty/:id/sold', propertyIsSold);
 
