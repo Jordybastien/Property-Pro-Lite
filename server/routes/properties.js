@@ -13,7 +13,7 @@ import {
   // deleteProperty,
   // propertyIsSold,
   // updateProperty,
-  // getPropertiesByType,
+  getPropertiesByType,
 } from '../controllers/properties';
 
 const router = express.Router();
@@ -22,7 +22,7 @@ router.get('/getProperties', getAllproperties);
 
 router.get('/properties/:id', getPropertyById);
 
-// router.get('/getProperty/:type', getPropertiesByType);
+router.get('/getProperty/:type', getPropertiesByType);
 
 // router.post('/postProperty', connection, createProperty);
 
