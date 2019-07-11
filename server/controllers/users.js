@@ -23,7 +23,7 @@ export const createUser = (req, res) => {
     responses.response(res,401,'User already registered',true);
   }
 
-  // Record it
+  // Add to object
   const addUser = {
     id: users.length + 1,
     email,
