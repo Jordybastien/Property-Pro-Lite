@@ -2,13 +2,13 @@ import express from 'express';
 
 import {
   createUser,
-  // loginUser,
+  loginUser,
 } from '../controllers/users';
 
 const router = express.Router();
 
 router.post('/user', createUser);
 
-// router.post('/login', loginUser);
+router.post('/login', loginUser);
 
 export default router;
