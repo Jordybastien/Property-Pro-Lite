@@ -9,7 +9,7 @@ import jwt from 'jsonwebtoken';
 import {
   getAllproperties,
   getPropertyById,
-  // createProperty,
+  createProperty,
   // deleteProperty,
   // propertyIsSold,
   // updateProperty,
@@ -24,7 +24,7 @@ router.get('/properties/:id', getPropertyById);
 
 router.get('/getProperty/:type', getPropertiesByType);
 
-// router.post('/postProperty', connection, createProperty);
+router.post('/postProperty', connection, createProperty);
 
 // router.patch('/updateProperty/:id', updateProperty);
 
