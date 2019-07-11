@@ -78,16 +78,16 @@ export const createProperty = (req, res) => {
   }
 
 };
-// //Delete property
-// export const deleteProperty = (req, res) => {
-//   const { id } = req.params;
-//   const index = properties.findIndex(property => property.id === parseInt(id, 10));
-//   if (index !== -1) {
-//     properties.splice(index, 1);
-//     responses.response(res, 200, 'Property deleted', false);
-//   }
-//   responses.response(res, 404, 'No property found',true);
-// };
+//Delete property
+export const deleteProperty = (req, res) => {
+  const { id } = req.params;
+  const index = properties.findIndex(property => property.id === parseInt(id, 10));
+  if (index !== -1) {
+    properties.splice(index, 1);
+    responses.response(res, 200, 'Property deleted', false);
+  }
+  responses.response(res, 404, 'No property found',true);
+};
 
 // //Mark property as sold
 // export const propertyIsSold = (req, res) => {
