@@ -89,16 +89,16 @@ export const deleteProperty = (req, res) => {
   responses.response(res, 404, 'No property found',true);
 };
 
-// //Mark property as sold
-// export const propertyIsSold = (req, res) => {
-//   const { id } = req.params;
-//   const property = properties.find(propert => propert.id === parseInt(id, 10));
-//   if (property) {
-//     property.status = 'sold';
-//     responses.response(res,200,property,false);
-//   }
-//   responses.response(res, 404, 'No property found', true);
-// };
+//Mark property as sold
+export const propertyIsSold = (req, res) => {
+  const { id } = req.params;
+  const property = properties.find(propert => propert.id === parseInt(id, 10));
+  if (property) {
+    property.status = 'sold';
+    responses.response(res,200,property,false);
+  }
+  responses.response(res, 404, 'No property found', true);
+};
 
 // //Update Property
 // export const updateProperty = (req, res) => {
