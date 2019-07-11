@@ -22,15 +22,15 @@ export const getPropertyById = (req, res) => {
   responses.response(res, 200, findProperty);
 };
 
-// // Get property by type
-// export const getPropertiesByType = (req, res) => {
-//   const { type } = req.params;
-//   const searchProperties = properties.filter(property => property.type === type);
-//   if (searchProperties.length > 0) {
-//     responses.response(res, 200, searchProperties);
-//   }
-//   responses.response(res, 404, 'No Properties found on the given type',true);
-// };
+// Get property by type
+export const getPropertiesByType = (req, res) => {
+  const { type } = req.params;
+  const searchProperties = properties.filter(property => property.type === type);
+  if (searchProperties.length > 0) {
+    responses.response(res, 200, searchProperties);
+  }
+  responses.response(res, 404, 'No Properties found on the given type',true);
+};
 
 // // Create Property
 // export const createProperty = (req, res) => {
