@@ -11,7 +11,7 @@ import {
   getPropertyById,
   createProperty,
   deleteProperty,
-  // propertyIsSold,
+  propertyIsSold,
   // updateProperty,
   getPropertiesByType,
 } from '../controllers/properties';
@@ -30,6 +30,6 @@ router.post('/postProperty', connection, createProperty);
 
 router.delete('/deleteProperty/:id', deleteProperty);
 
-// router.patch('/masProperty/:id/sold', propertyIsSold);
+router.patch('/masProperty/:id/sold', propertyIsSold);
 
 export default router;
