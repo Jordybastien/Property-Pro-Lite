@@ -100,19 +100,19 @@ export const propertyIsSold = (req, res) => {
   responses.response(res, 404, 'No property found', true);
 };
 
-// //Update Property
-// export const updateProperty = (req, res) => {
-//   const { id } = req.params;
+//Update Property
+export const updateProperty = (req, res) => {
+  const { id } = req.params;
 
-//   const property = properties.find(pro => pro.id === parseInt(id, 10));
-//   if (property) {
-//     const datas = Object.keys(req.body);
-//     datas.forEach((data) => {
-//       property[data] = req.body[data];
-//     });
-//     responses.response(res,201,property, false);
-//   }
-//   else{
-//     responses.response(res, 404, 'No property found', true);
-//   }
-// };
+  const property = properties.find(pro => pro.id === parseInt(id, 10));
+  if (property) {
+    const datas = Object.keys(req.body);
+    datas.forEach((data) => {
+      property[data] = req.body[data];
+    });
+    responses.response(res,201,property, false);
+  }
+  else{
+    responses.response(res, 404, 'No property found', true);
+  }
+};

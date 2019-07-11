@@ -12,7 +12,7 @@ import {
   createProperty,
   deleteProperty,
   propertyIsSold,
-  // updateProperty,
+  updateProperty,
   getPropertiesByType,
 } from '../controllers/properties';
 
@@ -26,7 +26,7 @@ router.get('/getProperty/:type', getPropertiesByType);
 
 router.post('/postProperty', connection, createProperty);
 
-// router.patch('/updateProperty/:id', updateProperty);
+router.patch('/updateProperty/:id', updateProperty);
 
 router.delete('/deleteProperty/:id', deleteProperty);
 
