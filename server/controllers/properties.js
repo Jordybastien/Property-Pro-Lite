@@ -15,12 +15,12 @@ import responses from '../helpers/responses';
 export const getAllproperties = (req, res) => {
   responses.response(res, 200, properties);
 };
-// // Get property by ID
-// export const getPropertyById = (req, res) => {
-//   const { id } = req.params;
-//   const findProperty = properties.find(property => property.id == id);
-//   responses.response(res, 200, findProperty);
-// };
+// Get property by ID
+export const getPropertyById = (req, res) => {
+  const { id } = req.params;
+  const findProperty = properties.find(property => property.id == id);
+  responses.response(res, 200, findProperty);
+};
 
 // // Get property by type
 // export const getPropertiesByType = (req, res) => {
