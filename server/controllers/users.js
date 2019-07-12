@@ -23,13 +23,23 @@ export const createUser = (req, res) => {
     responses.response(res,401,'User already registered',true);
   }
 
-  // Record it
+  // Add to object
   const addUser = {
     id: users.length + 1,
     email,
     first_name,
     last_name,
     password,
+    phoneNumber,
+    address,
+    is_admin: false,
+  };
+  //Constant to be signed in payload without password
+  const toBeSigned = {
+    id: users.length + 1,
+    email,
+    first_name,
+    last_name,
     phoneNumber,
     address,
     is_admin: false,
@@ -42,7 +52,7 @@ export const createUser = (req, res) => {
       //Token
 
       
-      jwt.sign(addUser, 'rugumbira', { expiresIn: 3600 }, (err, token) => {
+      jwt.sign(toBeSigned, 'rugumbira', { expiresIn: 3600 }, (err, token) => {
 
         const payload= {
           token,
@@ -59,10 +69,6 @@ export const createUser = (req, res) => {
     });
   });
  
-// }
-// else{
-//   responses.response(res,405,'Method not allowed', true);
-// }
 };
 // Login
 export const loginUser = (req, res) => {
@@ -87,7 +93,15 @@ export const loginUser = (req, res) => {
       // User matched
       // create JWT payload
             //Token      
-            jwt.sign(logUser[0], 'rugumbira', { expiresIn: 3600 }, (err, token) => {
+            const toBeSignedLogin = {
+              first_name:logUser[0].first_name,
+              last_name:logUser[0].last_name,
+              email:logUser[0].email,
+              phoneNumber:logUser[0].phoneNumber,
+              address:logUser[0].address,
+              is_admin: logUser[0].is_admin,
+            };
+            jwt.sign(toBeSignedLogin, 'rugumbira', { expiresIn: 3600 }, (err, token) => {
 
               const payload= {
                 token,
@@ -100,7 +114,10 @@ export const loginUser = (req, res) => {
               responses.response(res,201,payload,false);  
             });
     } else {
-      responses.response(res,401,'Credentials do not match', true);
+      responses.response(res,401,'Wrong Password', true);
     }
+  }
+  else {
+    responses.response(res,401,'User doesnt exist', true);
   }
 };

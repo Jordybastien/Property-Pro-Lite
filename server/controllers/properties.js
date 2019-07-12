@@ -1,6 +1,8 @@
 import cloudinary from 'cloudinary';
 import moment from 'moment';
 import properties from '../models/Property';
+import propTypes from '../models/propertiesType';
+import users from '../models/User';
 import validatePropertyRegistration from '../MIDDLEWARE/properties';
 import responses from '../helpers/responses';
 const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dodfpnbik/upload';
@@ -13,23 +15,81 @@ cloudinary.config({
 
 // Fetch all properties
 export const getAllproperties = (req, res) => {
-  responses.response(res, 200, properties);
+  if(properties){
+    responses.response(res, 200, properties);
+  }  
 };
 // Get property by ID
 export const getPropertyById = (req, res) => {
   const { id } = req.params;
   const findProperty = properties.find(property => property.id == id);
-  responses.response(res, 200, findProperty);
+  
+  if(findProperty){
+        //Bring in User
+        let userId = findProperty.owner;
+        const userInfo = users.filter(user => user.id === findProperty.owner);
+        if (userInfo.length > 0) {
+          //Check User owner of the property
+          const propertyInfo = {
+            id: findProperty.id,
+            status: findProperty.status,
+            price: findProperty.price,
+            state: findProperty.state,
+            city: findProperty.city,
+            address: findProperty.address,
+            type: findProperty.type,
+            created_on: findProperty.created_on,
+            image_url: findProperty.image_url,
+            ownerEmail: userInfo[0].email,
+            ownerPhoneNumber: userInfo[0].phoneNumber,
+          }
+          responses.response(res, 200, propertyInfo);
+        }
+
+  //responses.response(res, 200, findProperty);
+  }
+  else{
+    responses.response(res, 404, 'No Properties found',true);
+  }
+  
 };
 
 // Get property by type
 export const getPropertiesByType = (req, res) => {
   const { type } = req.params;
-  const searchProperties = properties.filter(property => property.type === type);
+  const searchtype = propTypes.filter(prop => prop.type === type);  
+  if(searchtype.length>0){
+      //Searching type provided by user
+  const searchProperties = properties.filter(property => property.type === type);  
   if (searchProperties.length > 0) {
-    responses.response(res, 200, searchProperties);
+    //Bring in User
+    const userInfo = users.filter(user => user.id === searchProperties[0].owner);
+    if (userInfo.length > 0) {
+      //Check User owner of the property
+      const propertyInfo = {
+        id: searchProperties[0].id,
+        status: searchProperties[0].status,
+        price: searchProperties[0].price,
+        state: searchProperties[0].state,
+        city: searchProperties[0].city,
+        address: searchProperties[0].address,
+        type: searchProperties[0].type,
+        created_on: searchProperties[0].created_on,
+        image_url: searchProperties[0].image_url,
+        ownerEmail: userInfo[0].email,
+        ownerPhoneNumber: userInfo[0].phoneNumber,
+      }
+      responses.response(res, 200, propertyInfo);
+    }
   }
-  responses.response(res, 404, 'No Properties found on the given type',true);
+  else{
+    responses.response(res, 404, 'No Properties found on the given type',true);
+  }
+  }
+else{
+  responses.response(res,404, 'You are providing a type that is not registered',true);
+}
+  
 };
 
 // Create Property
@@ -60,20 +120,22 @@ export const createProperty = (req, res) => {
       if (error) {
         responses.response(res, 404, error, true);
       }
-      const addProperty = {
-        id: properties.length + 1,
-        owner,
-        status: 'available',
-        price,
-        state,
-        city,
-        address,
-        type,
-        created_on: moment().format(),
-        image_url: result.url,
-      };
-      properties.push(addProperty);
-      responses.response(res, 201, addProperty, false);
+      else{
+        const addProperty = {
+          id: properties.length + 1,
+          owner,
+          status: 'available',
+          price,
+          state,
+          city,
+          address,
+          type,
+          created_on: moment().format(),
+          image_url: result.url,
+        };
+        properties.push(addProperty);
+        responses.response(res, 201, addProperty, false); 
+      }
     });
   }
 
@@ -86,7 +148,10 @@ export const deleteProperty = (req, res) => {
     properties.splice(index, 1);
     responses.response(res, 200, 'Property deleted', false);
   }
-  responses.response(res, 404, 'No property found',true);
+  else{
+    responses.response(res, 404, 'No property found',true);
+  }
+  
 };
 
 //Mark property as sold
@@ -97,7 +162,10 @@ export const propertyIsSold = (req, res) => {
     property.status = 'sold';
     responses.response(res,200,property,false);
   }
-  responses.response(res, 404, 'No property found', true);
+  else{
+    responses.response(res, 404, 'No property found', true);
+  }
+  
 };
 
 //Update Property

@@ -15,10 +15,14 @@ import {
   updateProperty,
   getPropertiesByType,
 } from '../controllers/properties';
+import {handleErrors} from '../helpers/errors';
 
 const router = express.Router();
 const connection = connect();
-router.get('/getProperties', getAllproperties);
+
+router.route('/getProperties')
+.get(getAllproperties)
+.all(handleErrors);
 
 router.get('/properties/:id', getPropertyById);
 

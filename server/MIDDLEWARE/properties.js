@@ -13,8 +13,17 @@ module.exports = function validatePropertyRegistration(data) {
   if (Validator.isEmpty(data.owner)) {
     errors.owner = 'Owner Field is required';
   }
+  if (Validator.isNumeric(data.owner)){
+    errors.owner = 'Owner name must be a string';
+  }
   if (Validator.isEmpty(data.price)) {
     errors.price = 'price Field is required';
+  }
+  if (!Validator.isNumeric(data.price)){
+    errors.price = 'Price must be an integer value';
+  }
+  if(data.price<=0){
+    errors.price = 'Price can not be less than or equal to 0';
   }
   if (Validator.isEmpty(data.state)) {
     errors.state = 'state Field is required';
