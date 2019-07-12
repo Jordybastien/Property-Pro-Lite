@@ -11,13 +11,13 @@ const should = chai.should();
 
 chai.use(chaiHttp);
 chai.should();
-describe('POST /', () => {
-    it('New property, it should return 201', done => {
-        chai.request(app)
-            .get('/api/v1/user')
-            .end((err, res) => {
-                  res.should.have.status(201);
-              done();
-    });
-  })
-});
+// describe('POST /', () => {
+//     it('New property, it should return 201', done => {
+//         chai.request(app)
+//             .get('/api/v1/user')
+//             .end((err, res) => {
+//                   res.should.have.status(201);
+//               done();
+//     });
+//   })
+// });
