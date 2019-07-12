@@ -20,24 +20,24 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">31.52% </span>
+        <span class="strong">46.74% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>29/92</span>
+        <span class='fraction'>43/92</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">9.38% </span>
+        <span class="strong">21.88% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>3/32</span>
+        <span class='fraction'>7/32</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">22.22% </span>
+        <span class="strong">44.44% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>4/18</span>
+        <span class='fraction'>8/18</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">35.53% </span>
+        <span class="strong">51.32% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>27/76</span>
+        <span class='fraction'>39/76</span>
       </div>
     </div>
     <p class="quiet">
@@ -376,28 +376,28 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -561,29 +561,29 @@ export const <span class="fstat-no" title="function not covered" >createProperty
 &nbsp;
 };
 //Delete property
-export const <span class="fstat-no" title="function not covered" >deleteProperty </span>= (req, res) =&gt; {
-  const { id } = <span class="cstat-no" title="statement not covered" >req.params;</span>
-  const index = <span class="cstat-no" title="statement not covered" >properties.f</span>indIndex(<span class="fstat-no" title="function not covered" >property<span class="cstat-no" title="statement not covered" > </span>=&gt; p</span>roperty.id === parseInt(id, 10));
-<span class="cstat-no" title="statement not covered" >  if (index !== -1) {</span>
-<span class="cstat-no" title="statement not covered" >    properties.s</span>plice(index, 1);
-<span class="cstat-no" title="statement not covered" >    responses.r</span>esponse(res, 200, 'Property deleted', false);
+export const deleteProperty = (req, res) =&gt; {
+  const { id } = req.params;
+  const index = properties.findIndex(property =&gt; property.id === parseInt(id, 10));
+  if (index !== -1) {
+    properties.splice(index, 1);
+    responses.response(res, 200, 'Property deleted', false);
   }
   else{
-<span class="cstat-no" title="statement not covered" >    responses.r</span>esponse(res, 404, 'No property found',true);
+    responses.response(res, 404, 'No property found',true);
   }
   
 };
 &nbsp;
 //Mark property as sold
-export const <span class="fstat-no" title="function not covered" >propertyIsSold </span>= (req, res) =&gt; {
-  const { id } = <span class="cstat-no" title="statement not covered" >req.params;</span>
-  const property = <span class="cstat-no" title="statement not covered" >properties.f</span>ind(<span class="fstat-no" title="function not covered" >propert<span class="cstat-no" title="statement not covered" > </span>=&gt; p</span>ropert.id === parseInt(id, 10));
-<span class="cstat-no" title="statement not covered" >  if (property) {</span>
-<span class="cstat-no" title="statement not covered" >    property.</span>status = 'sold';
-<span class="cstat-no" title="statement not covered" >    responses.r</span>esponse(res,200,property,false);
+export const propertyIsSold = (req, res) =&gt; {
+  const { id } = req.params;
+  const property = properties.find(propert =&gt; propert.id === parseInt(id, 10));
+  if (property) {
+    property.status = 'sold';
+    responses.response(res,200,property,false);
   }
   else{
-<span class="cstat-no" title="statement not covered" >    responses.r</span>esponse(res, 404, 'No property found', true);
+    responses.response(res, 404, 'No property found', true);
   }
   
 };
@@ -610,7 +610,7 @@ export const <span class="fstat-no" title="function not covered" >updateProperty
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Jul 12 2019 19:23:34 GMT+0000 (Greenwich Mean Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Jul 12 2019 20:23:07 GMT+0000 (Greenwich Mean Time)
 </div>
 </div>
 <script src="..\..\prettify.js"></script>
