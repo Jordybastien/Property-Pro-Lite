@@ -13,7 +13,7 @@
     "build": "babel server --out-dir dist",
     "test": "nyc --reporter=html --reporter=text mocha --no-timeout  --exit",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
-    "production":"nodemon --exec babel-node server/index.js"
+    "production":"node --exec babel-node server/index.js"
   },
   "repository": {
     "type": "git",
