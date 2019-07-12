@@ -8,9 +8,6 @@ import Responding from '../server/helpers/responses';
 import sinon from 'sinon';
 const should = chai.should();
 
-
-chai.use(chaiHttp);
-chai.should();
 // describe('POST /', () => {
 //     it('New property, it should return 201', done => {
 //         chai.request(app)
