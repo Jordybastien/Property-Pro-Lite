@@ -12,7 +12,8 @@
     "start": "nodemon --exec babel-node server/index.js",
     "build": "babel src --out-dir dist",
     "test": "nyc --reporter=html --reporter=text mocha --no-timeout  --exit",
-    "coveralls": "nyc report --reporter=text-lcov | coveralls"
+    "coveralls": "nyc report --reporter=text-lcov | coveralls",
+    "production":"node server/index.js"
   },
   "repository": {
     "type": "git",
@@ -35,6 +36,7 @@
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
     "password-hash": "^1.2.2",
+    "sinon": "^7.3.2",
     "validator": "^11.1.0"
   },
   "devDependencies": {
