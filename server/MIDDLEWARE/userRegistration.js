@@ -9,17 +9,23 @@ module.exports = function validateRegInput(data) {
   data.password = !isEmpty(data.password) ? data.password : '';
   data.phoneNumber = !isEmpty(data.phoneNumber) ? data.phoneNumber : '';
   data.address = !isEmpty(data.address) ? data.address : '';
-  if (!Validator.isLength(data.first_name, { min: 1, max: 30 })) {
-    errors.first_name = 'First Name must be between 1 and 30 characters';
+  if (!Validator.isLength(data.first_name, { min: 2, max: 30 })) {
+    errors.first_name = 'First Name must be between 2 and 30 characters';
+  }
+  if (Validator.isNumeric(data.first_name)){
+    errors.first_name = 'First name must be a string';
   }
   if (Validator.isEmpty(data.first_name)) {
     errors.first_name = 'First Name Field is required';
   }
-  if (!Validator.isLength(data.last_name, { min: 1, max: 30 })) {
-    errors.last_name = 'Last Name must be between 1 and 30 characters';
+  if (!Validator.isLength(data.last_name, { min: 2, max: 30 })) {
+    errors.last_name = 'Last Name must be between 2 and 30 characters';
   }
-  if (Validator.isEmpty(data.first_name)) {
+  if (Validator.isEmpty(data.last_name)) {
     errors.first_name = 'Last Name Field is required';
+  }
+  if (Validator.isNumeric(data.last_name)){
+    errors.last_name = 'Last name must be a string';
   }
   if (Validator.isEmpty(data.email)) {
     errors.email = 'Email Field is required';
@@ -36,6 +42,9 @@ module.exports = function validateRegInput(data) {
   }
   if (Validator.isEmpty(data.phoneNumber)) {
     errors.phoneNumber = 'Phone Number Field is required';
+  }
+  if (!Validator.isNumeric(data.phoneNumber)){
+    errors.phoneNumber = 'Phone must be numeric';
   }
   if (Validator.isEmpty(data.address)) {
     errors.address = 'Address Field is required';

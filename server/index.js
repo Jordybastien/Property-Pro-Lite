@@ -1,4 +1,5 @@
 import express from 'express';
+import passport from 'passport';
 // importing routes
 import bodyParser from 'body-parser';
 import users from './routes/users';
@@ -9,6 +10,9 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+//passport Config
+
 app.use('/api/v1', users);
 app.use('/api/v1', properties);
 const PORT = process.env.PORT || 3000;
