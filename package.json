@@ -13,8 +13,8 @@
     "build": "babel server --out-dir dist",
     "test": "nyc --reporter=html --reporter=text mocha --no-timeout  --exit",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
-    "production":"nodemon --exec babel-node server/index.js",
-    "heroku-postbuild":"NPM_CONFIG_PRODUCTION=false npm install && npm run build"
+    "production": "babel-node server/index.js",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install && npm run build"
   },
   "repository": {
     "type": "git",
@@ -27,6 +27,9 @@
   },
   "homepage": "https://github.com/Jordybastien/Property-Pro-Lite#readme",
   "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-watch": "^7.0.0",
     "bcryptjs": "^2.4.3",
     "cloudinary": "^1.14.0",
     "connect-multiparty": "^2.2.0",
@@ -41,10 +44,6 @@
     "validator": "^11.1.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.5.0",
-    "@babel/core": "^7.5.0",
-    "@babel/node": "^7.5.0",
-    "@babel/preset-env": "^7.5.0",
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
     "coveralls": "^3.0.4",
