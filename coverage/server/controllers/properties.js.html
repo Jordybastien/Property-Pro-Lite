@@ -20,24 +20,24 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">32.95% </span>
+        <span class="strong">47.73% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>29/88</span>
+        <span class='fraction'>42/88</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">8.33% </span>
+        <span class="strong">19.44% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>3/36</span>
+        <span class='fraction'>7/36</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">22.22% </span>
+        <span class="strong">44.44% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>4/18</span>
+        <span class='fraction'>8/18</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">34.18% </span>
+        <span class="strong">46.84% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>27/79</span>
+        <span class='fraction'>37/79</span>
       </div>
     </div>
     <p class="quiet">
@@ -296,19 +296,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -319,15 +317,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -487,18 +487,18 @@ export const getPropertyById = (req, res) =&gt; {
 };
 &nbsp;
 // Get property by type
-export const getPropertiesByType = <span class="fstat-no" title="function not covered" >(r</span>eq, res) =&gt; {
-  const { type } = <span class="cstat-no" title="statement not covered" >req.params;</span>
-  const searchtype = <span class="cstat-no" title="statement not covered" >propTypes.f</span>ilter(<span class="fstat-no" title="function not covered" >prop </span>=&gt; <span class="cstat-no" title="statement not covered" >prop.type === type);  </span>
-<span class="cstat-no" title="statement not covered" >  if(searchtype.length&gt;0){</span>
+export const getPropertiesByType = (req, res) =&gt; {
+  const { type } = req.params;
+  const searchtype = propTypes.filter(prop =&gt; prop.type === type);  
+  if(searchtype.length&gt;0){
       //Searching type provided by user
-  const searchProperties = <span class="cstat-no" title="statement not covered" >properties.f</span>ilter(<span class="fstat-no" title="function not covered" >property </span>=&gt; <span class="cstat-no" title="statement not covered" >property.type === type);  </span>
-<span class="cstat-no" title="statement not covered" >  if (searchProperties.length &gt; 0) {</span>
+  const searchProperties = properties.filter(property =&gt; property.type === type);  
+  <span class="missing-if-branch" title="else path not taken" >E</span>if (searchProperties.length &gt; 0) {
     //Bring in User
-    const userInfo = <span class="cstat-no" title="statement not covered" >users.f</span>ilter(<span class="fstat-no" title="function not covered" >user </span>=&gt; <span class="cstat-no" title="statement not covered" >user.id === searchProperties[0].owner);</span>
-<span class="cstat-no" title="statement not covered" >    if (userInfo.length &gt; 0) {</span>
+    const userInfo = users.filter(user =&gt; user.id === searchProperties[0].owner);
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (userInfo.length &gt; 0) {
       //Check User owner of the property
-      const propertyInfo = <span class="cstat-no" title="statement not covered" >{</span>
+      const propertyInfo = {
         id: searchProperties[0].id,
         status: searchProperties[0].status,
         price: searchProperties[0].price,
@@ -511,7 +511,7 @@ export const getPropertiesByType = <span class="fstat-no" title="function not co
         ownerEmail: userInfo[0].email,
         ownerPhoneNumber: userInfo[0].phoneNumber,
       }
-<span class="cstat-no" title="statement not covered" >      responses.r</span>esponse(res, 200, propertyInfo);
+      responses.response(res, 200, propertyInfo);
     }
   }
   else{
@@ -519,7 +519,7 @@ export const getPropertiesByType = <span class="fstat-no" title="function not co
   }
   }
 else{
-<span class="cstat-no" title="statement not covered" >  responses.r</span>esponse(res,404, 'You are providing a type that is not registered',true);
+  responses.response(res,404, 'You are providing a type that is not registered',true);
 }
   
 };
@@ -628,7 +628,7 @@ export const updateProperty = <span class="fstat-no" title="function not covered
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sat Jul 13 2019 05:06:56 GMT+0000 (Greenwich Mean Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sat Jul 13 2019 05:32:37 GMT+0000 (Greenwich Mean Time)
 </div>
 </div>
 <script src="..\..\prettify.js"></script>

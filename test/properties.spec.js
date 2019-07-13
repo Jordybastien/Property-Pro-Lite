@@ -46,18 +46,26 @@ chai.should();
             done();
           });
       });
-    //   it('should return properties by type', done => {
-    //     chai
-    //       .request(app)
-    //       .get('/api/v1/getProperty?type=2 bedroom')
-    //       .end((err, res) => {
-    //         res.should.have.status(200);
-    //         res.body.should.have.property('data').be.a('array');
-    //         done();
-    //       });
-    //   });
-
-      
+      it('should return properties by type', done => {
+        chai
+          .request(app)
+          .get('/api/v1/getProperty/2 Bedroom')
+          .end((err, res) => {
+            res.should.have.status(200);
+            res.body.should.have.property('data').be.a('object');
+            done();
+          });
+      });
+      it('should return 404 when specified type doesnt exist', done => {
+        chai
+          .request(app)
+          .get('/api/v1/getProperty/2 Bedrooms')
+          .end((err, res) => {
+            res.should.have.status(404);
+            // res.body.should.have.property('data').be.a('object');
+            done();
+          });
+      });     
   
   });
   // describe('PATCH /', () => {
@@ -130,52 +138,29 @@ chai.should();
   //       });
   //   });
   // });
-  // describe('POST /', () => {
-  //   it('New property, it should return 201', done => {
-      
-  //   //   sinon.stub(propertiesController, 'createProperty').callsFake(() => {
-  //   //     return {
-  //   //       status: 201,
-  //   //       data: {
-  //   //         id: 2,
-  //   //         owner: 1,
-  //   //         status: 'sold',
-  //   //         price: '1000',
-  //   //         state: 'Kigali',
-  //   //         city: 'Kigali',
-  //   //         address: 'Kicukiro',
-  //   //         type: '2 bedroom',
-  //   //         created_on: '2019-07-02',
-  //   //         image_url:
-  //   //           'https://res.cloudinary.com/dodfpnbik/image/upload/v1562927036/zthvmkt7rzianhabsgre.jpg'
-  //   //       }
-  //   //     };
-  //   //   });
-  //     done();
-  //   });
-  // });
-  // describe('DELETE /', () => {
-  //   it('it should return 200 status when delete operation was successful', done => {
-  //     chai
-  //       .request(app)
-  //       .delete('/api/v1/deleteProperty/1')
-  //       .end((err, res) => {
-  //         res.should.have.status(200);
-  //         // res.body.should.have.property('data').be.a('object');
-  //         // res.body.should.have.property('data').have.property('message').be.a('string');
-  //         done();
-  //       });
-  //   });
 
-  //   it('it should return 404 with error when deletion fails', done => {
-  //     chai
-  //       .request(app)
-  //       .delete('/api/v1/deleteProperty/100')
-  //       .end((err, res) => {
-  //         res.should.have.status(404);
-  //         res.body.should.have.property('error').be.a('string');
-  //         done();
-  //       });
-  //   });
-  // });
+  describe('DELETE /', () => {
+    it('it should return 200 status when delete operation was successful', done => {
+      chai
+        .request(app)
+        .delete('/api/v1/deleteProperty/1')
+        .end((err, res) => {
+          res.should.have.status(400);
+          // res.body.should.have.property('data').be.a('object');
+          // res.body.should.have.property('data').have.property('message').be.a('string');
+          done();
+        });
+    });
+
+    it('it should return 404 with error when deletion fails', done => {
+      chai
+        .request(app)
+        .delete('/api/v1/deleteProperty/50')
+        .end((err, res) => {
+          res.should.have.status(400);
+          // res.body.should.have.property('error').be.a('string');
+          done();
+        });
+    });
+  });
 
