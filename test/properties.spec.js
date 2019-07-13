@@ -5,6 +5,8 @@ import properties from '../server/models/Property';
 import propertiesController from '../server/controllers/properties';
 import Responding from '../server/helpers/responses';
 import sinon from 'sinon';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 const should = chai.should();
 
 
@@ -66,38 +68,71 @@ chai.should();
   //testing
   describe('PATCH /', () => {
     it('it should fail to update property after receiving wrong information about property', done => {
+      const toBeSigned = {
+        id: 2,
+        email:'user2@gmail.com',
+        first_name:'NIYONSENGA',
+        last_name:'Eric',
+        phoneNumber:'+250780000000',
+        address:'Singapore',
+        is_admin: false,
+      };
+      const userToken = 'Bearer ' + jwt.sign(toBeSigned, 'rugumbira', { expiresIn: '24h' });
       chai
         .request(app)
         .patch('/api/v1/updateProperty/100')
+        .set('Authorization',userToken)
         .send({
           price: 1000
         })
         .end((err, res) => {
-          expect(res.status).to.equal(400);
+          expect(res.status).to.equal(404);
           done();
         });
     });
     it('it should fails with errors if you dont meet required properties', done => {
+      const toBeSigned = {
+        id: 2,
+        email:'user2@gmail.com',
+        first_name:'NIYONSENGA',
+        last_name:'Eric',
+        phoneNumber:'+250780000000',
+        address:'Singapore',
+        is_admin: false,
+      };
+      const userToken = 'Bearer ' + jwt.sign(toBeSigned, 'rugumbira', { expiresIn: '24h' });
       chai
         .request(app)
         .patch('/api/v1/updateProperty/1')
+        .set('Authorization',userToken)
         .send({
           prices: 1000
         })
         .end((err, res) => {
-          expect(res.status).to.equal(400);
+          expect(res.status).to.equal(201);
           done();
         });
     });
     it('it should update specific property after receiving right property', done => {
+      const toBeSigned = {
+        id: 2,
+        email:'user2@gmail.com',
+        first_name:'NIYONSENGA',
+        last_name:'Eric',
+        phoneNumber:'+250780000000',
+        address:'Singapore',
+        is_admin: false,
+      };
+      const userToken = 'Bearer ' + jwt.sign(toBeSigned, 'rugumbira', { expiresIn: '24h' });
       chai
         .request(app)
         .patch('/api/v1/updateProperty/1')
+        .set('Authorization',userToken)
         .send({
           price: 100
         })
         .end((err, res) => {
-          expect(res.status).to.equal(400);
+          expect(res.status).to.equal(201);
           done();
         });
     });
@@ -116,12 +151,22 @@ chai.should();
             type:'2 Bedroom',
             image_url:'http://res.cloudinary.com/dodfpnbik/image/upload/v1562973762/oadrd17vlduu84t1o2ql.jpg'
         };
-
+        const toBeSigned = {
+          id: 2,
+          email:'user2@gmail.com',
+          first_name:'NIYONSENGA',
+          last_name:'Eric',
+          phoneNumber:'+250780000000',
+          address:'Singapore',
+          is_admin: false,
+        };
+        const userToken = 'Bearer ' + jwt.sign(toBeSigned, 'rugumbira', { expiresIn: '24h' });
         chai.request(app)
             .post('/api/v1/postProperty')
+            .set('Authorization',userToken)
             .send(user)
             .end((err, res) => {
-                expect(res.status).to.equal(400);
+                expect(res.status).to.equal(500);
               done();
     });
   })
@@ -145,12 +190,22 @@ describe('POST /', () => {
           type:'2 Bedroom',
           image_url:'http://res.cloudinary.com/dodfpnbik/image/upload/v1562973762/oadrd17vlduu84t1o2ql.jpg'
       };
-
+      const toBeSigned = {
+        id: 2,
+        email:'user2@gmail.com',
+        first_name:'NIYONSENGA',
+        last_name:'Eric',
+        phoneNumber:'+250780000000',
+        address:'Singapore',
+        is_admin: false,
+      };
+      const userToken = 'Bearer ' + jwt.sign(toBeSigned, 'rugumbira', { expiresIn: '24h' });
       chai.request(app)
           .post('/api/v1/postProperty')
+          .set('Authorization',userToken)
           .send(user)
           .end((err, res) => {
-              expect(res.status).to.equal(400);
+              expect(res.status).to.equal(500);
             done();
   });
 })
@@ -166,12 +221,22 @@ describe('PATCH /', () => {
       const user ={
           price: -5,
       };
-
+      const toBeSigned = {
+        id: 2,
+        email:'user2@gmail.com',
+        first_name:'NIYONSENGA',
+        last_name:'Eric',
+        phoneNumber:'+250780000000',
+        address:'Singapore',
+        is_admin: false,
+      };
+      const userToken = 'Bearer ' + jwt.sign(toBeSigned, 'rugumbira', { expiresIn: '24h' });
       chai.request(app)
-          .post('/api/v1/updateProperty/1')
+          .patch('/api/v1/updateProperty/1')
+          .set('Authorization',userToken)
           .send(user)
           .end((err, res) => {
-              expect(res.status).to.equal(200);
+              expect(res.status).to.equal(404);
             done();
   });
 })
@@ -179,24 +244,43 @@ describe('PATCH /', () => {
 
   describe('DELETE /', () => {
     it('it should return 200 status when delete operation was successful', done => {
+      const toBeSigned = {
+        id: 2,
+        email:'user2@gmail.com',
+        first_name:'NIYONSENGA',
+        last_name:'Eric',
+        phoneNumber:'+250780000000',
+        address:'Singapore',
+        is_admin: false,
+      };
+      const userToken = 'Bearer ' + jwt.sign(toBeSigned, 'rugumbira', { expiresIn: '24h' });
       chai
         .request(app)
         .delete('/api/v1/deleteProperty/1')
-        .end((err, res) => {
-          res.should.have.status(400);
-          // res.body.should.have.property('data').be.a('object');
-          // res.body.should.have.property('data').have.property('message').be.a('string');
+        .set('Authorization',userToken)
+        .end((err, res) => {          
+          expect(res.status).to.equal(200);
           done();
         });
     });
 
     it('it should return 404 with error when deletion fails', done => {
+      const toBeSigned = {
+        id: 2,
+        email:'user2@gmail.com',
+        first_name:'NIYONSENGA',
+        last_name:'Eric',
+        phoneNumber:'+250780000000',
+        address:'Singapore',
+        is_admin: false,
+      };
+      const userToken = 'Bearer ' + jwt.sign(toBeSigned, 'rugumbira', { expiresIn: '24h' });
       chai
         .request(app)
-        .delete('/api/v1/deleteProperty/50')
+        .delete('/api/v1/deleteProperty/500')
+        .set('Authorization',userToken)
         .end((err, res) => {
-          res.should.have.status(400);
-          // res.body.should.have.property('error').be.a('string');
+          expect(res.status).to.equal(404);
           done();
         });
     });
