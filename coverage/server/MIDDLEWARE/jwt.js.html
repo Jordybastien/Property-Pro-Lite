@@ -20,31 +20,31 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">52.94% </span>
+        <span class="strong">88.24% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>9/17</span>
-      </div>
-      <div class='fl pad1y space-right2'>
-        <span class="strong">0% </span>
-        <span class="quiet">Branches</span>
-        <span class='fraction'>0/2</span>
+        <span class='fraction'>15/17</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">50% </span>
-        <span class="quiet">Functions</span>
+        <span class="quiet">Branches</span>
         <span class='fraction'>1/2</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">56.25% </span>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>2/2</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">87.5% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>9/16</span>
+        <span class='fraction'>14/16</span>
       </div>
     </div>
     <p class="quiet">
       Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
     </p>
   </div>
-  <div class='status-line medium'></div>
+  <div class='status-line high'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -88,24 +88,24 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">40x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -124,21 +124,21 @@ const decode = {
        try {
            const tokens = req.headers['authorization']
            const token = tokens.split(' ')[1]
-           const decoded = <span class="cstat-no" title="statement not covered" >jwt.v</span>erify(token, 'rugumbira')
-           const {email}=<span class="cstat-no" title="statement not covered" >req.body;</span>
-           const user  = <span class="cstat-no" title="statement not covered" >users.f</span>ilter(<span class="fstat-no" title="function not covered" >user </span>=&gt; <span class="cstat-no" title="statement not covered" >user.email === email);</span>
-<span class="cstat-no" title="statement not covered" >           req.</span>user = user
-<span class="cstat-no" title="statement not covered" >           if (!user) {</span>
+           const decoded = jwt.verify(token, 'rugumbira')
+           const {email}=req.body;
+           const user  = users.filter(user =&gt; user.email === email);
+           req.user = user
+           <span class="missing-if-branch" title="if path not taken" >I</span>if (!user) {
 <span class="cstat-no" title="statement not covered" >               responses.r</span>esponse(res,400,'invalid token please sign up',true)
            }
-<span class="cstat-no" title="statement not covered" >           next()</span>
+           next()
 &nbsp;
 &nbsp;
 &nbsp;
 &nbsp;
        }
        catch (error) {
-        responses.response(res,400,'Please provide a valid token',true)
+<span class="cstat-no" title="statement not covered" >        responses.r</span>esponse(res,400,'Please provide a valid token',true)
        }
 &nbsp;
 &nbsp;
@@ -151,7 +151,7 @@ export default decode;</pre></td></tr>
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sat Jul 13 2019 10:35:28 GMT+0000 (Greenwich Mean Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sat Jul 13 2019 11:25:36 GMT+0000 (Greenwich Mean Time)
 </div>
 </div>
 <script src="..\..\prettify.js"></script>
