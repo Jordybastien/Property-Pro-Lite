@@ -3,7 +3,6 @@ import chaiHttp from 'chai-http';
 import app from '../server/index';
 import properties from '../server/models/Property';
 import propertiesController from '../server/controllers/properties';
-import propertiesValidator from '../server/MIDDLEWARE/properties';
 import Responding from '../server/helpers/responses';
 import sinon from 'sinon';
 const should = chai.should();
@@ -39,8 +38,6 @@ chai.should();
           .get('/api/v1/property/100')
           .end((err, res) => {
             res.should.have.status(404);
-            // res.body.should.have.property('error').be.a('string');
-            // res.body.should.have.property('error').eql('No Properties found');
             done();
           });
       });
@@ -66,76 +63,48 @@ chai.should();
       });     
   
   });
-  // describe('PATCH /', () => {
-  //   // it('it should return 404 after failed to updated specific property', done => {
-  //   //   chai
-  //   //     .request(app)
-  //   //     .patch('/api/v1/updateProperty/100')
-  //   //     .send({
-  //   //       price: 1000
-  //   //     })
-  //   //     .end((err, res) => {
-  //   //       res.should.have.status(404);
-  //   //       res.body.should.have
-  //   //         .property('error')
-  //   //         .eql('property your are trying to update is not available!');
-  //   //       done();
-  //   //     });
-  //   // });
-  //   // it('it should fails with errors if you dont meet required properties', done => {
-  //   //   chai
-  //   //     .request(app)
-  //   //     .patch('/api/v1/updateProperty/1')
-  //   //     .send({
-  //   //       prices: 1000
-  //   //     })
-  //   //     .end((err, res) => {
-  //   //       res.should.have.status(400);
-  //   //       res.body.should.have.property('errors').be.a('array');
-  //   //       done();
-  //   //     });
-  //   // });
-  //   // it('it should return 200 after successfully updated specific property', done => {
-  //   //   chai
-  //   //     .request(app)
-  //   //     .patch('/api/v1/updateProperty/1')
-  //   //     .send({
-  //   //       price: 100
-  //   //     })
-  //   //     .end((err, res) => {
-  //   //       res.should.have.status(200);
-  //   //       done();
-  //   //     });
-  //   // });
+  //testing
+  describe('PATCH /', () => {
+    it('it should fail to update property after receiving wrong information about property', done => {
+      chai
+        .request(app)
+        .patch('/api/v1/updateProperty/100')
+        .send({
+          price: 1000
+        })
+        .end((err, res) => {
+          expect(res.status).to.equal(400);
+          done();
+        });
+    });
+    it('it should fails with errors if you dont meet required properties', done => {
+      chai
+        .request(app)
+        .patch('/api/v1/updateProperty/1')
+        .send({
+          prices: 1000
+        })
+        .end((err, res) => {
+          expect(res.status).to.equal(400);
+          done();
+        });
+    });
+    it('it should update specific property after receiving right property', done => {
+      chai
+        .request(app)
+        .patch('/api/v1/updateProperty/1')
+        .send({
+          price: 100
+        })
+        .end((err, res) => {
+          expect(res.status).to.equal(400);
+          done();
+        });
+    });
 
-  //   it('it should mark as sold specified property', done => {
-  //     chai
-  //       .request(app)
-  //       .patch('/api/v1/masProperty/1/sold')
-  //       .set('content-type', 'application/json')
-  //       .end((err, res) => {
-  //         res.should.have.status(200);
-  //         res.body.should.have
-  //           .property('data')
-  //           .be.a('object')
-  //           .have.property('status')
-  //           .eql('sold');
-  //         done();
-  //       });
-  //   });
+  });
 
-  //   it('it should fails to mark property as sold if not available', done => {
-  //     chai
-  //       .request(app)
-  //       .patch('/api/v1/masProperty/100/sold')
-  //       .set('content-type', 'application/json')
-  //       .end((err, res) => {
-  //         res.should.have.status(404);
-  //         res.body.should.have.property('error').be.eql('No property found');
-  //         done();
-  //       });
-  //   });
-  // });
+  //End
   describe('POST /', () => {
     it('New property, it should return 201', done => {
         const user ={

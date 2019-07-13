@@ -46,7 +46,6 @@ export const getPropertyById = (req, res) => {
           responses.response(res, 200, propertyInfo);
         }
 
-  //responses.response(res, 200, findProperty);
   }
   else{
     responses.response(res, 404, 'No Properties found',true);
