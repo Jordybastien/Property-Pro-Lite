@@ -64,7 +64,7 @@ it('It should not create a user if last name is empty', done => {
         .send(user)
         .end((err, res) => {
             expect(res.status).to.equal(400);
-            console.log(res.body);
+            
             
             expect(res.body.error.last_name).equals("Last Name Field is required");
           done();
@@ -90,6 +90,55 @@ it('It should not create a user if email is not valid', done => {
 });
 })
 
+
+
+
+it('It should not create a user if phone number is not valid', done => {
+    const user ={
+        email: 'user8gmail.com',
+        first_name: 'rugumbira',
+        last_name:'jordy',
+        password: '123456',
+        phoneNumber: 'asdasd',
+        address:'Kicukiro'
+    };
+
+    chai.request(app)
+        .post('/api/v1/user')
+        .send(user)
+        .end((err, res) => {
+            expect(res.status).to.equal(400);
+            expect(res.body.error.phoneNumber).equals("Phone must be numeric");
+          done();
+});
+})
+
+
+
+
+
+it('It should not create a user if address is not provided', done => {
+    const user ={
+        email: 'user8gmail.com',
+        first_name: 'rugumbira',
+        last_name:'jordy',
+        password: '123456',
+        phoneNumber: 'hjkhk',
+        address:''
+    };
+
+    chai.request(app)
+        .post('/api/v1/user')
+        .send(user)
+        .end((err, res) => {
+            expect(res.status).to.equal(400);
+            expect(res.body.error.address).equals("Address Field is required");
+          done();
+});
+})
+
+
+
 it('It should not create a user if password is not valid', done => {
     const user ={
         email: 'user8@gmail.com',
@@ -109,16 +158,6 @@ it('It should not create a user if password is not valid', done => {
 });
 })
 });
-// describe('POST /', () => {
-//     it('New user, it should return 404 when all fields are not filled in', done => {
-//         chai.request(app)
-//             .get('/api/v1/user')
-//             .end((err, res) => {
-//                   res.should.have.status(200);
-//               done();
-//     });
-//   })
-// });
 describe('POST /', () => {
     it('User login, it should return 201', done => {
         const user ={

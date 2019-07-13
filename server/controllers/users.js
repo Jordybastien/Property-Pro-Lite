@@ -10,7 +10,7 @@ export const createUser = (req, res) => {
   const { errors, isValid } = validateRegInput(req.body);
   // check fields validations
   if (!isValid) {
-    responses.response(res,400,errors, true);
+    return responses.response(res,400,errors, true);
   }
 
 
@@ -20,7 +20,7 @@ export const createUser = (req, res) => {
   // check if user is not yet recorded
   const searchUser = users.filter(item => item.email === email);
   if (searchUser.length > 0) {
-    responses.response(res,401,'User already registered',true);
+    return responses.response(res,401,'User already registered',true);
   }
 
   // Add to object
@@ -61,7 +61,7 @@ export const createUser = (req, res) => {
           "phoneNumber":addUser.phoneNumber,
           "address":addUser.address,
         }
-        responses.response(res,201,payload,false);  
+        return responses.response(res,201,payload,false);  
       });          
     });
   });
@@ -108,13 +108,13 @@ export const loginUser = (req, res) => {
                 "phoneNumber":logUser[0].phoneNumber,
                 "address":logUser[0].address,
               }
-              responses.response(res,201,payload,false);  
+              return responses.response(res,201,payload,false);  
             });
     } else {
-      responses.response(res,401,'Wrong Password', true);
+      return responses.response(res,401,'Wrong Password', true);
     }
   }
   else {
-    responses.response(res,401,'User doesnt exist', true);
+    return responses.response(res,401,'User doesnt exist', true);
   }
 };

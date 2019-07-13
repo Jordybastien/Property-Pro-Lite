@@ -446,7 +446,7 @@ cloudinary.config({
 // Fetch all properties
 export const getAllproperties = (req, res) =&gt; {
   <span class="missing-if-branch" title="else path not taken" >E</span>if(properties){
-    responses.response(res, 200, properties);
+    return responses.response(res, 200, properties);
   }  
 };
 // Get property by ID
@@ -473,12 +473,12 @@ export const getPropertyById = (req, res) =&gt; {
             ownerEmail: userInfo[0].email,
             ownerPhoneNumber: userInfo[0].phoneNumber,
           }
-          responses.response(res, 200, propertyInfo);
+          return responses.response(res, 200, propertyInfo);
         }
 &nbsp;
   }
   else{
-<span class="cstat-no" title="statement not covered" >    responses.r</span>esponse(res, 404, 'No Properties found',true);
+<span class="cstat-no" title="statement not covered" >    return r</span>esponses.response(res, 404, 'No Properties found',true);
   }
   
 };
@@ -508,15 +508,15 @@ export const getPropertiesByType = (req, res) =&gt; {
         ownerEmail: userInfo[0].email,
         ownerPhoneNumber: userInfo[0].phoneNumber,
       }
-      responses.response(res, 200, propertyInfo);
+      return responses.response(res, 200, propertyInfo);
     }
   }
   else{
-<span class="cstat-no" title="statement not covered" >    responses.r</span>esponse(res, 404, 'No Properties found on the given type',true);
+<span class="cstat-no" title="statement not covered" >    return r</span>esponses.response(res, 404, 'No Properties found on the given type',true);
   }
   }
 else{
-  responses.response(res,404, 'You are providing a type that is not registered',true);
+  return responses.response(res,404, 'You are providing a type that is not registered',true);
 }
   
 };
@@ -526,7 +526,7 @@ export const createProperty = <span class="fstat-no" title="function not covered
   const { errors, isValid } = <span class="cstat-no" title="statement not covered" >validatePropertyRegistration(r</span>eq.body);
   // check validation
 <span class="cstat-no" title="statement not covered" >  if (!isValid) {</span>
-<span class="cstat-no" title="statement not covered" >    responses.r</span>esponse(res, 400, errors);
+<span class="cstat-no" title="statement not covered" >    return r</span>esponses.response(res, 400, errors);
   }
   else{
     const {
@@ -534,20 +534,20 @@ export const createProperty = <span class="fstat-no" title="function not covered
     } = <span class="cstat-no" title="statement not covered" >req.body;</span>
   
 <span class="cstat-no" title="statement not covered" >    if (!req.files.image) {</span>
-<span class="cstat-no" title="statement not covered" >      responses.r</span>esponse(res, 400, 'Image field is required',true);
+<span class="cstat-no" title="statement not covered" >      return r</span>esponses.response(res, 400, 'Image field is required',true);
     }
   
   //Search Property
     const searchProperty = <span class="cstat-no" title="statement not covered" >properties.f</span>ilter(<span class="fstat-no" title="function not covered" >item </span>=&gt; <span class="cstat-no" title="statement not covered" >item.owner === owner &amp;&amp; item.price === price &amp;&amp; item.state === state &amp;&amp; item.city === city &amp;&amp; item.address === address &amp;&amp; item.type === type);</span>
 <span class="cstat-no" title="statement not covered" >    if (searchProperty.length &gt; 0) {</span>
-<span class="cstat-no" title="statement not covered" >      responses.r</span>esponse(res, 302, 'Property already registered', true);
+<span class="cstat-no" title="statement not covered" >      return r</span>esponses.response(res, 302, 'Property already registered', true);
     }
   
   
     const image = <span class="cstat-no" title="statement not covered" >req.files.image.path;</span>
 <span class="cstat-no" title="statement not covered" >    cloudinary.u</span>ploader.upload(image, <span class="fstat-no" title="function not covered" >(r</span>esult, error) =&gt; {
 <span class="cstat-no" title="statement not covered" >      if (error) {</span>
-<span class="cstat-no" title="statement not covered" >        responses.r</span>esponse(res, 404, error, true);
+<span class="cstat-no" title="statement not covered" >        return r</span>esponses.response(res, 404, error, true);
       }
       else{
         const addProperty = <span class="cstat-no" title="statement not covered" >{</span>
@@ -563,7 +563,7 @@ export const createProperty = <span class="fstat-no" title="function not covered
           image_url: result.url,
         };
 <span class="cstat-no" title="statement not covered" >        properties.p</span>ush(addProperty);
-<span class="cstat-no" title="statement not covered" >        responses.r</span>esponse(res, 201, addProperty, false); 
+<span class="cstat-no" title="statement not covered" >        return r</span>esponses.response(res, 201, addProperty, false); 
       }
     });
   }
@@ -575,10 +575,10 @@ export const deleteProperty = <span class="fstat-no" title="function not covered
   const index = <span class="cstat-no" title="statement not covered" >properties.f</span>indIndex(<span class="fstat-no" title="function not covered" >property </span>=&gt; <span class="cstat-no" title="statement not covered" >property.id === parseInt(i</span>d, 10));
 <span class="cstat-no" title="statement not covered" >  if (index !== -1) {</span>
 <span class="cstat-no" title="statement not covered" >    properties.s</span>plice(index, 1);
-<span class="cstat-no" title="statement not covered" >    responses.r</span>esponse(res, 200, 'Property deleted', false);
+<span class="cstat-no" title="statement not covered" >    return r</span>esponses.response(res, 200, 'Property deleted', false);
   }
   else{
-<span class="cstat-no" title="statement not covered" >    responses.r</span>esponse(res, 404, 'No property found',true);
+<span class="cstat-no" title="statement not covered" >    return r</span>esponses.response(res, 404, 'No property found',true);
   }
   
 };
@@ -589,10 +589,10 @@ export const propertyIsSold = <span class="fstat-no" title="function not covered
   const property = <span class="cstat-no" title="statement not covered" >properties.f</span>ind(<span class="fstat-no" title="function not covered" >propert </span>=&gt; <span class="cstat-no" title="statement not covered" >propert.id === parseInt(i</span>d, 10));
 <span class="cstat-no" title="statement not covered" >  if (property) {</span>
 <span class="cstat-no" title="statement not covered" >    property.</span>status = 'sold';
-<span class="cstat-no" title="statement not covered" >    responses.r</span>esponse(res,200,property,false);
+<span class="cstat-no" title="statement not covered" >    return r</span>esponses.response(res,200,property,false);
   }
   else{
-<span class="cstat-no" title="statement not covered" >    responses.r</span>esponse(res, 404, 'No property found', true);
+<span class="cstat-no" title="statement not covered" >    return r</span>esponses.response(res, 404, 'No property found', true);
   }
   
 };
@@ -607,16 +607,16 @@ export const updateProperty = <span class="fstat-no" title="function not covered
     const{price} =<span class="cstat-no" title="statement not covered" >req.body;</span>
 <span class="cstat-no" title="statement not covered" >    if(price){</span>
 <span class="cstat-no" title="statement not covered" >      if(price&lt;=0){</span>
-<span class="cstat-no" title="statement not covered" >        responses.r</span>esponse(res, 404, 'The price can not be less than or equal to 0', true);    
+<span class="cstat-no" title="statement not covered" >        return r</span>esponses.response(res, 404, 'The price can not be less than or equal to 0', true);    
       }
     }
 <span class="cstat-no" title="statement not covered" >    datas.</span>forEach((<span class="fstat-no" title="function not covered" >data) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >      property[</span>data] = req.body[data];
     });
-<span class="cstat-no" title="statement not covered" >    responses.r</span>esponse(res,201,property, false);
+<span class="cstat-no" title="statement not covered" >    return r</span>esponses.response(res,201,property, false);
   }
   else{
-<span class="cstat-no" title="statement not covered" >    responses.r</span>esponse(res, 404, 'No property found', true);
+<span class="cstat-no" title="statement not covered" >    return r</span>esponses.response(res, 404, 'No property found', true);
   }
 };
 &nbsp;</pre></td></tr>
@@ -625,7 +625,7 @@ export const updateProperty = <span class="fstat-no" title="function not covered
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sat Jul 13 2019 09:49:43 GMT+0000 (Greenwich Mean Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sat Jul 13 2019 10:35:28 GMT+0000 (Greenwich Mean Time)
 </div>
 </div>
 <script src="..\..\prettify.js"></script>
