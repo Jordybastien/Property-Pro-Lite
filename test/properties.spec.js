@@ -1,4 +1,4 @@
-import chai from 'chai';
+import chai, {expect} from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../server/index';
 import properties from '../server/models/Property';
@@ -136,7 +136,27 @@ chai.should();
   //       });
   //   });
   // });
+  describe('POST /', () => {
+    it('New property, it should return 201', done => {
+        const user ={
+            owner: 1,
+            price: 100,
+            state:'kigali',
+            city: 'Kigali',
+            address: 'kicukiro',
+            type:'2 Bedroom',
+            image_url:'http://res.cloudinary.com/dodfpnbik/image/upload/v1562973762/oadrd17vlduu84t1o2ql.jpg'
+        };
 
+        chai.request(app)
+            .post('/api/v1/postProperty')
+            .send(user)
+            .end((err, res) => {
+                expect(res.status).to.equal(400);
+              done();
+    });
+  })
+});
   describe('DELETE /', () => {
     it('it should return 200 status when delete operation was successful', done => {
       chai
