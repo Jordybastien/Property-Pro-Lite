@@ -3,7 +3,6 @@ import chaiHttp from 'chai-http';
 import app from '../server/index';
 import properties from '../server/models/Property';
 import propertiesController from '../server/controllers/properties';
-import propertiesValidator from '../MIDDLEWARE/properties';
 import Responding from '../server/helpers/responses';
 import sinon from 'sinon';
 const should = chai.should();
@@ -39,8 +38,6 @@ chai.should();
           .get('/api/v1/property/100')
           .end((err, res) => {
             res.should.have.status(404);
-            // res.body.should.have.property('error').be.a('string');
-            // res.body.should.have.property('error').eql('No Properties found');
             done();
           });
       });
