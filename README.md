@@ -31,5 +31,47 @@ https://www.pivotaltracker.com/n/projects/2356125
 3.API Endpoints deployed to Heroku
 https://propertyprolitejordy.herokuapp.com/
 
+3.1. User can view all properties
+https://propertyprolitejordy.herokuapp.com/api/v1/getProperties
+
+
+3.2. User can view specific property
+https://propertyprolitejordy.herokuapp.com/api/v1//properties/[:id]
+
+
+3.3. User can get property by type
+https://propertyprolitejordy.herokuapp.com/api/v1/properties/[:type]
+
+
+3.4. Agent can post a property
+https://propertyprolitejordy.herokuapp.com/api/v1/properties/[:type]
+
+
+3.5. Agent can update a property
+https://propertyprolitejordy.herokuapp.com/api/v1/updateProperty/[:id]
+
+
+3.6. Agent can delete a property
+https://propertyprolitejordy.herokuapp.com/api/v1/deleteProperty/[:id]
+
+
+3.7. Agent can mark a property as sold
+https://propertyprolitejordy.herokuapp.com/api/v1/masProperty/[:id]/sold
+
+
+
+3.8. User can sign up
+https://propertyprolitejordy.herokuapp.com/api/v1/user
+
+
+3.9. User can log in
+https://propertyprolitejordy.herokuapp.com/api/v1/login
+
+
+
+
+
 How it Works
 Just go to https://jordybastien.github.io/Property-Pro-Lite/UI/ on the homepage you will see a dialogue explaining how to proceed
+
+
