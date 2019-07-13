@@ -84,6 +84,25 @@ it('It should not create a user if email is not valid', done => {
           done();
 });
 })
+
+it('It should not create a user if password is not valid', done => {
+    const user ={
+        email: 'user8@gmail.com',
+        first_name: 'rugumbira',
+        last_name:'jordy',
+        password: '123',
+        phoneNumber: '0785634779',
+        address:'Kicukiro'
+    };
+
+    chai.request(app)
+        .post('/api/v1/user')
+        .send(user)
+        .end((err, res) => {
+            expect(res.status).to.equal(400);
+          done();
+});
+})
 });
 // describe('POST /', () => {
 //     it('New user, it should return 404 when all fields are not filled in', done => {
