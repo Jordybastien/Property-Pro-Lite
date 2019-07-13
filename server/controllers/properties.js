@@ -175,6 +175,12 @@ export const updateProperty = (req, res) => {
   const property = properties.find(pro => pro.id === parseInt(id, 10));
   if (property) {
     const datas = Object.keys(req.body);
+    const{price} =req.body;
+    if(price){
+      if(price<=0){
+        responses.response(res, 404, 'The price can not be less than or equal to 0', true);    
+      }
+    }
     datas.forEach((data) => {
       property[data] = req.body[data];
     });

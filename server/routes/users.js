@@ -4,11 +4,16 @@ import {
   createUser,
   loginUser,
 } from '../controllers/users';
+import handleErrors from '../MIDDLEWARE/errors';
 
 const router = express.Router();
 
-router.post('/user', createUser);
+router.route('/user')
+.post(createUser)
+.all(handleErrors);
 
-router.post('/login', loginUser);
+router.route('/login')
+.post(loginUser)
+.all(handleErrors);
 
 export default router;

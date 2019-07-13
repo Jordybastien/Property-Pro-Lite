@@ -15,7 +15,7 @@ import {
   updateProperty,
   getPropertiesByType,
 } from '../controllers/properties';
-import {handleErrors} from '../helpers/errors';
+import handleErrors from '../MIDDLEWARE/errors';
 
 const router = express.Router();
 const connection = connect();
@@ -24,16 +24,28 @@ router.route('/getProperties')
 .get(getAllproperties)
 .all(handleErrors);
 
-router.get('/properties/:id', getPropertyById);
+router.route('/properties/:id')
+.get(getPropertyById)
+.all(handleErrors);
 
-router.get('/getProperty/:type', getPropertiesByType);
+router.route('/getProperty/:type')
+.get(getPropertiesByType)
+.all(handleErrors);
 
-router.post('/postProperty', connection, createProperty);
+router.route('/postProperty')
+.post(connection, createProperty)
+.all(handleErrors);
 
-router.patch('/updateProperty/:id', updateProperty);
+router.route('/updateProperty/:id')
+.patch(updateProperty)
+.all(handleErrors);
 
-router.delete('/deleteProperty/:id', deleteProperty);
+router.route('/deleteProperty/:id')
+.delete(deleteProperty)
+.all(handleErrors);
 
-router.patch('/masProperty/:id/sold', propertyIsSold);
+router.route('/masProperty/:id/sold')
+.patch(propertyIsSold)
+.all(handleErrors);
 
 export default router;
