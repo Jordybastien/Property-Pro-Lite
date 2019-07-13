@@ -9,7 +9,8 @@
     ]
   },
   "scripts": {
-    "start": "nodemon --exec babel-node server/index.js",
+    "start": "babel-node server/index.js",
+    "dev": "nodemon --exec babel-node server/index.js",
     "build": "babel server --out-dir dist",
     "test": "nyc --reporter=html --reporter=text mocha --no-timeout  --exit",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
@@ -27,6 +28,10 @@
   },
   "homepage": "https://github.com/Jordybastien/Property-Pro-Lite#readme",
   "dependencies": {
+    "@babel/cli": "^7.5.0",
+    "@babel/core": "^7.5.0",
+    "@babel/node": "^7.5.0",
+    "@babel/preset-env": "^7.5.0",
     "bcryptjs": "^2.4.3",
     "cloudinary": "^1.14.0",
     "connect-multiparty": "^2.2.0",
@@ -38,13 +43,10 @@
     "passport-jwt": "^4.0.0",
     "password-hash": "^1.2.2",
     "sinon": "^7.3.2",
+    "swagger-ui-express": "^4.0.7",
     "validator": "^11.1.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.5.0",
-    "@babel/core": "^7.5.0",
-    "@babel/node": "^7.5.0",
-    "@babel/preset-env": "^7.5.0",
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
     "coveralls": "^3.0.4",
