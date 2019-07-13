@@ -16,7 +16,7 @@ cloudinary.config({
 // Fetch all properties
 export const getAllproperties = (req, res) => {
   if(properties){
-    responses.response(res, 200, properties);
+    return responses.response(res, 200, properties);
   }  
 };
 // Get property by ID
@@ -43,12 +43,12 @@ export const getPropertyById = (req, res) => {
             ownerEmail: userInfo[0].email,
             ownerPhoneNumber: userInfo[0].phoneNumber,
           }
-          responses.response(res, 200, propertyInfo);
+          return responses.response(res, 200, propertyInfo);
         }
 
   }
   else{
-    responses.response(res, 404, 'No Properties found',true);
+    return responses.response(res, 404, 'No Properties found',true);
   }
   
 };
@@ -78,15 +78,15 @@ export const getPropertiesByType = (req, res) => {
         ownerEmail: userInfo[0].email,
         ownerPhoneNumber: userInfo[0].phoneNumber,
       }
-      responses.response(res, 200, propertyInfo);
+      return responses.response(res, 200, propertyInfo);
     }
   }
   else{
-    responses.response(res, 404, 'No Properties found on the given type',true);
+    return responses.response(res, 404, 'No Properties found on the given type',true);
   }
   }
 else{
-  responses.response(res,404, 'You are providing a type that is not registered',true);
+  return responses.response(res,404, 'You are providing a type that is not registered',true);
 }
   
 };
@@ -96,7 +96,7 @@ export const createProperty = (req, res) => {
   const { errors, isValid } = validatePropertyRegistration(req.body);
   // check validation
   if (!isValid) {
-    responses.response(res, 400, errors);
+    return responses.response(res, 400, errors);
   }
   else{
     const {
@@ -104,20 +104,20 @@ export const createProperty = (req, res) => {
     } = req.body;
   
     if (!req.files.image) {
-      responses.response(res, 400, 'Image field is required',true);
+      return responses.response(res, 400, 'Image field is required',true);
     }
   
   //Search Property
     const searchProperty = properties.filter(item => item.owner === owner && item.price === price && item.state === state && item.city === city && item.address === address && item.type === type);
     if (searchProperty.length > 0) {
-      responses.response(res, 302, 'Property already registered', true);
+      return responses.response(res, 302, 'Property already registered', true);
     }
   
   
     const image = req.files.image.path;
     cloudinary.uploader.upload(image, (result, error) => {
       if (error) {
-        responses.response(res, 404, error, true);
+        return responses.response(res, 404, error, true);
       }
       else{
         const addProperty = {
@@ -133,7 +133,7 @@ export const createProperty = (req, res) => {
           image_url: result.url,
         };
         properties.push(addProperty);
-        responses.response(res, 201, addProperty, false); 
+        return responses.response(res, 201, addProperty, false); 
       }
     });
   }
@@ -145,10 +145,10 @@ export const deleteProperty = (req, res) => {
   const index = properties.findIndex(property => property.id === parseInt(id, 10));
   if (index !== -1) {
     properties.splice(index, 1);
-    responses.response(res, 200, 'Property deleted', false);
+    return responses.response(res, 200, 'Property deleted', false);
   }
   else{
-    responses.response(res, 404, 'No property found',true);
+    return responses.response(res, 404, 'No property found',true);
   }
   
 };
@@ -159,10 +159,10 @@ export const propertyIsSold = (req, res) => {
   const property = properties.find(propert => propert.id === parseInt(id, 10));
   if (property) {
     property.status = 'sold';
-    responses.response(res,200,property,false);
+    return responses.response(res,200,property,false);
   }
   else{
-    responses.response(res, 404, 'No property found', true);
+    return responses.response(res, 404, 'No property found', true);
   }
   
 };
@@ -177,15 +177,15 @@ export const updateProperty = (req, res) => {
     const{price} =req.body;
     if(price){
       if(price<=0){
-        responses.response(res, 404, 'The price can not be less than or equal to 0', true);    
+        return responses.response(res, 404, 'The price can not be less than or equal to 0', true);    
       }
     }
     datas.forEach((data) => {
       property[data] = req.body[data];
     });
-    responses.response(res,201,property, false);
+    return responses.response(res,201,property, false);
   }
   else{
-    responses.response(res, 404, 'No property found', true);
+    return responses.response(res, 404, 'No property found', true);
   }
 };
