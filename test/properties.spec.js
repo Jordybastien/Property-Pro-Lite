@@ -11,9 +11,7 @@ const should = chai.should();
 
 chai.use(chaiHttp);
 chai.should();
-/*
-  * Test the /GET route
-  */
+
   describe('/GET properties', () => {
       it('it should GET all the properties', (done) => {
         chai.request(app)
