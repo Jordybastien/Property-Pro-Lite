@@ -22,7 +22,7 @@ module.exports = function validateRegInput(data) {
     errors.last_name = 'Last Name must be between 2 and 30 characters';
   }
   if (Validator.isEmpty(data.last_name)) {
-    errors.first_name = 'Last Name Field is required';
+    errors.last_name = 'Last Name Field is required';
   }
   if (Validator.isNumeric(data.last_name)){
     errors.last_name = 'Last name must be a string';
