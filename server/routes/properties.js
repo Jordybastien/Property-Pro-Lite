@@ -5,7 +5,8 @@ import connect from 'connect-multiparty';
 import passport from 'passport';
 
 import jwt from 'jsonwebtoken';
-
+import decode from '../MIDDLEWARE/jwt';
+const verifyToken = decode.verifyToken
 import {
   getAllproperties,
   getPropertyById,
@@ -33,19 +34,19 @@ router.route('/getProperty/:type')
 .all(handleErrors);
 
 router.route('/postProperty')
-.post(connection, createProperty)
+.post(verifyToken, connection, createProperty)
 .all(handleErrors);
 
 router.route('/updateProperty/:id')
-.patch(updateProperty)
+.patch(verifyToken, updateProperty)
 .all(handleErrors);
 
 router.route('/deleteProperty/:id')
-.delete(deleteProperty)
+.delete(verifyToken, deleteProperty)
 .all(handleErrors);
 
 router.route('/masProperty/:id/sold')
-.patch(propertyIsSold)
+.patch(verifyToken, propertyIsSold)
 .all(handleErrors);
 
 export default router;
