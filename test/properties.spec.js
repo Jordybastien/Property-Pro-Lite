@@ -157,6 +157,57 @@ chai.should();
     });
   })
 });
+
+
+
+
+
+
+
+
+describe('POST /', () => {
+  it('It should not add property if price is not valid', done => {
+      const user ={
+          owner: 1,
+          price: -100,
+          state:'kigali',
+          city: 'Kigali',
+          address: 'kicukiro',
+          type:'2 Bedroom',
+          image_url:'http://res.cloudinary.com/dodfpnbik/image/upload/v1562973762/oadrd17vlduu84t1o2ql.jpg'
+      };
+
+      chai.request(app)
+          .post('/api/v1/postProperty')
+          .send(user)
+          .end((err, res) => {
+              expect(res.status).to.equal(400);
+            done();
+  });
+})
+});
+
+
+
+
+
+
+describe('PATCH /', () => {
+  it('It should not update property if the price is less or equal to 0', done => {
+      const user ={
+          price: -5,
+      };
+
+      chai.request(app)
+          .post('/api/v1/updateProperty/1')
+          .send(user)
+          .end((err, res) => {
+              expect(res.status).to.equal(200);
+            done();
+  });
+})
+});
+
   describe('DELETE /', () => {
     it('it should return 200 status when delete operation was successful', done => {
       chai

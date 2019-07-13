@@ -29,7 +29,7 @@ https://jordybastien.github.io/Property-Pro-Lite/UI/
 https://www.pivotaltracker.com/n/projects/2356125
 
 3.API Endpoints deployed to Heroku
-coming soon
+https://propertyprolitejordy.herokuapp.com/
 
 How it Works
 Just go to https://jordybastien.github.io/Property-Pro-Lite/UI/ on the homepage you will see a dialogue explaining how to proceed
