@@ -20,31 +20,31 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">23.08% </span>
+        <span class="strong">76.92% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>3/13</span>
+        <span class='fraction'>10/13</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">0% </span>
+        <span class="strong">50% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>0/10</span>
+        <span class='fraction'>5/10</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">0% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>0/1</span>
+        <span class='fraction'>1/1</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">23.08% </span>
+        <span class="strong">76.92% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>3/13</span>
+        <span class='fraction'>10/13</span>
       </div>
     </div>
     <p class="quiet">
       Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
     </p>
   </div>
-  <div class='status-line low'></div>
+  <div class='status-line medium'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -75,23 +75,23 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -99,24 +99,24 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import Validator from 'validator';
 import isEmpty from './is-empty';
 &nbsp;
-module.exports = function <span class="fstat-no" title="function not covered" >validateLogin(d</span>ata) {
-  const errors = <span class="cstat-no" title="statement not covered" >{};</span>
+module.exports = function validateLogin(data) {
+  const errors = {};
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  data.</span>email = !isEmpty(data.email) ? data.email : '';
-<span class="cstat-no" title="statement not covered" >  data.</span>password = !isEmpty(data.password) ? data.password : '';
+  data.email = !isEmpty(data.email) ? data.email : <span class="branch-1 cbranch-no" title="branch not covered" >'';</span>
+  data.password = !isEmpty(data.password) ? data.password : <span class="branch-1 cbranch-no" title="branch not covered" >'';</span>
 &nbsp;
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  if (!Validator.isEmail(data.email)) {</span>
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (!Validator.isEmail(data.email)) {
 <span class="cstat-no" title="statement not covered" >    errors.</span>email = 'Email is invalid';
   }
-<span class="cstat-no" title="statement not covered" >  if (Validator.isEmpty(data.email)) {</span>
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (Validator.isEmpty(data.email)) {
 <span class="cstat-no" title="statement not covered" >    errors.</span>email = 'Email Field is required';
   }
-<span class="cstat-no" title="statement not covered" >  if (Validator.isEmpty(data.password)) {</span>
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (Validator.isEmpty(data.password)) {
 <span class="cstat-no" title="statement not covered" >    errors.</span>password = 'Password Field is required';
   }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return {</span>
+  return {
     errors,
     isValid: isEmpty(errors),
   };
@@ -127,7 +127,7 @@ module.exports = function <span class="fstat-no" title="function not covered" >v
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sat Jul 13 2019 06:14:32 GMT+0000 (Greenwich Mean Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sat Jul 13 2019 06:36:07 GMT+0000 (Greenwich Mean Time)
 </div>
 </div>
 <script src="..\..\prettify.js"></script>

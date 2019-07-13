@@ -43,10 +43,15 @@ describe('POST /', () => {
 // });
 describe('POST /', () => {
     it('User login, it should return 201', done => {
+        const user ={
+            email: 'user2@gmail.com',
+            password: '123456',
+        };
         chai.request(app)
-            .get('/api/v1/login')
+            .post('/api/v1/login')
+            .send(user)
             .end((err, res) => {
-                  res.should.have.status(200);
+                expect(res.status).to.equal(201);
               done();
     });
   })
