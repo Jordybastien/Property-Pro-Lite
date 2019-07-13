@@ -5,12 +5,6 @@ const properties = [
   {
     id: 2, owner: 3, status: 'sold', price: 80000000.00, state: 'Rubavu', city: 'Rubavu', address: 'Grande barriere', type: '3 Bedroom', created_on: '2-07-2019', image_url: 'https://res.cloudinary.com/dodfpnbik/image/upload/v1562927036/zthvmkt7rzianhabsgre.jpg',
   },
-  {
-    id: 3, owner: 3, status: 'available', price: 450000000.00, state: 'Musanze', city: 'Musanze', address: 'Downtown', type: '2 Bedroom', created_on: '3-07-2019', image_url: 'https://res.cloudinary.com/dodfpnbik/image/upload/v1562927036/zthvmkt7rzianhabsgre.jpg',
-  },
-  {
-    id: 4, owner: 3, status: 'sold', price: 60000000.00, state: 'Huye', city: 'Huye', address: 'Nyakariro', type: '3 Bedroom', created_on: '4-07-2019', image_url: 'https://res.cloudinary.com/dodfpnbik/image/upload/v1562927036/zthvmkt7rzianhabsgre.jpg',
-  },
 ];
 
 export default properties;

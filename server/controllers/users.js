@@ -53,9 +53,8 @@ export const createUser = (req, res) => {
 
       
       jwt.sign(toBeSigned, 'rugumbira', { expiresIn: 3600 }, (err, token) => {
-
         const payload= {
-          token,
+          token: 'Bearer ' + token,
           "firstname":addUser.first_name,
           "lastname":addUser.last_name,
           "email":addUser.email,
@@ -63,9 +62,7 @@ export const createUser = (req, res) => {
           "address":addUser.address,
         }
         responses.response(res,201,payload,false);  
-      });
-
-          
+      });          
     });
   });
  
@@ -104,7 +101,7 @@ export const loginUser = (req, res) => {
             jwt.sign(toBeSignedLogin, 'rugumbira', { expiresIn: 3600 }, (err, token) => {
 
               const payload= {
-                token,
+                token:'Bearer ' + token,
                 "firstname":logUser[0].first_name,
                 "lastname":logUser[0].last_name,
                 "email":logUser[0].email,

@@ -1,12 +1,12 @@
 import chai from 'chai';
-import chaiHttp from 'chai-http';
-import app from '../server/index';
-import users from '../server/models/User';
-import usersController from '../server/controllers/users';
-import propertiesValidator from '../server/MIDDLEWARE/properties';
-import Responding from '../server/helpers/responses';
-import sinon from 'sinon';
-const should = chai.should();
+// import chaiHttp from 'chai-http';
+// import app from '../server/index';
+// import users from '../server/models/User';
+// import usersController from '../server/controllers/users';
+// import propertiesValidator from '../server/MIDDLEWARE/properties';
+// import Responding from '../server/helpers/responses';
+// import sinon from 'sinon';
+// const should = chai.should();
 
 // describe('POST /', () => {
 //     it('New property, it should return 201', done => {
