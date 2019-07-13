@@ -45,6 +45,7 @@ describe('POST /', () => {
         .send(user)
         .end((err, res) => {
             expect(res.status).to.equal(400);
+            expect(res.body.error.first_name).equals("First Name Field is required");
           done();
 });
 })
@@ -63,6 +64,9 @@ it('It should not create a user if last name is empty', done => {
         .send(user)
         .end((err, res) => {
             expect(res.status).to.equal(400);
+            console.log(res.body);
+            
+            expect(res.body.error.last_name).equals("Last Name Field is required");
           done();
 });
 })
@@ -81,6 +85,7 @@ it('It should not create a user if email is not valid', done => {
         .send(user)
         .end((err, res) => {
             expect(res.status).to.equal(400);
+            expect(res.body.error.email).equals("Email is invalid");
           done();
 });
 })
