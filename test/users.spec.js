@@ -30,6 +30,60 @@ describe('POST /', () => {
               done();
     });
   })
+  it('It should not create a user if first name is empty', done => {
+    const user ={
+        email: 'user8@gmail.com',
+        first_name: '',
+        last_name:'Jordy',
+        password: '123456',
+        phoneNumber: '0785634779',
+        address:'Kicukiro'
+    };
+
+    chai.request(app)
+        .post('/api/v1/user')
+        .send(user)
+        .end((err, res) => {
+            expect(res.status).to.equal(400);
+          done();
+});
+})
+it('It should not create a user if last name is empty', done => {
+    const user ={
+        email: 'user8@gmail.com',
+        first_name: 'rugumbira',
+        last_name:'',
+        password: '123456',
+        phoneNumber: '0785634779',
+        address:'Kicukiro'
+    };
+
+    chai.request(app)
+        .post('/api/v1/user')
+        .send(user)
+        .end((err, res) => {
+            expect(res.status).to.equal(400);
+          done();
+});
+})
+it('It should not create a user if email is not valid', done => {
+    const user ={
+        email: 'user8gmail.com',
+        first_name: 'rugumbira',
+        last_name:'jordy',
+        password: '123456',
+        phoneNumber: '0785634779',
+        address:'Kicukiro'
+    };
+
+    chai.request(app)
+        .post('/api/v1/user')
+        .send(user)
+        .end((err, res) => {
+            expect(res.status).to.equal(400);
+          done();
+});
+})
 });
 // describe('POST /', () => {
 //     it('New user, it should return 404 when all fields are not filled in', done => {
