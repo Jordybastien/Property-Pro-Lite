@@ -6,9 +6,19 @@ import users from './routes/users';
 import properties from './routes/properties';
 import {Client} from 'pg';
 const client = new Client({
-   
+   user: "postgres",
+   password: "Qwerty123@",
+   host: "localhost",
+   port: 5432,
+   database: "Property-Pro-Lite"
 })
-
+client.connect()
+.then(() => console.log("Connected successfully"))
+// .then(() => client.query("insert into users values ($1,$2,$3,$4,$5,$6,$7,$8)",[1, 'test@gmail.com','Rug','Jor','123456','0785634779','Kicukiro',true]))
+// .then(() => client.query("select * from users"))
+.then(results => console.table(results.rows))
+.catch(e => console.log)
+.finally(() => client.end());
 const app = express();
 
 app.use(bodyParser.json());

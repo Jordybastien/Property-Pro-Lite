@@ -4,7 +4,7 @@
 -----------------------------------------------------
 
 
-##TABLE OF CONTENTS
+## TABLE OF CONTENTS
 ### 1.Description
 ### 2.Badges
 ### 3.Required Features
@@ -15,7 +15,7 @@
 -----------------------------------------------------
 
 
-##Description
+## Description
 Property Pro Lite is a platform where people can create and/or search properties for sale or rent.
 
 
@@ -35,15 +35,15 @@ Property Pro Lite is a platform where people can create and/or search properties
 
 ## 3.Required Features
 
-**3.1.** User can sign up.
-**3.2.** User can sign in.
-**3.3.** User (agent) can post a property advert.
-**3.4.** User (agent) can update the details of a pr3perty advert.
-**3.5.** User (agent) can mark his/her posted advert as sold.
-**3.6.** User (agent) can delete a property advert.
-**3.7.** User can view all properties adverts.
-**3.8.** User can view all properties of a specific ty3e - 2 bedroom, 3 bedroom, mini flat etc.
-**3.9.** User can view a specific property advert.
+**3.1.** User can sign up.<br>
+**3.2.** User can sign in.<br>
+**3.3.** User (agent) can post a property advert.<br>
+**3.4.** User (agent) can update the details of a pr3perty advert.<br>
+**3.5.** User (agent) can mark his/her posted advert as sold.<br>
+**3.6.** User (agent) can delete a property advert.<br>
+**3.7.** User can view all properties adverts.<br>
+**3.8.** User can view all properties of a specific ty3e - 2 bedroom, 3 bedroom, mini flat etc.<br>
+**3.9.** User can view a specific property advert.<br>
 
 
 -----------------------------------------------------
