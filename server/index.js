@@ -4,7 +4,7 @@ import passport from 'passport';
 import bodyParser from 'body-parser';
 import users from './routes/users';
 import properties from './routes/properties';
-
+import {Client} from 'pg';
 
 const app = express();
 
