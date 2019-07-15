@@ -1,8 +1,8 @@
 #Ignoring node modules folder
-node_modules/
+node_modules
 #Ignoring VSCode folder
-.vscode/
+.vscode
 #Ignoring NYC Output folder
-.nyc_output/
+.nyc_output
 #Ignoring Coverage folder
-coverage/
+coverage

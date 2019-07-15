@@ -59,7 +59,6 @@ chai.should();
           .get('/api/v1/getProperty/2 Bedrooms')
           .end((err, res) => {
             res.should.have.status(404);
-            // res.body.should.have.property('data').be.a('object');
             done();
           });
       });     
