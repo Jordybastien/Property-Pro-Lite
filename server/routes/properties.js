@@ -22,31 +22,24 @@ const router = express.Router();
 const connection = connect();
 
 router.route('/getProperties')
-.get(getAllproperties)
-.all(handleErrors);
+.get(getAllproperties);
 
 router.route('/properties/:id')
-.get(getPropertyById)
-.all(handleErrors);
+.get(getPropertyById);
 
 router.route('/getProperty/:type')
-.get(getPropertiesByType)
-.all(handleErrors);
+.get(getPropertiesByType);
 
 router.route('/postProperty')
-.post(verifyToken, connection, createProperty)
-.all(handleErrors);
+.post(verifyToken, connection, createProperty);
 
 router.route('/updateProperty/:id')
-.patch(verifyToken, updateProperty)
-.all(handleErrors);
+.patch(verifyToken, updateProperty);
 
 router.route('/deleteProperty/:id')
-.delete(verifyToken, deleteProperty)
-.all(handleErrors);
+.delete(verifyToken, deleteProperty);
 
 router.route('/masProperty/:id/sold')
-.patch(verifyToken, propertyIsSold)
-.all(handleErrors);
+.patch(verifyToken, propertyIsSold);
 
 export default router;

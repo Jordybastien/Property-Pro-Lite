@@ -5,6 +5,7 @@ import propTypes from '../models/propertiesType';
 import users from '../models/User';
 import validatePropertyRegistration from '../MIDDLEWARE/properties';
 import responses from '../helpers/responses';
+import jwt from 'jsonwebtoken';
 const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dodfpnbik/upload';
 const CLOUDINARY_UPLOAD_PRESET = 'cakgs8ec';
 cloudinary.config({
@@ -99,6 +100,11 @@ export const createProperty = (req, res) => {
     return responses.response(res, 400, errors);
   }
   else{
+            //Decoding token to receive Owner Id
+    const tokens = req.headers['authorization'];
+    const token = tokens.split(' ')[1];
+    const decoded = jwt.verify(token, 'rugumbira');
+    
     const {
       owner, price, state, city, address, type,
     } = req.body;
@@ -108,7 +114,7 @@ export const createProperty = (req, res) => {
     }
   
   //Search Property
-    const searchProperty = properties.filter(item => item.owner === owner && item.price === price && item.state === state && item.city === city && item.address === address && item.type === type);
+    const searchProperty = properties.filter(property => property.owner === decoded.id && property.price === price && property.state === state && property.city === city && property.address === address && property.type === type);
     if (searchProperty.length > 0) {
       return responses.response(res, 302, 'Property already registered', true);
     }
@@ -120,9 +126,22 @@ export const createProperty = (req, res) => {
         return responses.response(res, 404, error, true);
       }
       else{
+
+
         const addProperty = {
           id: properties.length + 1,
-          owner,
+          owner:decoded.id,
+          status: 'available',
+          price,
+          state,
+          city,
+          address,
+          type,
+          created_on: moment().format(),
+          image_url: result.url,
+        };
+        const tobeSent = {
+          id: properties.length + 1,
           status: 'available',
           price,
           state,
@@ -133,7 +152,7 @@ export const createProperty = (req, res) => {
           image_url: result.url,
         };
         properties.push(addProperty);
-        return responses.response(res, 201, addProperty, false); 
+        return responses.response(res, 201, tobeSent, false); 
       }
     });
   }
@@ -141,11 +160,55 @@ export const createProperty = (req, res) => {
 };
 //Delete property
 export const deleteProperty = (req, res) => {
+
+  //Check Authorization
+  const tokens = req.headers['authorization']
+  const token = tokens.split(' ')[1]
+  const decoded = jwt.verify(token, 'rugumbira')  
   const { id } = req.params;
   const index = properties.findIndex(property => property.id === parseInt(id, 10));
-  if (index !== -1) {
-    properties.splice(index, 1);
-    return responses.response(res, 200, 'Property deleted', false);
+  const findProperty = properties.find(property => property.id == id);
+  if(findProperty){
+    if (index !== -1) {
+      if(decoded.id === findProperty.owner) {
+      properties.splice(index, 1);
+      return responses.response(res, 200, 'Property deleted', false);
+    }else{
+      return responses.response(res, 404, ' You do not have the Authorization to Delete this property',true);
+    }
+    }
+    else{
+      return responses.response(res, 404, 'No property found',true);
+    }  
+  }
+  else{
+    return responses.response(res, 404, 'No property found',true);
+  }
+
+};
+
+//Mark property as sold
+export const propertyIsSold = (req, res) => {
+  
+  //Check Authorization
+  const tokens = req.headers['authorization']
+  const token = tokens.split(' ')[1]
+  const decoded = jwt.verify(token, 'rugumbira')  
+  const { id } = req.params;
+  const property = properties.find(propert => propert.id === parseInt(id, 10));
+  const findProperty = properties.find(property => property.id == id);
+  if(findProperty){
+    if (property) {
+      if(decoded.id === findProperty.owner) {
+        property.status = 'sold';
+        return responses.response(res,200,property,false);
+    }else{
+      return responses.response(res, 404, ' You do not have the Authorization to Delete this property',true);
+    }
+    }
+    else{
+      return responses.response(res, 404, 'No property found',true);
+    }  
   }
   else{
     return responses.response(res, 404, 'No property found',true);
@@ -153,25 +216,15 @@ export const deleteProperty = (req, res) => {
   
 };
 
-//Mark property as sold
-export const propertyIsSold = (req, res) => {
-  const { id } = req.params;
-  const property = properties.find(propert => propert.id === parseInt(id, 10));
-  if (property) {
-    property.status = 'sold';
-    return responses.response(res,200,property,false);
-  }
-  else{
-    return responses.response(res, 404, 'No property found', true);
-  }
-  
-};
-
 //Update Property
 export const updateProperty = (req, res) => {
+  //Check Authorization
+  const tokens = req.headers['authorization']
+  const token = tokens.split(' ')[1]
+  const decoded = jwt.verify(token, 'rugumbira')  
   const { id } = req.params;
-
   const property = properties.find(pro => pro.id === parseInt(id, 10));
+  
   if (property) {
     const datas = Object.keys(req.body);
     const{price} =req.body;
@@ -180,10 +233,14 @@ export const updateProperty = (req, res) => {
         return responses.response(res, 404, 'The price can not be less than or equal to 0', true);    
       }
     }
+    if(decoded.id === property.owner) {
     datas.forEach((data) => {
       property[data] = req.body[data];
     });
     return responses.response(res,201,property, false);
+  }else{
+    return responses.response(res, 404, ' You do not have the Authorization to Delete this property',true);
+  }
   }
   else{
     return responses.response(res, 404, 'No property found', true);
