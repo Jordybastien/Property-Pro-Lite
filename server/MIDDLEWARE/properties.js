@@ -1,21 +1,20 @@
 import Validator from 'validator';
 import isEmpty from './is-empty';
-
 module.exports = function validatePropertyRegistration(data) {
   const errors = {};
-  data.owner = !isEmpty(data.owner) ? data.owner : '';
+  // data.owner = !isEmpty(data.owner) ? data.owner : '';
   data.price = !isEmpty(data.price) ? data.price : '';
   data.state = !isEmpty(data.state) ? data.state : '';
   data.city = !isEmpty(data.city) ? data.city : '';
   data.address = !isEmpty(data.address) ? data.address : '';
   data.type = !isEmpty(data.type) ? data.type : '';
 
-  if (Validator.isEmpty(data.owner)) {
-    errors.owner = 'Owner Field is required';
-  }
-  if (Validator.isNumeric(data.owner)){
-    errors.owner = 'Owner name must be a string';
-  }
+  // if (Validator.isEmpty(data.owner)) {
+  //   errors.owner = 'Owner Field is required';
+  // }
+  // if (Validator.isNumeric(data.owner)){
+  //   errors.owner = 'Owner name must be a string';
+  // }
   if (Validator.isEmpty(data.price)) {
     errors.price = 'price Field is required';
   }

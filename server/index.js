@@ -4,7 +4,10 @@ import passport from 'passport';
 import bodyParser from 'body-parser';
 import users from './routes/users';
 import properties from './routes/properties';
-
+import {Client} from 'pg';
+const client = new Client({
+   
+})
 
 const app = express();
 
@@ -15,6 +18,20 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use('/api/v1', users);
 app.use('/api/v1', properties);
+
+
+
+app.use((req, res, next) => {
+  const error = new Error('Method not allowed');
+  error.status = 405;
+  next(error);
+});
+
+app.use((error, req, res, next) => {
+  res.status(error.status || 500).send({ status: error.status || 500, error: error.message });
+  next();
+});
+
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {

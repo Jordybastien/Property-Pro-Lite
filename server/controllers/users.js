@@ -81,7 +81,6 @@ export const loginUser = (req, res) => {
   // Login functionality
   // check for user
   const logUser = users.filter(user => user.email === email);
-  console.log(logUser);
 
   if (logUser.length > 0) {
     // check password
@@ -91,6 +90,7 @@ export const loginUser = (req, res) => {
       // create JWT payload
             //Token      
             const toBeSignedLogin = {
+              id:logUser[0].id,
               first_name:logUser[0].first_name,
               last_name:logUser[0].last_name,
               email:logUser[0].email,

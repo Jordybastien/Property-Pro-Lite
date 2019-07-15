@@ -37,7 +37,7 @@ chai.should();
       it('should return 404 when  specified property is not found!', done => {
         chai
           .request(app)
-          .get('/api/v1/property/100')
+          .get('/api/v1/properties/100')
           .end((err, res) => {
             res.should.have.status(404);
             done();
@@ -59,7 +59,6 @@ chai.should();
           .get('/api/v1/getProperty/2 Bedrooms')
           .end((err, res) => {
             res.should.have.status(404);
-            // res.body.should.have.property('data').be.a('object');
             done();
           });
       });     

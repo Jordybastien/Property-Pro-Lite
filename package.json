@@ -42,6 +42,7 @@
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
     "password-hash": "^1.2.2",
+    "pg": "^7.11.0",
     "sinon": "^7.3.2",
     "swagger-ui-express": "^4.0.7",
     "validator": "^11.1.0"
