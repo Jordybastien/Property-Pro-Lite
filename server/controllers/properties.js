@@ -40,38 +40,53 @@ export const getAllproperties = (req, res) => {
 
 };
 // Get property by ID
-export const getPropertyById = (req, res) => {
-  const { id } = req.params;
-  const findProperty = properties.find(property => property.id == id);
-  
-  if(findProperty){
-        //Bring in User
-        let userId = findProperty.owner;
-        const userInfo = users.filter(user => user.id === findProperty.owner);
-        if (userInfo.length > 0) {
-          //Check User owner of the property
-          const propertyInfo = {
-            id: findProperty.id,
-            status: findProperty.status,
-            price: findProperty.price,
-            state: findProperty.state,
-            city: findProperty.city,
-            address: findProperty.address,
-            type: findProperty.type,
-            created_on: findProperty.created_on,
-            image_url: findProperty.image_url,
-            ownerEmail: userInfo[0].email,
-            ownerPhoneNumber: userInfo[0].phoneNumber,
-          }
-          return responses.response(res, 200, propertyInfo);
-        }
+export const getPropertyById = async (req, res) => {
+  let oneprop = await client.query('SELECT * FROM properties WHERE id=$1',[
+    req.params.id
+  ]);
+  console.log(oneprop)
+    if (oneprop.rows.length>0){
+      
+      return responses.response(res,200, oneprop.rows,false);
+    done();
+      
+    }else{
+      return responses.response(res, 404, 'Error running query',true);
+    }
 
-  }
-  else{
-    return responses.response(res, 404, 'No Properties found',true);
-  }
+}
+// export const getPropertyById = (req, res) => {
+//   const { id } = req.params;
+//   const findProperty = properties.find(property => property.id == id);
   
-};
+//   if(findProperty){
+//         //Bring in User
+//         let userId = findProperty.owner;
+//         const userInfo = users.filter(user => user.id === findProperty.owner);
+//         if (userInfo.length > 0) {
+//           //Check User owner of the property
+//           const propertyInfo = {
+//             id: findProperty.id,
+//             status: findProperty.status,
+//             price: findProperty.price,
+//             state: findProperty.state,
+//             city: findProperty.city,
+//             address: findProperty.address,
+//             type: findProperty.type,
+//             created_on: findProperty.created_on,
+//             image_url: findProperty.image_url,
+//             ownerEmail: userInfo[0].email,
+//             ownerPhoneNumber: userInfo[0].phoneNumber,
+//           }
+//           return responses.response(res, 200, propertyInfo);
+//         }
+
+//   }
+//   else{
+//     return responses.response(res, 404, 'No Properties found',true);
+//   }
+  
+// };
 
 // Get property by type
 export const getPropertiesByType = (req, res) => {
