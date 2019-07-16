@@ -3,25 +3,25 @@ import moment from 'moment';
 import properties from '../models/Property';
 import propTypes from '../models/propertiesType';
 import users from '../models/User';
-import validatePropertyRegistration from '../MIDDLEWARE/properties';
+import validatePropertyRegistration from '../middleware/properties';
 import responses from '../helpers/responses';
 import jwt from 'jsonwebtoken';
-import {Client} from 'pg';
-import { doesNotReject } from 'assert';
-const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dodfpnbik/upload';
-const CLOUDINARY_UPLOAD_PRESET = 'cakgs8ec';
+import {Pool, Client} from 'pg';
+import dotenv from 'dotenv';
+dotenv.config();
+const{JWT_SECRET} = process.env;
+const{ CLOUDINARY_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET}=process.env;
 cloudinary.config({
-  cloud_name: 'dodfpnbik',
-  api_key: '971724881742777',
-  api_secret: '3lLaxezKTIQ55htecaqrUjV6Ehs',
+  cloud_name: CLOUDINARY_NAME,
+  api_key: CLOUDINARY_API_KEY,
+  api_secret: CLOUDINARY_API_SECRET,
 });
+const {DB_URL} = process.env;
+const connectionString = DB_URL;
 const client = new Client({
-  user: 'postgres',
-  password: 'Qwerty123@',
-  host: 'localhost',
-  port: 5432,
-  database: 'Property-Pro-Lite'
+  connectionString
 })
+
 client.connect()
 // Fetch all properties
 export const getAllproperties = (req, res) => {
@@ -85,7 +85,7 @@ export const createProperty = async(req, res) => {
             //Decoding token to receive Owner Id
     const tokens = req.headers['authorization'];
     const token = tokens.split(' ')[1];
-    const decoded = jwt.verify(token, 'rugumbira');
+    const decoded = jwt.verify(token, JWT_SECRET);
     
     const {
       owner, price, state, city, address, type,
@@ -140,7 +140,7 @@ export const deleteProperty = async(req, res) => {
   //Check Authorization
   const tokens = req.headers['authorization']
   const token = tokens.split(' ')[1]
-  const decoded = jwt.verify(token, 'rugumbira')  
+  const decoded = jwt.verify(token, JWT_SECRET)  
   const { id } = req.params;
   let findProperty = await client.query('SELECT * FROM properties WHERE id=$1',[
     req.params.id,
@@ -173,7 +173,7 @@ export const propertyIsSold = async(req, res) => {
   //Check Authorization
   const tokens = req.headers['authorization']
   const token = tokens.split(' ')[1]
-  const decoded = jwt.verify(token, 'rugumbira')  
+  const decoded = jwt.verify(token, JWT_SECRET)  
   const { id } = req.params;
   let findProperty = await client.query('SELECT * FROM properties WHERE id=$1',[
     req.params.id,
@@ -208,7 +208,7 @@ export const updateProperty = async (req, res) => {
   //Check Authorization
   const tokens = req.headers['authorization']
   const token = tokens.split(' ')[1]
-  const decoded = jwt.verify(token, 'rugumbira')  
+  const decoded = jwt.verify(token, JWT_SECRET)  
   const { id } = req.params;
   let property = await client.query('SELECT * FROM properties WHERE id=$1',[
     req.params.id,
@@ -224,7 +224,7 @@ export const updateProperty = async (req, res) => {
     image: property.rows[0].image_url,
   }
   
-console.log(DBInfo);
+
   if (property.rows.length>0) {
     const{state} = req.body;
     const{city} = req.body;
