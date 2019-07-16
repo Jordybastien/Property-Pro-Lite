@@ -37,7 +37,7 @@ router.route('/updateProperty/:id')
 .patch(verifyToken, updateProperty);
 
 router.route('/deleteProperty/:id')
-.delete(verifyToken, deleteProperty);
+.delete(deleteProperty);
 
 router.route('/masProperty/:id/sold')
 .patch(verifyToken, propertyIsSold);

@@ -6,6 +6,8 @@ import users from '../models/User';
 import validatePropertyRegistration from '../MIDDLEWARE/properties';
 import responses from '../helpers/responses';
 import jwt from 'jsonwebtoken';
+import {Client} from 'pg';
+import { doesNotReject } from 'assert';
 const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dodfpnbik/upload';
 const CLOUDINARY_UPLOAD_PRESET = 'cakgs8ec';
 cloudinary.config({
@@ -13,12 +15,29 @@ cloudinary.config({
   api_key: '971724881742777',
   api_secret: '3lLaxezKTIQ55htecaqrUjV6Ehs',
 });
-
+const client = new Client({
+  user: "postgres",
+  password: "Qwerty123@",
+  host: "localhost",
+  port: 5432,
+  database: "Property-Pro-Lite"
+})
+client.connect()
 // Fetch all properties
 export const getAllproperties = (req, res) => {
-  if(properties){
-    return responses.response(res, 200, properties);
-  }  
+  //if(properties){
+    //return responses.response(res, 200, properties);
+  //} 
+  client.query('SELECT * FROM properties', function(err, result){
+    if (err){
+      return responses.response(res, 404, 'Error running query',true);
+    }else{
+      let resul = result.rows;
+      return responses.response(res,200, resul,false);
+      done();
+    }
+  })
+
 };
 // Get property by ID
 export const getPropertyById = (req, res) => {
@@ -93,100 +112,126 @@ else{
 };
 
 // Create Property
-export const createProperty = (req, res) => {
-  const { errors, isValid } = validatePropertyRegistration(req.body);
-  // check validation
-  if (!isValid) {
-    return responses.response(res, 400, errors);
-  }
-  else{
-            //Decoding token to receive Owner Id
-    const tokens = req.headers['authorization'];
-    const token = tokens.split(' ')[1];
-    const decoded = jwt.verify(token, 'rugumbira');
+// export const createProperty = (req, res) => {
+//   const { errors, isValid } = validatePropertyRegistration(req.body);
+//   // check validation
+//   if (!isValid) {
+//     return responses.response(res, 400, errors);
+//   }
+//   else{
+//             //Decoding token to receive Owner Id
+//     const tokens = req.headers['authorization'];
+//     const token = tokens.split(' ')[1];
+//     const decoded = jwt.verify(token, 'rugumbira');
     
-    const {
-      owner, price, state, city, address, type,
-    } = req.body;
+//     const {
+//       owner, price, state, city, address, type,
+//     } = req.body;
   
-    if (!req.files.image) {
-      return responses.response(res, 400, 'Image field is required',true);
-    }
+//     if (!req.files.image) {
+//       return responses.response(res, 400, 'Image field is required',true);
+//     }
   
-  //Search Property
-    const searchProperty = properties.filter(property => property.owner === decoded.id && property.price === price && property.state === state && property.city === city && property.address === address && property.type === type);
-    if (searchProperty.length > 0) {
-      return responses.response(res, 302, 'Property already registered', true);
-    }
+//   //Search Property
+//     const searchProperty = properties.filter(property => property.owner === decoded.id && property.price === price && property.state === state && property.city === city && property.address === address && property.type === type);
+//     if (searchProperty.length > 0) {
+//       return responses.response(res, 302, 'Property already registered', true);
+//     }
   
   
-    const image = req.files.image.path;
-    cloudinary.uploader.upload(image, (result, error) => {
-      if (error) {
-        return responses.response(res, 404, error, true);
-      }
-      else{
+//     const image = req.files.image.path;
+//     cloudinary.uploader.upload(image, (result, error) => {
+//       if (error) {
+//         return responses.response(res, 404, error, true);
+//       }
+//       else{
 
 
-        const addProperty = {
-          id: properties.length + 1,
-          owner:decoded.id,
-          status: 'available',
-          price,
-          state,
-          city,
-          address,
-          type,
-          created_on: moment().format(),
-          image_url: result.url,
-        };
-        const tobeSent = {
-          id: properties.length + 1,
-          status: 'available',
-          price,
-          state,
-          city,
-          address,
-          type,
-          created_on: moment().format(),
-          image_url: result.url,
-        };
-        properties.push(addProperty);
-        return responses.response(res, 201, tobeSent, false); 
-      }
-    });
+//         const addProperty = {
+//           id: properties.length + 1,
+//           owner:decoded.id,
+//           status: 'available',
+//           price,
+//           state,
+//           city,
+//           address,
+//           type,
+//           created_on: moment().format(),
+//           image_url: result.url,
+//         };
+//         const tobeSent = {
+//           id: properties.length + 1,
+//           status: 'available',
+//           price,
+//           state,
+//           city,
+//           address,
+//           type,
+//           created_on: moment().format(),
+//           image_url: result.url,
+//         };
+//         properties.push(addProperty);
+//         return responses.response(res, 201, tobeSent, false); 
+//       }
+//     });
+//   }
+
+// };
+export const createProperty = (req, res) => {
+  
+
+
+  //Save to Postgres
+  let recordprop = client.query('INSERT INTO properties(owner,status, price,state, city, address, type, created_on, image_url)VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9)',[
+    req.body.owner, 'available', req.body.price, req.body.state, req.body.city,req.body.address,req.body.type,moment().format(),'new image',
+  ]);
+  if (!recordprop){
+    return responses.response(res, 404, 'Error running query',true);
+  }else{
+  return responses.response(res,201,'Recorded',false);  
+  done();
   }
-
 };
 //Delete property
+// export const deleteProperty = (req, res) => {
+
+//   //Check Authorization
+//   const tokens = req.headers['authorization']
+//   const token = tokens.split(' ')[1]
+//   const decoded = jwt.verify(token, 'rugumbira')  
+//   const { id } = req.params;
+//   const index = properties.findIndex(property => property.id === parseInt(id, 10));
+//   const findProperty = properties.find(property => property.id == id);
+//   if(findProperty){
+//     if (index !== -1) {
+//       if(decoded.id === findProperty.owner) {
+//       properties.splice(index, 1);
+//       return responses.response(res, 200, 'Property deleted', false);
+//     }else{
+//       return responses.response(res, 404, ' You do not have the Authorization to Delete this property',true);
+//     }
+//     }
+//     else{
+//       return responses.response(res, 404, 'No property found',true);
+//     }  
+//   }
+//   else{
+//     return responses.response(res, 404, 'No property found',true);
+//   }
+
+// };
 export const deleteProperty = (req, res) => {
-
-  //Check Authorization
-  const tokens = req.headers['authorization']
-  const token = tokens.split(' ')[1]
-  const decoded = jwt.verify(token, 'rugumbira')  
-  const { id } = req.params;
-  const index = properties.findIndex(property => property.id === parseInt(id, 10));
-  const findProperty = properties.find(property => property.id == id);
-  if(findProperty){
-    if (index !== -1) {
-      if(decoded.id === findProperty.owner) {
-      properties.splice(index, 1);
-      return responses.response(res, 200, 'Property deleted', false);
+    //Delete 
+    let recordprop = client.query('DELETE FROM properties WHERE id =$1',[
+     req.params.id
+    ]);
+    if (!recordprop){
+      return responses.response(res, 404, 'Error running query',true);
     }else{
-      return responses.response(res, 404, ' You do not have the Authorization to Delete this property',true);
+    return responses.response(res,201,'Deleted',false);  
+    done();
     }
-    }
-    else{
-      return responses.response(res, 404, 'No property found',true);
-    }  
-  }
-  else{
-    return responses.response(res, 404, 'No property found',true);
-  }
-
 };
-
 //Mark property as sold
 export const propertyIsSold = (req, res) => {
   
