@@ -177,21 +177,21 @@ else{
 //   }
 
 // };
-// export const createProperty = (req, res) => {
+export const createProperty = (req, res) => {
   
 
 
-//   //Save to Postgres
-//   let recordprop = client.query('INSERT INTO properties(owner,status, price,state, city, address, type, created_on, image_url)VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9)',[
-//     req.body.owner, 'available', req.body.price, req.body.state, req.body.city,req.body.address,req.body.type,moment().format(),'new image',
-//   ]);
-//   if (!recordprop){
-//     return responses.response(res, 404, 'Error running query',true);
-//   }else{
-//   return responses.response(res,201,'Recorded',false);  
-//   done();
-//   }
-// };
+  //Save to Postgres
+  let recordprop = client.query('INSERT INTO properties(owner,status, price,state, city, address, type, created_on, image_url)VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9)',[
+    req.body.owner, 'available', req.body.price, req.body.state, req.body.city,req.body.address,req.body.type,moment().format(),'new image',
+  ]);
+  if (!recordprop){
+    return responses.response(res, 404, 'Error running query',true);
+  }else{
+  return responses.response(res,201,'Recorded',false);  
+  done();
+  }
+};
 //Delete property
 export const deleteProperty = (req, res) => {
 
