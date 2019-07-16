@@ -25,9 +25,6 @@ const client = new Client({
 client.connect()
 // Fetch all properties
 export const getAllproperties = (req, res) => {
-  //if(properties){
-    //return responses.response(res, 200, properties);
-  //} 
   client.query('SELECT * FROM properties', function(err, result){
     if (err){
       return responses.response(res, 404, 'Error running query',true);
@@ -286,24 +283,3 @@ let updateprop = client.query('UPDATE properties SET price=$1, state=$2, city=$3
   }
 };
 
-
-
-
-
-export const updateProperty2 = (req, res) => {
-  //UPDATE 
-  let updateprop = client.query('UPDATE properties SET owner=$1, status=$2, price=$3, state=$4, city=$5, address=$6, type=$7, created_on=$8, image_url=$9 where id = $10',[
-    req.body.owner,'available',req.body.price,req.body.state,req.body.city,req.body.address,req.body.type,moment().format(),'image',req.params.id,
-   ])
-   .then(() =>{
-    return responses.response(res,201,'Updated',false);  
-    done();
-   });
-   console.log(updateprop)
-   if (!updateprop){
-     return responses.response(res, 404, 'Error running query',true);
-   }else{
-
-
-   }
-}
