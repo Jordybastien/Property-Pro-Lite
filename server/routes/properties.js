@@ -17,6 +17,7 @@ import {
   getPropertiesByType,
 } from '../controllers/properties';
 import handleErrors from '../MIDDLEWARE/errors';
+import { verify } from 'crypto';
 
 const router = express.Router();
 const connection = connect();
@@ -31,7 +32,7 @@ router.route('/getProperty/:type')
 .get(getPropertiesByType);
 
 router.route('/postProperty')
-.post(connection, createProperty);
+
 
 router.route('/updateProperty/:id')
 .patch(updateProperty);

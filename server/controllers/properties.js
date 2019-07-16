@@ -24,6 +24,8 @@ const client = new Client({
 })
 client.connect()
 // Fetch all properties
+
+
 export const getAllproperties = async (req, res) => {
 
   let allproperties = await client.query('SELECT * FROM properties');
@@ -118,73 +120,12 @@ else{
 //     const tokens = req.headers['authorization'];
 //     const token = tokens.split(' ')[1];
 //     const decoded = jwt.verify(token, 'rugumbira');
+
     
 //     const {
 //       owner, price, state, city, address, type,
 //     } = req.body;
   
-//     if (!req.files.image) {
-//       return responses.response(res, 400, 'Image field is required',true);
-//     }
-  
-//   //Search Property
-//     const searchProperty = properties.filter(property => property.owner === decoded.id && property.price === price && property.state === state && property.city === city && property.address === address && property.type === type);
-//     if (searchProperty.length > 0) {
-//       return responses.response(res, 302, 'Property already registered', true);
-//     }
-  
-  
-//     const image = req.files.image.path;
-//     cloudinary.uploader.upload(image, (result, error) => {
-//       if (error) {
-//         return responses.response(res, 404, error, true);
-//       }
-//       else{
-
-
-//         const addProperty = {
-//           id: properties.length + 1,
-//           owner:decoded.id,
-//           status: 'available',
-//           price,
-//           state,
-//           city,
-//           address,
-//           type,
-//           created_on: moment().format(),
-//           image_url: result.url,
-//         };
-//         const tobeSent = {
-//           id: properties.length + 1,
-//           status: 'available',
-//           price,
-//           state,
-//           city,
-//           address,
-//           type,
-//           created_on: moment().format(),
-//           image_url: result.url,
-//         };
-//         properties.push(addProperty);
-//         return responses.response(res, 201, tobeSent, false); 
-//       }
-//     });
-//   }
-
-// };
-export const createProperty = (req, res) => {
-
-
-  // //Save to Postgres
-  // let recordprop = client.query('INSERT INTO properties(owner,status, price,state, city, address, type, created_on, image_url)VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9)',[
-  //   req.body.owner, 'available', req.body.price, req.body.state, req.body.city,req.body.address,req.body.type,moment().format(),'new image',
-  // ]);
-  // if (!recordprop){
-  //   return responses.response(res, 404, 'Error running query',true);
-  // }else{
-  // return responses.response(res,201,'Recorded',false);  
-  // done();
-  // }
 };
 //Delete property
 export const deleteProperty = (req, res) => {
