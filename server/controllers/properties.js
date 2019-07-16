@@ -16,11 +16,11 @@ cloudinary.config({
   api_secret: '3lLaxezKTIQ55htecaqrUjV6Ehs',
 });
 const client = new Client({
-  user: "postgres",
-  password: "Qwerty123@",
-  host: "localhost",
+  user: 'postgres',
+  password: 'Qwerty123@',
+  host: 'localhost',
   port: 5432,
-  database: "Property-Pro-Lite"
+  database: 'Property-Pro-Lite'
 })
 client.connect()
 // Fetch all properties

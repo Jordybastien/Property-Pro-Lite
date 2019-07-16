@@ -7,11 +7,11 @@ import responses from '../helpers/responses';
 import {Client} from 'pg';
 import { doesNotReject } from 'assert';
 const client = new Client({
-  user: "postgres",
-  password: "Qwerty123@",
-  host: "localhost",
+  user: 'postgres',
+  password: 'Qwerty123@',
+  host: 'localhost',
   port: 5432,
-  database: "Property-Pro-Lite"
+  database: 'Property-Pro-Lite'
 })
         client.connect()
 // Signup
@@ -58,11 +58,11 @@ export const createUser = async (req, res) => {
                         jwt.sign(toBeSigned, 'rugumbira', { expiresIn: '24h' }, (err, token) => {
                           const payload= {
                             token: 'Bearer ' + token,
-                            "firstname":req.body.first_name,
-                            "lastname":req.body.last_name,
-                            "email":req.body.email,
-                            "phoneNumber":req.body.phoneNumber,
-                            "address":req.body.address,
+                            'firstname':req.body.first_name,
+                            'lastname':req.body.last_name,
+                            'email':req.body.email,
+                            'phoneNumber':req.body.phoneNumber,
+                            'address':req.body.address,
                           }
                           return responses.response(res,201,payload,false);  
                         });      
@@ -117,11 +117,11 @@ export const loginUser = async (req, res) => {
 
               const payload= {
                 token:'Bearer ' + token,
-                "firstname":emailCheck.rows[0].first_name,
-                "lastname":emailCheck.rows[0].last_name,
-                "email":emailCheck.rows[0].email,
-                "phoneNumber":emailCheck.rows[0].phoneNumber,
-                "address":emailCheck.rows[0].address,
+                'firstname':emailCheck.rows[0].first_name,
+                'lastname':emailCheck.rows[0].last_name,
+                'email':emailCheck.rows[0].email,
+                'phoneNumber':emailCheck.rows[0].phoneNumber,
+                'address':emailCheck.rows[0].address,
               }
               return responses.response(res,201,payload,false);  
             });

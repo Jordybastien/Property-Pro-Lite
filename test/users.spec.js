@@ -46,7 +46,7 @@ describe('POST /', () => {
         .send(user)
         .end((err, res) => {
             expect(res.status).to.equal(400);
-            expect(res.body.error.first_name).equals("First Name Field is required");
+            expect(res.body.error.first_name).equals('First Name Field is required');
           done();
 });
 })
@@ -67,7 +67,7 @@ it('It should not create a user if last name is empty', done => {
             expect(res.status).to.equal(400);
             
             
-            expect(res.body.error.last_name).equals("Last Name Field is required");
+            expect(res.body.error.last_name).equals('Last Name Field is required');
           done();
 });
 })
@@ -86,7 +86,7 @@ it('It should not create a user if email is not valid', done => {
         .send(user)
         .end((err, res) => {
             expect(res.status).to.equal(400);
-            expect(res.body.error.email).equals("Email is invalid");
+            expect(res.body.error.email).equals('Email is invalid');
           done();
 });
 })
@@ -109,7 +109,7 @@ it('It should not create a user if phone number is not valid', done => {
         .send(user)
         .end((err, res) => {
             expect(res.status).to.equal(400);
-            expect(res.body.error.phoneNumber).equals("Phone must be numeric");
+            expect(res.body.error.phoneNumber).equals('Phone must be numeric');
           done();
 });
 })
@@ -133,7 +133,7 @@ it('It should not create a user if address is not provided', done => {
         .send(user)
         .end((err, res) => {
             expect(res.status).to.equal(400);
-            expect(res.body.error.address).equals("Address Field is required");
+            expect(res.body.error.address).equals('Address Field is required');
           done();
 });
 })
