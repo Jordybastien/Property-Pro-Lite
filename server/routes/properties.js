@@ -30,16 +30,21 @@ router.route('/properties/:id')
 router.route('/getProperty/:type')
 .get(getPropertiesByType);
 
+<<<<<<< HEAD
 // router.route('/postProperty')
 // .post(connection, createProperty);
+=======
+router.route('/postProperty')
+.post(connection, createProperty);
+>>>>>>> develop
 
 router.route('/updateProperty/:id')
-.patch(verifyToken, updateProperty);
+.patch(updateProperty);
 
 router.route('/deleteProperty/:id')
-.delete(verifyToken, deleteProperty);
+.delete(deleteProperty);
 
 router.route('/masProperty/:id/sold')
-.patch(verifyToken, propertyIsSold);
+.patch(propertyIsSold);
 
 export default router;
