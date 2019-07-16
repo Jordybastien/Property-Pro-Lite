@@ -24,19 +24,14 @@ const client = new Client({
 })
 client.connect()
 // Fetch all properties
-export const getAllproperties = (req, res) => {
-  //if(properties){
-    //return responses.response(res, 200, properties);
-  //} 
-  client.query('SELECT * FROM properties', function(err, result){
-    if (err){
-      return responses.response(res, 404, 'Error running query',true);
-    }else{
-      let resul = result.rows;
-      return responses.response(res,200, resul,false);
-      done();
-    }
-  })
+export const getAllproperties = async (req, res) => {
+
+  let allproperties = await client.query('SELECT * FROM properties');
+  if (allproperties.rows.length > 0) {
+    return responses.response(res,302,allproperties.rows,false);
+  }else{
+    return responses.response(res,401,'No Properties found',true);
+  }
 
 };
 // Get property by ID
@@ -177,6 +172,23 @@ else{
 //   }
 
 // };
+<<<<<<< HEAD
+// export const createProperty = (req, res) => {
+  
+
+
+//   //Save to Postgres
+//   let recordprop = client.query('INSERT INTO properties(owner,status, price,state, city, address, type, created_on, image_url)VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9)',[
+//     req.body.owner, 'available', req.body.price, req.body.state, req.body.city,req.body.address,req.body.type,moment().format(),'new image',
+//   ]);
+//   if (!recordprop){
+//     return responses.response(res, 404, 'Error running query',true);
+//   }else{
+//   return responses.response(res,201,'Recorded',false);  
+//   done();
+//   }
+// };
+=======
 export const createProperty = (req, res) => {
   
 
@@ -192,6 +204,7 @@ export const createProperty = (req, res) => {
   done();
   }
 };
+>>>>>>> develop
 //Delete property
 export const deleteProperty = (req, res) => {
 

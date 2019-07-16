@@ -61,7 +61,7 @@ https://www.pivotaltracker.com/n/projects/2356125
 https://propertyprolitejordy.herokuapp.com/
 
 #### 4.3.1. User can view all properties
-https://propertyprolitejordy.herokuapp.com/api/v1/getProperties
+https://propertyprolitejordy.herokuapp.com/api/v1/allProperties
 
 
 #### 4.3.2. User can view specific property

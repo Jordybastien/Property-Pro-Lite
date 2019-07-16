@@ -21,7 +21,7 @@ import handleErrors from '../MIDDLEWARE/errors';
 const router = express.Router();
 const connection = connect();
 
-router.route('/getProperties')
+router.route('/allProperties')
 .get(getAllproperties);
 
 router.route('/properties/:id')
@@ -30,8 +30,13 @@ router.route('/properties/:id')
 router.route('/getProperty/:type')
 .get(getPropertiesByType);
 
+<<<<<<< HEAD
+// router.route('/postProperty')
+// .post(connection, createProperty);
+=======
 router.route('/postProperty')
 .post(connection, createProperty);
+>>>>>>> develop
 
 router.route('/updateProperty/:id')
 .patch(updateProperty);
