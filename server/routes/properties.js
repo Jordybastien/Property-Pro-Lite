@@ -17,11 +17,12 @@ import {
   getPropertiesByType,
 } from '../controllers/properties';
 import handleErrors from '../MIDDLEWARE/errors';
+import { verify } from 'crypto';
 
 const router = express.Router();
 const connection = connect();
 
-router.route('/getProperties')
+router.route('/allProperties')
 .get(getAllproperties);
 
 router.route('/properties/:id')
@@ -31,7 +32,7 @@ router.route('/getProperty/:type')
 .get(getPropertiesByType);
 
 router.route('/postProperty')
-.post(connection, createProperty);
+.post(verifyToken,connection, createProperty);
 
 router.route('/updateProperty/:id')
 .patch(verifyToken, updateProperty);

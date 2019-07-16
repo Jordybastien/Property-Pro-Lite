@@ -4,71 +4,81 @@ import users from '../models/User';
 import validateRegInput from '../MIDDLEWARE/userRegistration';
 import validateLogin from '../MIDDLEWARE/login';
 import responses from '../helpers/responses';
-
+import {Client} from 'pg';
+import { doesNotReject } from 'assert';
+const client = new Client({
+  user: "postgres",
+  password: "Qwerty123@",
+  host: "localhost",
+  port: 5432,
+  database: "Property-Pro-Lite"
+})
+        client.connect()
 // Signup
-export const createUser = (req, res) => {
+export const createUser = async (req, res) => {
   const { errors, isValid } = validateRegInput(req.body);
   // check fields validations
   if (!isValid) {
     return responses.response(res,400,errors, true);
   }
-
-
+    //Check if user is already registered
   const {
     email, first_name, last_name, password, phoneNumber, address, is_admin,
   } = req.body;
   // check if user is not yet recorded
-  const searchUser = users.filter(item => item.email === email);
-  if (searchUser.length > 0) {
+  let userCheck = await client.query('SELECT * FROM users WHERE email=$1 AND first_name=$2 AND last_name=$3 AND phonenumber=$4 AND address=$5 and is_admin=$6',[
+    req.body.email, req.body.first_name, req.body.last_name, req.body.phoneNumber, req.body.address, req.body.is_admin,
+  ]);
+  if (userCheck.rows.length > 0) {
     return responses.response(res,401,'User already registered',true);
+  }else{
+
+        //   // Encrypt password
+          bcrypt.genSalt(10, (err, salt) => {
+            bcrypt.hash(req.body.password, salt, (err, hash) => {
+              let newpassword = hash;
+                      //Save to Postgres
+                      let recordUser = client.query('INSERT INTO users(email, first_name, last_name, password, phonenumber, address, is_admin)VALUES($1,$2,$3,$4,$5,$6,$7)',[
+                        req.body.email, req.body.first_name, req.body.last_name, newpassword, req.body.phoneNumber, req.body.address, req.body.is_admin,
+                      ]);        
+                      if (recordUser){
+                                        //Constant to be signed in payload without password
+                          const toBeSigned = {
+                            email,
+                            first_name,
+                            last_name,
+                            phoneNumber,
+                            address,
+                            is_admin: false,
+                          };
+                        //Token              
+                        jwt.sign(toBeSigned, 'rugumbira', { expiresIn: '24h' }, (err, token) => {
+                          const payload= {
+                            token: 'Bearer ' + token,
+                            "firstname":req.body.first_name,
+                            "lastname":req.body.last_name,
+                            "email":req.body.email,
+                            "phoneNumber":req.body.phoneNumber,
+                            "address":req.body.address,
+                          }
+                          return responses.response(res,201,payload,false);  
+                        });      
+                        //done();
+                        
+                      }else{
+                        return responses.response(res, 404, 'Error running query',true);
+                      }
+                      //End save to postgress
+
+     
+            });
+          });
+
   }
 
-  // Add to object
-  const addUser = {
-    id: users.length + 1,
-    email,
-    first_name,
-    last_name,
-    password,
-    phoneNumber,
-    address,
-    is_admin: false,
-  };
-  //Constant to be signed in payload without password
-  const toBeSigned = {
-    id: users.length + 1,
-    email,
-    first_name,
-    last_name,
-    phoneNumber,
-    address,
-    is_admin: false,
-  };
-  // Encrypt password
-  bcrypt.genSalt(10, (err, salt) => {
-    bcrypt.hash(addUser.password, salt, (err, hash) => {
-      addUser.password = hash;
-      users.push(addUser);
-      //Token
-
-      
-      jwt.sign(toBeSigned, 'rugumbira', { expiresIn: 3600 }, (err, token) => {
-        const payload= {
-          token: 'Bearer ' + token,
-          "firstname":addUser.first_name,
-          "lastname":addUser.last_name,
-          "email":addUser.email,
-          "phoneNumber":addUser.phoneNumber,
-          "address":addUser.address,
-        }
-        return responses.response(res,201,payload,false);  
-      });          
-    });
-  });
- 
+  
 };
-// Login
-export const loginUser = (req, res) => {
+export const loginUser = async (req, res) => {
   const { errors, isValid } = validateLogin(req.body);
   // check validation
   if (!isValid) {
@@ -80,33 +90,35 @@ export const loginUser = (req, res) => {
 
   // Login functionality
   // check for user
-  const logUser = users.filter(user => user.email === email);
-
-  if (logUser.length > 0) {
+  let emailCheck = await client.query('SELECT * FROM users WHERE email=$1',[
+    req.body.email,
+  ]);
+  
+  if (emailCheck.rows.length > 0) {
     // check password
-
-    if (bcrypt.compareSync(password, logUser[0].password)) {
+    
+    if (bcrypt.compareSync(password, emailCheck.rows[0].password)) {
       // User matched
       // create JWT payload
             //Token      
             const toBeSignedLogin = {
-              id:logUser[0].id,
-              first_name:logUser[0].first_name,
-              last_name:logUser[0].last_name,
-              email:logUser[0].email,
-              phoneNumber:logUser[0].phoneNumber,
-              address:logUser[0].address,
-              is_admin: logUser[0].is_admin,
+              id:emailCheck.rows[0].id,
+              first_name:emailCheck.rows[0].first_name,
+              last_name:emailCheck.rows[0].last_name,
+              email:emailCheck.rows[0].email,
+              phoneNumber:emailCheck.rows[0].phoneNumber,
+              address:emailCheck.rows[0].address,
+              is_admin: emailCheck.rows[0].is_admin,
             };
             jwt.sign(toBeSignedLogin, 'rugumbira', { expiresIn: 3600 }, (err, token) => {
 
               const payload= {
                 token:'Bearer ' + token,
-                "firstname":logUser[0].first_name,
-                "lastname":logUser[0].last_name,
-                "email":logUser[0].email,
-                "phoneNumber":logUser[0].phoneNumber,
-                "address":logUser[0].address,
+                "firstname":emailCheck.rows[0].first_name,
+                "lastname":emailCheck.rows[0].last_name,
+                "email":emailCheck.rows[0].email,
+                "phoneNumber":emailCheck.rows[0].phoneNumber,
+                "address":emailCheck.rows[0].address,
               }
               return responses.response(res,201,payload,false);  
             });

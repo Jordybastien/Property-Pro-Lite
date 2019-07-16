@@ -61,19 +61,19 @@ https://www.pivotaltracker.com/n/projects/2356125
 https://propertyprolitejordy.herokuapp.com/
 
 #### 4.3.1. User can view all properties
-https://propertyprolitejordy.herokuapp.com/api/v1/getProperties
+https://propertyprolitejordy.herokuapp.com/api/v1/allProperties
 
 
 #### 4.3.2. User can view specific property
-https://propertyprolitejordy.herokuapp.com/api/v1//properties/[:id]
+https://propertyprolitejordy.herokuapp.com/api/v1/properties/[:id]
 
 
 #### 4.3.3. User can get property by type
-https://propertyprolitejordy.herokuapp.com/api/v1/properties/[:type]
+https://propertyprolitejordy.herokuapp.com/api/v1/getProperty/[:type]
 
 
 #### 4.3.4. Agent can post a property
-https://propertyprolitejordy.herokuapp.com/api/v1/properties/[:type]
+https://propertyprolitejordy.herokuapp.com/api/v1/postProperty/[:type]
 
 
 #### 4.3.5. Agent can update a property
@@ -90,11 +90,11 @@ https://propertyprolitejordy.herokuapp.com/api/v1/masProperty/[:id]/sold
 
 
 #### 4.3.8. User can sign up
-https://propertyprolitejordy.herokuapp.com/api/v1/user
+https://propertyprolitejordy.herokuapp.com/api/v1/userSignup
 
 
 #### 4.3.9. User can log in
-https://propertyprolitejordy.herokuapp.com/api/v1/login
+https://propertyprolitejordy.herokuapp.com/api/v1/userLogin
 
 
 -----------------------------------------------------
