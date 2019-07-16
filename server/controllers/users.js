@@ -35,15 +35,18 @@ export const createUser = async (req, res) => {
 
         //   // Encrypt password
           bcrypt.genSalt(10, (err, salt) => {
-            bcrypt.hash(req.body.password, salt, (err, hash) => {
+            bcrypt.hash(req.body.password, salt, async (err, hash) => {
               let newpassword = hash;
                       //Save to Postgres
                       let recordUser = client.query('INSERT INTO users(email, first_name, last_name, password, phonenumber, address, is_admin)VALUES($1,$2,$3,$4,$5,$6,$7)',[
                         req.body.email, req.body.first_name, req.body.last_name, newpassword, req.body.phoneNumber, req.body.address, req.body.is_admin,
                       ]);        
                       if (recordUser){
-                                        //Constant to be signed in payload without password
+
+                        //Constant to be signed in payload without password
+                        //  Comeback later UserID to be signed
                           const toBeSigned = {
+                            id:1,
                             email,
                             first_name,
                             last_name,

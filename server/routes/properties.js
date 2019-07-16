@@ -31,15 +31,15 @@ router.route('/getProperty/:type')
 .get(getPropertiesByType);
 
 router.route('/postProperty')
-.post(connection, createProperty);
+.post(verifyToken, connection, createProperty);
 
 router.route('/updateProperty/:id')
-.patch(updateProperty);
+.patch(verifyToken, updateProperty);
 
 router.route('/deleteProperty/:id')
-.delete(deleteProperty);
+.delete(verifyToken, deleteProperty);
 
 router.route('/masProperty/:id/sold')
-.patch(propertyIsSold);
+.patch(verifyToken, propertyIsSold);
 
 export default router;

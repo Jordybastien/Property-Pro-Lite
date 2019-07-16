@@ -65,15 +65,15 @@ https://propertyprolitejordy.herokuapp.com/api/v1/allProperties
 
 
 #### 4.3.2. User can view specific property
-https://propertyprolitejordy.herokuapp.com/api/v1//properties/[:id]
+https://propertyprolitejordy.herokuapp.com/api/v1/properties/[:id]
 
 
 #### 4.3.3. User can get property by type
-https://propertyprolitejordy.herokuapp.com/api/v1/properties/[:type]
+https://propertyprolitejordy.herokuapp.com/api/v1/getProperty/[:type]
 
 
 #### 4.3.4. Agent can post a property
-https://propertyprolitejordy.herokuapp.com/api/v1/properties/[:type]
+https://propertyprolitejordy.herokuapp.com/api/v1/postProperty
 
 
 #### 4.3.5. Agent can update a property
