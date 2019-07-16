@@ -24,19 +24,14 @@ const client = new Client({
 })
 client.connect()
 // Fetch all properties
-export const getAllproperties = (req, res) => {
-  //if(properties){
-    //return responses.response(res, 200, properties);
-  //} 
-  client.query('SELECT * FROM properties', function(err, result){
-    if (err){
-      return responses.response(res, 404, 'Error running query',true);
-    }else{
-      let resul = result.rows;
-      return responses.response(res,200, resul,false);
-      done();
-    }
-  })
+export const getAllproperties = async (req, res) => {
+
+  let allproperties = await client.query('SELECT * FROM properties');
+  if (allproperties.rows.length > 0) {
+    return responses.response(res,302,allproperties.rows,false);
+  }else{
+    return responses.response(res,401,'No Properties found',true);
+  }
 
 };
 // Get property by ID

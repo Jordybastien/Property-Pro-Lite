@@ -21,7 +21,7 @@ import handleErrors from '../MIDDLEWARE/errors';
 const router = express.Router();
 const connection = connect();
 
-router.route('/getProperties')
+router.route('/allProperties')
 .get(getAllproperties);
 
 router.route('/properties/:id')
