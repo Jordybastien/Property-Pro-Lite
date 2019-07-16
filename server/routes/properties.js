@@ -31,13 +31,13 @@ router.route('/getProperty/:type')
 .get(getPropertiesByType);
 
 router.route('/postProperty')
-.post(verifyToken, connection, createProperty);
+.post(connection, createProperty);
 
 router.route('/updateProperty/:id')
-.patch(verifyToken, updateProperty);
+.patch(updateProperty);
 
 router.route('/deleteProperty/:id')
-.delete(verifyToken, deleteProperty);
+.delete(deleteProperty);
 
 router.route('/masProperty/:id/sold')
 .patch(verifyToken, propertyIsSold);
