@@ -30,13 +30,8 @@ router.route('/properties/:id')
 router.route('/getProperty/:type')
 .get(getPropertiesByType);
 
-<<<<<<< HEAD
-// router.route('/postProperty')
-// .post(connection, createProperty);
-=======
 router.route('/postProperty')
 .post(connection, createProperty);
->>>>>>> develop
 
 router.route('/updateProperty/:id')
 .patch(updateProperty);
