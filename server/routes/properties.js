@@ -30,8 +30,8 @@ router.route('/properties/:id')
 router.route('/getProperty/:type')
 .get(getPropertiesByType);
 
-router.route('/postProperty')
-.post(verifyToken, connection, createProperty);
+// router.route('/postProperty')
+// .post(connection, createProperty);
 
 router.route('/updateProperty/:id')
 .patch(verifyToken, updateProperty);
