@@ -4,70 +4,97 @@ import users from '../models/User';
 import validateRegInput from '../MIDDLEWARE/userRegistration';
 import validateLogin from '../MIDDLEWARE/login';
 import responses from '../helpers/responses';
-
+import {Client} from 'pg';
+import { doesNotReject } from 'assert';
+const client = new Client({
+  user: "postgres",
+  password: "Qwerty123@",
+  host: "localhost",
+  port: 5432,
+  database: "Property-Pro-Lite"
+})
+        client.connect()
 // Signup
-export const createUser = (req, res) => {
-  const { errors, isValid } = validateRegInput(req.body);
-  // check fields validations
-  if (!isValid) {
-    return responses.response(res,400,errors, true);
-  }
+// export const createUser = (req, res) => {
+//   const { errors, isValid } = validateRegInput(req.body);
+//   // check fields validations
+//   if (!isValid) {
+//     return responses.response(res,400,errors, true);
+//   }
 
 
-  const {
-    email, first_name, last_name, password, phoneNumber, address, is_admin,
-  } = req.body;
-  // check if user is not yet recorded
-  const searchUser = users.filter(item => item.email === email);
-  if (searchUser.length > 0) {
-    return responses.response(res,401,'User already registered',true);
-  }
+//   const {
+//     email, first_name, last_name, password, phoneNumber, address, is_admin,
+//   } = req.body;
+//   // check if user is not yet recorded
+//   const searchUser = users.filter(item => item.email === email);
+//   if (searchUser.length > 0) {
+//     return responses.response(res,401,'User already registered',true);
+//   }
 
-  // Add to object
-  const addUser = {
-    id: users.length + 1,
-    email,
-    first_name,
-    last_name,
-    password,
-    phoneNumber,
-    address,
-    is_admin: false,
-  };
-  //Constant to be signed in payload without password
-  const toBeSigned = {
-    id: users.length + 1,
-    email,
-    first_name,
-    last_name,
-    phoneNumber,
-    address,
-    is_admin: false,
-  };
-  // Encrypt password
-  bcrypt.genSalt(10, (err, salt) => {
-    bcrypt.hash(addUser.password, salt, (err, hash) => {
-      addUser.password = hash;
-      users.push(addUser);
-      //Token
+//   // Add to object
+//   const addUser = {
+//     id: users.length + 1,
+//     email,
+//     first_name,
+//     last_name,
+//     password,
+//     phoneNumber,
+//     address,
+//     is_admin: false,
+//   };
+//   //Constant to be signed in payload without password
+//   const toBeSigned = {
+//     id: users.length + 1,
+//     email,
+//     first_name,
+//     last_name,
+//     phoneNumber,
+//     address,
+//     is_admin: false,
+//   };
+//   // Encrypt password
+//   bcrypt.genSalt(10, (err, salt) => {
+//     bcrypt.hash(addUser.password, salt, (err, hash) => {
+//       addUser.password = hash;
+//       users.push(addUser);
+//       //Token
 
       
-      jwt.sign(toBeSigned, 'rugumbira', { expiresIn: 3600 }, (err, token) => {
-        const payload= {
-          token: 'Bearer ' + token,
-          "firstname":addUser.first_name,
-          "lastname":addUser.last_name,
-          "email":addUser.email,
-          "phoneNumber":addUser.phoneNumber,
-          "address":addUser.address,
-        }
-        return responses.response(res,201,payload,false);  
-      });          
-    });
-  });
+//       jwt.sign(toBeSigned, 'rugumbira', { expiresIn: 3600 }, (err, token) => {
+//         const payload= {
+//           token: 'Bearer ' + token,
+//           "firstname":addUser.first_name,
+//           "lastname":addUser.last_name,
+//           "email":addUser.email,
+//           "phoneNumber":addUser.phoneNumber,
+//           "address":addUser.address,
+//         }
+//         return responses.response(res,201,payload,false);  
+//       });          
+//     });
+//   });
  
-};
+// };
 // Login
+
+
+export const createUser = (req, res) => {
+
+
+        //Save to Postgres
+        let recordUser = client.query('INSERT INTO users(email, first_name, last_name, phoneNumber, password,  address, is_admin)VALUES($1,$2,$3,$4,$5,$6,$7)',[
+          req.body.email, req.body.first_name, req.body.last_name, req.body.password, 'a', req.body.address, req.body.is_admin,
+        ]);
+        if (!recordUser){
+          return responses.response(res, 404, 'Error running query',true);
+        }else{
+        return responses.response(res,201,'Recorded',false);  
+        done();
+        }
+  
+};
+
 export const loginUser = (req, res) => {
   const { errors, isValid } = validateLogin(req.body);
   // check validation
