@@ -40,32 +40,16 @@ export const getAllproperties = (req, res) => {
 
 };
 // Get property by ID
-export const getPropertyById = (req, res) => {
+export const getPropertyById = async (req, res) => {
   const { id } = req.params;
-  const findProperty = properties.find(property => property.id == id);
-  
-  if(findProperty){
-        //Bring in User
-        let userId = findProperty.owner;
-        const userInfo = users.filter(user => user.id === findProperty.owner);
-        if (userInfo.length > 0) {
-          //Check User owner of the property
-          const propertyInfo = {
-            id: findProperty.id,
-            status: findProperty.status,
-            price: findProperty.price,
-            state: findProperty.state,
-            city: findProperty.city,
-            address: findProperty.address,
-            type: findProperty.type,
-            created_on: findProperty.created_on,
-            image_url: findProperty.image_url,
-            ownerEmail: userInfo[0].email,
-            ownerPhoneNumber: userInfo[0].phoneNumber,
-          }
-          return responses.response(res, 200, propertyInfo);
-        }
-
+        //Searching type id by user
+    let searchProperties = await client.query('SELECT * FROM properties WHERE id=$1',[
+      req.params.id,
+    ]);
+    
+    if(searchProperties.rows.length>0){
+      return responses.response(res, 200, searchProperties.rows);   
+    //Join table
   }
   else{
     return responses.response(res, 404, 'No Properties found',true);
@@ -74,109 +58,26 @@ export const getPropertyById = (req, res) => {
 };
 
 // Get property by type
-export const getPropertiesByType = (req, res) => {
+export const getPropertiesByType = async(req, res) => {
   const { type } = req.params;
-  const searchtype = propTypes.filter(prop => prop.type === type);  
-  if(searchtype.length>0){
       //Searching type provided by user
-  const searchProperties = properties.filter(property => property.type === type);  
-  if (searchProperties.length > 0) {
-    //Bring in User
-    const userInfo = users.filter(user => user.id === searchProperties[0].owner);
-    if (userInfo.length > 0) {
-      //Check User owner of the property
-      const propertyInfo = {
-        id: searchProperties[0].id,
-        status: searchProperties[0].status,
-        price: searchProperties[0].price,
-        state: searchProperties[0].state,
-        city: searchProperties[0].city,
-        address: searchProperties[0].address,
-        type: searchProperties[0].type,
-        created_on: searchProperties[0].created_on,
-        image_url: searchProperties[0].image_url,
-        ownerEmail: userInfo[0].email,
-        ownerPhoneNumber: userInfo[0].phoneNumber,
-      }
-      return responses.response(res, 200, propertyInfo);
-    }
+    let searchProperties = await client.query('SELECT * FROM properties WHERE type=$1',[
+      req.params.type,
+    ]);
+    
+    if(searchProperties.rows.length>0){
+      return responses.response(res, 200, searchProperties.rows);   
+    //Join table
   }
   else{
     return responses.response(res, 404, 'No Properties found on the given type',true);
   }
-  }
-else{
-  return responses.response(res,404, 'You are providing a type that is not registered',true);
-}
+
   
 };
 
-// Create Property
-// export const createProperty = (req, res) => {
-//   const { errors, isValid } = validatePropertyRegistration(req.body);
-//   // check validation
-//   if (!isValid) {
-//     return responses.response(res, 400, errors);
-//   }
-//   else{
-//             //Decoding token to receive Owner Id
-//     const tokens = req.headers['authorization'];
-//     const token = tokens.split(' ')[1];
-//     const decoded = jwt.verify(token, 'rugumbira');
-    
-//     const {
-//       owner, price, state, city, address, type,
-//     } = req.body;
-  
-//     if (!req.files.image) {
-//       return responses.response(res, 400, 'Image field is required',true);
-//     }
-  
-//   //Search Property
-//     const searchProperty = properties.filter(property => property.owner === decoded.id && property.price === price && property.state === state && property.city === city && property.address === address && property.type === type);
-//     if (searchProperty.length > 0) {
-//       return responses.response(res, 302, 'Property already registered', true);
-//     }
-  
-  
-//     const image = req.files.image.path;
-//     cloudinary.uploader.upload(image, (result, error) => {
-//       if (error) {
-//         return responses.response(res, 404, error, true);
-//       }
-//       else{
 
 
-//         const addProperty = {
-//           id: properties.length + 1,
-//           owner:decoded.id,
-//           status: 'available',
-//           price,
-//           state,
-//           city,
-//           address,
-//           type,
-//           created_on: moment().format(),
-//           image_url: result.url,
-//         };
-//         const tobeSent = {
-//           id: properties.length + 1,
-//           status: 'available',
-//           price,
-//           state,
-//           city,
-//           address,
-//           type,
-//           created_on: moment().format(),
-//           image_url: result.url,
-//         };
-//         properties.push(addProperty);
-//         return responses.response(res, 201, tobeSent, false); 
-//       }
-//     });
-//   }
-
-// };
 export const createProperty = async(req, res) => {
     const { errors, isValid } = validatePropertyRegistration(req.body);
   // check validation
@@ -270,27 +171,28 @@ export const deleteProperty = async(req, res) => {
 
 
 //Mark property as sold
-export const propertyIsSold = (req, res) => {
+export const propertyIsSold = async(req, res) => {
   
   //Check Authorization
   const tokens = req.headers['authorization']
   const token = tokens.split(' ')[1]
   const decoded = jwt.verify(token, 'rugumbira')  
   const { id } = req.params;
-  const property = properties.find(propert => propert.id === parseInt(id, 10));
-  const findProperty = properties.find(property => property.id == id);
-  if(findProperty){
-    if (property) {
-      if(decoded.id === findProperty.owner) {
-        property.status = 'sold';
-        return responses.response(res,200,property,false);
+  let findProperty = await client.query('SELECT * FROM properties WHERE id=$1',[
+    req.params.id,
+  ]);
+  if(findProperty.rows.length>0){
+    
+      if(decoded.id === findProperty.rows[0].owner) {
+        let updateprop = client.query('UPDATE properties SET status=$1 where id = $2',[
+          'sold',req.params.id,
+         ])
+         findProperty.rows[0].status = 'sold';
+        return responses.response(res,200,findProperty.rows[0],false);
     }else{
-      return responses.response(res, 404, ' You do not have the Authorization to Delete this property',true);
+      return responses.response(res, 404, ' You do not have the Authorization to make changes to this property',true);
     }
-    }
-    else{
-      return responses.response(res, 404, 'No property found',true);
-    }  
+ 
   }
   else{
     return responses.response(res, 404, 'No property found',true);
@@ -298,28 +200,83 @@ export const propertyIsSold = (req, res) => {
   
 };
 
+
+
+
+
+
+
 //Update Property
-export const updateProperty = (req, res) => {
+export const updateProperty = async (req, res) => {
   //Check Authorization
   const tokens = req.headers['authorization']
   const token = tokens.split(' ')[1]
   const decoded = jwt.verify(token, 'rugumbira')  
   const { id } = req.params;
-  const property = properties.find(pro => pro.id === parseInt(id, 10));
+  let property = await client.query('SELECT * FROM properties WHERE id=$1',[
+    req.params.id,
+  ]);
+  const DBInfo = {
+    owner:property.rows[0].owner,
+    status: property.rows[0].status,
+    price: property.rows[0].price,
+    state: property.rows[0].state,
+    city: property.rows[0].city,
+    address: property.rows[0].address,
+    type: property.rows[0].type,
+    image: property.rows[0].image_url,
+  }
   
-  if (property) {
-    const datas = Object.keys(req.body);
+console.log(DBInfo);
+  if (property.rows.length>0) {
+    const{state} = req.body;
+    const{city} = req.body;
+    const{address} = req.body;
+    const{type} = req.body;
+    const{image} = req.body;
     const{price} =req.body;
     if(price){
+
       if(price<=0){
         return responses.response(res, 404, 'The price can not be less than or equal to 0', true);    
       }
+      DBInfo.price =price;
     }
-    if(decoded.id === property.owner) {
-    datas.forEach((data) => {
-      property[data] = req.body[data];
-    });
-    return responses.response(res,201,property, false);
+    if(state){
+      DBInfo.state =state;
+    }
+    if(type){
+      DBInfo.type =type;
+    }
+    if(city){
+      DBInfo.city =city;
+    }
+    if(address){
+      DBInfo.address =address;
+    }
+    if(image){
+      const img = req.files.image.path;
+      cloudinary.uploader.upload(img, (result, error) => {
+        if (error) {
+          return responses.response(res, 404, error, true);          
+        }
+        else{
+          DBInfo.image =result.url;
+        }
+      });
+    }
+    if(state){
+      DBInfo.state =state;
+    }
+    if(decoded.id === property.rows[0].owner) {
+//UPDATE here
+let updateprop = client.query('UPDATE properties SET price=$1, state=$2, city=$3, address=$4, type=$5, created_on=$6, image_url=$7 where id = $8',[
+  DBInfo.price,DBInfo.state,DBInfo.city,DBInfo.address,DBInfo.type,moment().format(),DBInfo.image,req.params.id,
+ ])
+ if(updateprop){
+  return responses.response(res,201,DBInfo, false);
+ }
+    
   }else{
     return responses.response(res, 404, ' You do not have the Authorization to Delete this property',true);
   }
@@ -328,3 +285,25 @@ export const updateProperty = (req, res) => {
     return responses.response(res, 404, 'No property found', true);
   }
 };
+
+
+
+
+
+export const updateProperty2 = (req, res) => {
+  //UPDATE 
+  let updateprop = client.query('UPDATE properties SET owner=$1, status=$2, price=$3, state=$4, city=$5, address=$6, type=$7, created_on=$8, image_url=$9 where id = $10',[
+    req.body.owner,'available',req.body.price,req.body.state,req.body.city,req.body.address,req.body.type,moment().format(),'image',req.params.id,
+   ])
+   .then(() =>{
+    return responses.response(res,201,'Updated',false);  
+    done();
+   });
+   console.log(updateprop)
+   if (!updateprop){
+     return responses.response(res, 404, 'Error running query',true);
+   }else{
+
+
+   }
+}

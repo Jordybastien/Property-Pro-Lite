@@ -34,7 +34,7 @@ router.route('/postProperty')
 .post(verifyToken, connection, createProperty);
 
 router.route('/updateProperty/:id')
-.patch(verifyToken, updateProperty);
+.patch(verifyToken, connection, updateProperty);
 
 router.route('/deleteProperty/:id')
 .delete(verifyToken, deleteProperty);
