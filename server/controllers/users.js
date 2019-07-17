@@ -1,19 +1,19 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import users from '../models/User';
-import validateRegInput from '../MIDDLEWARE/userRegistration';
-import validateLogin from '../MIDDLEWARE/login';
+import validateRegInput from '../middleware/userRegistration';
+import validateLogin from '../middleware/login';
 import responses from '../helpers/responses';
 import {Client} from 'pg';
-import { doesNotReject } from 'assert';
+import dotenv from 'dotenv';
+dotenv.config();
+const{JWT_SECRET} = process.env;
+const {DB_URL} = process.env;
+const connectionString = DB_URL;
 const client = new Client({
-  user: 'postgres',
-  password: 'Qwerty123@',
-  host: 'localhost',
-  port: 5432,
-  database: 'Property-Pro-Lite'
+  connectionString
 })
-        client.connect()
+client.connect()
 // Signup
 export const createUser = async (req, res) => {
   const { errors, isValid } = validateRegInput(req.body);
@@ -55,7 +55,7 @@ export const createUser = async (req, res) => {
                             is_admin: false,
                           };
                         //Token              
-                        jwt.sign(toBeSigned, 'rugumbira', { expiresIn: '24h' }, (err, token) => {
+                        jwt.sign(toBeSigned, JWT_SECRET, { expiresIn: '24h' }, (err, token) => {
                           const payload= {
                             token: 'Bearer ' + token,
                             'firstname':req.body.first_name,
@@ -113,7 +113,7 @@ export const loginUser = async (req, res) => {
               address:emailCheck.rows[0].address,
               is_admin: emailCheck.rows[0].is_admin,
             };
-            jwt.sign(toBeSignedLogin, 'rugumbira', { expiresIn: 3600 }, (err, token) => {
+            jwt.sign(toBeSignedLogin, JWT_SECRET, { expiresIn: 3600 }, (err, token) => {
 
               const payload= {
                 token:'Bearer ' + token,
