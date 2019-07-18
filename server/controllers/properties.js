@@ -27,10 +27,10 @@ client.connect()
 export const getAllproperties = (req, res) => {
   client.query('SELECT * FROM properties', function(err, result){
     if (err){
-      return responses.response(res, 404, 'Error running query',true);
+      return responses.response(res, 404, 'Error running query');
     }else{
       let resul = result.rows;
-      return responses.response(res,200, resul,false);
+      return responses.response(res,200,'All Properties' ,resul,false);      
       done();
     }
   })
@@ -45,11 +45,12 @@ export const getPropertyById = async (req, res) => {
     ]);
     
     if(searchProperties.rows.length>0){
-      return responses.response(res, 200, searchProperties.rows);   
+      return responses.response(res, 200,'One Property', searchProperties.rows,false); 
+      
     //Join table
   }
   else{
-    return responses.response(res, 404, 'No Properties found',true);
+    return responses.response(res, 404, 'No Properties found');
   }
   
 };
@@ -67,7 +68,7 @@ export const getPropertiesByType = async(req, res) => {
     //Join table
   }
   else{
-    return responses.response(res, 404, 'No Properties found on the given type',true);
+    return responses.response(res, 404, 'No Properties found on the given type');
   }
 
   
@@ -92,38 +93,43 @@ export const createProperty = async(req, res) => {
     } = req.body;
   
     if (!req.files.image) {
-      return responses.response(res, 400, 'Image field is required',true);
+      return responses.response(res, 400, 'Image field is required');
     }
     //Search Property
     let propertyCheck = await client.query('SELECT * FROM properties WHERE owner=$1 AND price=$2 AND state=$3 AND city=$4 AND address=$5 and type=$6',[
       decoded.id, req.body.price, req.body.state, req.body.city, req.body.address, req.body.type,
     ]);
     if (propertyCheck.rows.length > 0) {
-      return responses.response(res, 409, 'Property already registered', true);
+      return responses.response(res, 409, 'Property already registered');
     }
     else{
           const image = req.files.image.path;
-        cloudinary.uploader.upload(image, (result, error) => {
+        cloudinary.uploader.upload(image, async(result, error) => {
           if (error) {
-            return responses.response(res, 404, error, true);
+            return responses.response(res, 404, error);
           }
           else{
-              const tobeSent = {
-                status: 'available',
-                price,
-                state,
-                city,
-                address,
-                type,
-                created_on: moment().format(),
-                image_url: result.url,
-              };
+
       //Save to Postgres
-      let recordprop = client.query('INSERT INTO properties(owner,status, price,state, city, address, type, created_on, image_url)VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9)',[
+      let recordprop = await client.query('INSERT INTO properties(owner,status, price,state, city, address, type, created_on, image_url)VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9)',[
         decoded.id, 'available', req.body.price, req.body.state, req.body.city,req.body.address,req.body.type,moment().format(),result.url,
       ]);
+      let countProp = await client.query('SELECT * FROM properties WHERE owner=$1 AND price=$2 AND state=$3 AND city=$4 AND address=$5 and type=$6',[
+        decoded.id, req.body.price, req.body.state, req.body.city, req.body.address, req.body.type,
+      ]);
+      const tobeSent = {
+        id:countProp.rows[0].id,
+        status: 'available',
+        price,
+        state,
+        city,
+        address,
+        type,
+        created_on: moment().format(),
+        image_url: result.url,
+      };
       if (!recordprop){
-        return responses.response(res, 404, 'Error running query',true);
+        return responses.response(res, 404, 'Error running query');
       }else{
         return responses.response(res, 201, 'Property recorded',tobeSent, false);
       done();
@@ -151,15 +157,15 @@ export const deleteProperty = async(req, res) => {
           req.params.id
          ]);
          if (recordprop){
-          return responses.response(res, 200, 'Property deleted', false);
+          return responses.response(res, 200, 'Property deleted');
           done();
          }
     }else{
-      return responses.response(res, 404, 'You do not have the Authorization to Delete this property',true);
+      return responses.response(res, 404, 'You do not have the Authorization to Delete this property');
     }
   }
   else{
-    return responses.response(res, 404, 'No property found',true);
+    return responses.response(res, 404, 'No property found');
   }
 
 };
@@ -185,14 +191,14 @@ export const propertyIsSold = async(req, res) => {
           'sold',req.params.id,
          ])
          findProperty.rows[0].status = 'sold';
-        return responses.response(res,200,findProperty.rows[0],false);
+        return responses.response(res,200,findProperty.rows[0]);
     }else{
-      return responses.response(res, 404, ' You do not have the Authorization to make changes to this property',true);
+      return responses.response(res, 404, ' You do not have the Authorization to make changes to this property');
     }
  
   }
   else{
-    return responses.response(res, 404, 'No property found',true);
+    return responses.response(res, 404, 'No property found');
   }
   
 };
@@ -213,19 +219,22 @@ export const updateProperty = async (req, res) => {
   let property = await client.query('SELECT * FROM properties WHERE id=$1',[
     req.params.id,
   ]);
-  const DBInfo = {
-    owner:property.rows[0].owner,
-    status: property.rows[0].status,
-    price: property.rows[0].price,
-    state: property.rows[0].state,
-    city: property.rows[0].city,
-    address: property.rows[0].address,
-    type: property.rows[0].type,
-    image: property.rows[0].image_url,
-  }
+  
+ 
   
 
   if (property.rows.length>0) {
+    const DBInfo = {
+      owner:property.rows[0].owner,
+      status: property.rows[0].status,
+      price: property.rows[0].price,
+      state: property.rows[0].state,
+      city: property.rows[0].city,
+      address: property.rows[0].address,
+      type: property.rows[0].type,
+      image: property.rows[0].image_url,
+    }
+
     const{state} = req.body;
     const{city} = req.body;
     const{address} = req.body;
@@ -235,7 +244,7 @@ export const updateProperty = async (req, res) => {
     if(price){
 
       if(price<=0){
-        return responses.response(res, 404, 'The price can not be less than or equal to 0', true);    
+        return responses.response(res, 404, 'The price can not be less than or equal to 0');    
       }
       DBInfo.price =price;
     }
@@ -255,7 +264,7 @@ export const updateProperty = async (req, res) => {
       const img = req.files.image.path;
       cloudinary.uploader.upload(img, (result, error) => {
         if (error) {
-          return responses.response(res, 404, error, true);          
+          return responses.response(res, 404, error);          
         }
         else{
           DBInfo.image =result.url;
@@ -271,15 +280,15 @@ let updateprop = client.query('UPDATE properties SET price=$1, state=$2, city=$3
   DBInfo.price,DBInfo.state,DBInfo.city,DBInfo.address,DBInfo.type,moment().format(),DBInfo.image,req.params.id,
  ])
  if(updateprop){
-  return responses.response(res,201,DBInfo, false);
+  return responses.response(res,201,DBInfo);
  }
     
   }else{
-    return responses.response(res, 404, ' You do not have the Authorization to Delete this property',true);
+    return responses.response(res, 404, ' You do not have the Authorization to Delete this property');
   }
   }
   else{
-    return responses.response(res, 404, 'No property found', true);
+    return responses.response(res, 404, 'No property found');
   }
 };
 
