@@ -14,7 +14,7 @@ services:
 before_script:
   - psql -c "CREATE DATABASE Property-Pro-Lite-test;" -U postgres
   - npm i
-  - npm run migrate
+  - npm run copytest
 
 env:
   global:
@@ -24,6 +24,6 @@ env:
     - CLOUDINARY_API_KEY=971724881742777
     - CLOUDINARY_API_SECRET=3lLaxezKTIQ55htecaqrUjV6Ehs
 script:
-  - npm test
+  - npm run test
 after_success:
 - npm run coveralls
