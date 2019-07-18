@@ -90,11 +90,11 @@ https://propertyprolitejordy.herokuapp.com/api/v1/masProperty/[:id]/sold
 
 
 #### 4.3.8. User can sign up
-https://propertyprolitejordy.herokuapp.com/api/v1/userSignup
+https://propertyprolitejordy.herokuapp.com/api/v1/auth/signup
 
 
 #### 4.3.9. User can log in
-https://propertyprolitejordy.herokuapp.com/api/v1/userLogin
+https://propertyprolitejordy.herokuapp.com/api/v1/auth/signin
 
 
 -----------------------------------------------------

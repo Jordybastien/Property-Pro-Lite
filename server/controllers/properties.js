@@ -16,8 +16,8 @@ cloudinary.config({
   api_key: CLOUDINARY_API_KEY,
   api_secret: CLOUDINARY_API_SECRET,
 });
-const {DB_URL} = process.env;
-const connectionString = DB_URL;
+const {DATABASE_URL} = process.env;
+const connectionString = DATABASE_URL;
 const client = new Client({
   connectionString
 })
@@ -96,7 +96,7 @@ export const createProperty = async(req, res) => {
     }
     //Search Property
     let propertyCheck = await client.query('SELECT * FROM properties WHERE owner=$1 AND price=$2 AND state=$3 AND city=$4 AND address=$5 and type=$6',[
-      req.body.owner, req.body.price, req.body.state, req.body.city, req.body.address, req.body.type,
+      decoded.id, req.body.price, req.body.state, req.body.city, req.body.address, req.body.type,
     ]);
     if (propertyCheck.rows.length > 0) {
       return responses.response(res, 302, 'Property already registered', true);
@@ -155,7 +155,7 @@ export const deleteProperty = async(req, res) => {
           done();
          }
     }else{
-      return responses.response(res, 404, ' You do not have the Authorization to Delete this property',true);
+      return responses.response(res, 404, 'You do not have the Authorization to Delete this property',true);
     }
   }
   else{

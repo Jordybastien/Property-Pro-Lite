@@ -1,7 +1,7 @@
 import chai, {expect} from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../server/index';
-import users from '../server/models/User';
+import users from '../server/models/user';
 import usersController from '../server/controllers/users';
 import propertiesValidator from '../server/MIDDLEWARE/properties';
 import Responding from '../server/helpers/responses';
@@ -13,24 +13,6 @@ const should = chai.should();
 chai.use(chaiHttp);
 chai.should();
 describe('POST /', () => {
-    it('New user, it should return 201', done => {
-        const user ={
-            email: 'user8@gmail.com',
-            first_name: 'Rugumbira',
-            last_name:'Jordy',
-            password: '123456',
-            phoneNumber: '0785634779',
-            address:'Kicukiro'
-        };
-
-        chai.request(app)
-            .post('/api/v1/user')
-            .send(user)
-            .end((err, res) => {
-                expect(res.status).to.equal(201);
-              done();
-    });
-  })
   it('It should not create a user if first name is empty', done => {
     const user ={
         email: 'user8@gmail.com',
@@ -42,7 +24,7 @@ describe('POST /', () => {
     };
 
     chai.request(app)
-        .post('/api/v1/user')
+        .post('/api/v1/auth/signup')
         .send(user)
         .end((err, res) => {
             expect(res.status).to.equal(400);
@@ -61,11 +43,10 @@ it('It should not create a user if last name is empty', done => {
     };
 
     chai.request(app)
-        .post('/api/v1/user')
+        .post('/api/v1/auth/signup')
         .send(user)
         .end((err, res) => {
-            expect(res.status).to.equal(400);
-            
+            expect(res.status).to.equal(400);        
             
             expect(res.body.error.last_name).equals('Last Name Field is required');
           done();
@@ -82,7 +63,7 @@ it('It should not create a user if email is not valid', done => {
     };
 
     chai.request(app)
-        .post('/api/v1/user')
+        .post('/api/v1/auth/signup')
         .send(user)
         .end((err, res) => {
             expect(res.status).to.equal(400);
@@ -105,7 +86,7 @@ it('It should not create a user if phone number is not valid', done => {
     };
 
     chai.request(app)
-        .post('/api/v1/user')
+        .post('/api/v1/auth/signup')
         .send(user)
         .end((err, res) => {
             expect(res.status).to.equal(400);
@@ -129,7 +110,7 @@ it('It should not create a user if address is not provided', done => {
     };
 
     chai.request(app)
-        .post('/api/v1/user')
+        .post('/api/v1/auth/signup')
         .send(user)
         .end((err, res) => {
             expect(res.status).to.equal(400);
@@ -151,7 +132,7 @@ it('It should not create a user if password is not valid', done => {
     };
 
     chai.request(app)
-        .post('/api/v1/user')
+        .post('/api/v1/auth/signup')
         .send(user)
         .end((err, res) => {
             expect(res.status).to.equal(400);
@@ -162,11 +143,11 @@ it('It should not create a user if password is not valid', done => {
 describe('POST /', () => {
     it('User login, it should return 201', done => {
         const user ={
-            email: 'user2@gmail.com',
-            password: '123456',
+            email: 'user0@gmail.com',
+            password: '1234567',
         };
         chai.request(app)
-            .post('/api/v1/login')
+            .post('/api/v1/auth/signin')
             .send(user)
             .end((err, res) => {
                 expect(res.status).to.equal(201);
