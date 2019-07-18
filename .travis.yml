@@ -12,13 +12,13 @@ services:
   - postgresql
 
 before_script:
-  - psql -c "CREATE DATABASE Property_Pro_Lite_test" -U postgres
+  - psql -c "CREATE DATABASE Property_Pro_Lite" -U postgres
   - npm i
   - npm run copytest
 
 env:
   global:
-    - DB_TEST="postgres://postgres@localhost/Property_Pro_Lite_test"
+    - DB_TEST="postgres://postgres@localhost/Property_Pro_Lite"
     - JWT_SECRET=rugumbira
     - CLOUDINARY_NAME=dodfpnbik
     - CLOUDINARY_API_KEY=971724881742777
