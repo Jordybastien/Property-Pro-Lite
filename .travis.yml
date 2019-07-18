@@ -12,7 +12,7 @@ services:
   - postgresql
 
 before_script:
-  - psql -c "CREATE DATABASE Property_Pro_Lite_test;" -U postgres
+  - psql -c "CREATE DATABASE Property_Pro_Lite_test" -U postgres
   - npm i
   - npm run copytest
 
