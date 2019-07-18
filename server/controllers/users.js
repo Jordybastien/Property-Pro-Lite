@@ -19,7 +19,7 @@ export const createUser = async (req, res) => {
   const { errors, isValid } = validateRegInput(req.body);
   // check fields validations
   if (!isValid) {
-    return responses.response(res,400,errors, true);
+    return responses.response(res,401,errors, true);
   }
     //Check if user is already registered
   const {
@@ -85,7 +85,7 @@ export const loginUser = async (req, res) => {
   const { errors, isValid } = validateLogin(req.body);
   // check validation
   if (!isValid) {
-    return res.status(400).json(errors);
+    return res.status(401).json(errors);
   }
   const { email } = req.body;
   const { password } = req.body;

@@ -40,7 +40,7 @@ describe('Property', () => {
                 .field('address','Kicukiro')
                 .field('type','2 Bedroom')
                 .end((err, res) => {
-                    expect(res.status).to.equal(400);
+                    expect(res.status).to.equal(401);
                   done();
         });
         })
@@ -68,7 +68,7 @@ describe('Property', () => {
                 .field('address','Kicukiro')
                 .field('type','2 Bedroom')
                 .end((err, res) => {
-                    expect(res.status).to.equal(400);
+                    expect(res.status).to.equal(401);
                   done();
         });
         })
@@ -96,7 +96,7 @@ describe('Property', () => {
                 .field('address','Kicukiro')
                 .field('type','2 Bedroom')
                 .end((err, res) => {
-                    expect(res.status).to.equal(400);
+                    expect(res.status).to.equal(401);
                   done();
         });
         })
@@ -124,7 +124,7 @@ describe('Property', () => {
                 .field('address','Kicukiro')
                 .field('type','2 Bedroom')
                 .end((err, res) => {
-                    expect(res.status).to.equal(400);
+                    expect(res.status).to.equal(401);
                   done();
         });
         })
@@ -152,7 +152,7 @@ describe('Property', () => {
                 .field('address','Kicukiro')
                 .field('type','2 Bedroom')
                 .end((err, res) => {
-                    expect(res.status).to.equal(400);
+                    expect(res.status).to.equal(401);
                   done();
         });
         })
@@ -180,7 +180,7 @@ describe('Property', () => {
                 .field('address','')
                 .field('type','2 Bedroom')
                 .end((err, res) => {
-                    expect(res.status).to.equal(400);
+                    expect(res.status).to.equal(401);
                   done();
         });
         })
@@ -208,7 +208,7 @@ describe('Property', () => {
                 .field('address','Kicukiro')
                 .field('type','')
                 .end((err, res) => {
-                    expect(res.status).to.equal(400);
+                    expect(res.status).to.equal(401);
                   done();
         });
         })
@@ -293,6 +293,34 @@ describe('Property', () => {
                 .field('type','2 Bedroom')
                 .end((err, res) => {
                     expect(res.status).to.equal(405);
+                  done();
+        });
+        })
+        it('It should not create a property if the image field is empty', done => {
+
+            const image = '';
+            const toBeSigned = {
+              id: 1,
+              email:'test@gmail.com',
+              first_name:'Rugumbira',
+              last_name:'Jordy',
+              phoneNumber:'0785634779',
+              address:'Kicukiro',
+              is_admin: false,
+            };
+            const userToken = 'Bearer ' + jwt.sign(toBeSigned, JWT_SECRET, { expiresIn: '24h' });
+            chai.request(app)
+                .post('/api/v1/postProperty')
+                .set('Authorization',userToken)
+                .attach('image', image)
+                .field('owner',1)
+                .field('price','100')
+                .field('state','Kigali')
+                .field('city','Kigali')
+                .field('address','Kicukiro')
+                .field('type','2 Bedroom')
+                .end((err, res) => {
+                    expect(res.status).to.equal(400);
                   done();
         });
         })
@@ -483,7 +511,6 @@ describe('Property', () => {
                 .set('Authorization',userToken)
                 .attach('image', image)
                 .field('price','100')
-                .field('status','available')
                 .field('state','Kigali')
                 .field('city','Kigali')
                 .field('address','Kicukiro')
@@ -513,6 +540,26 @@ describe('Property', () => {
                   done();
         });
         })
+        it('It should not mark as sold a property if the property is not registered', done => {            
+          const toBeSigned = {
+            id: 1,
+            email:'test@gmail.com',
+            first_name:'Rugumbira',
+            last_name:'Jordy',
+            phoneNumber:'0785634779',
+            address:'Kicukiro',
+            is_admin: false,
+          };
+          const userToken = 'Bearer ' + jwt.sign(toBeSigned, JWT_SECRET, { expiresIn: '24h' });
+          chai.request(app)
+              .patch('/api/v1/masProperty/100/sold')
+              .set('Authorization',userToken)
+              .send()
+              .end((err, res) => {
+                  expect(res.status).to.equal(404);
+                done();
+      });
+      })
     });
     describe('DELETE /', () => {
         it('It should delete a property', done => {
@@ -559,7 +606,7 @@ describe('Property', () => {
 
             const toBeSigned = {
               id: 2,
-              email:'test2@gmail.com',
+              email:'test20@gmail.com',
               first_name:'Rugumbira',
               last_name:'Jordy',
               phoneNumber:'0785634779',
@@ -575,6 +622,26 @@ describe('Property', () => {
                   done();
         });
         })
+        it('It should not delete a property if the property is not registered', done => {
+
+          const toBeSigned = {
+            id: 2,
+            email:'test@gmail.com',
+            first_name:'Rugumbira',
+            last_name:'Jordy',
+            phoneNumber:'0785634779',
+            address:'Kicukiro',
+            is_admin: false,
+          };
+          const userToken = 'Bearer ' + jwt.sign(toBeSigned, JWT_SECRET, { expiresIn: '24h' });
+          chai.request(app)
+              .delete('/api/v1/deleteProperty/100')
+              .set('Authorization',userToken)
+              .end((err, res) => {
+                  expect(res.status).to.equal(404);
+                done();
+      });
+      })
     });
     
 });
