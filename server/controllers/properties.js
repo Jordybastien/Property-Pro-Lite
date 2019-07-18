@@ -99,7 +99,7 @@ export const createProperty = async(req, res) => {
       decoded.id, req.body.price, req.body.state, req.body.city, req.body.address, req.body.type,
     ]);
     if (propertyCheck.rows.length > 0) {
-      return responses.response(res, 302, 'Property already registered', true);
+      return responses.response(res, 409, 'Property already registered', true);
     }
     else{
           const image = req.files.image.path;

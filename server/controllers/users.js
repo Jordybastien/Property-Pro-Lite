@@ -30,7 +30,7 @@ export const createUser = async (req, res) => {
     req.body.email, req.body.first_name, req.body.last_name, req.body.phoneNumber, req.body.address, req.body.is_admin,
   ]);
   if (userCheck.rows.length > 0) {
-    return responses.response(res,302,'User already registered',true);
+    return responses.response(res,409,'User already registered',true);
   }else{
 
         //   // Encrypt password
