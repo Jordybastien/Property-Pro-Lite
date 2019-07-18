@@ -7,18 +7,6 @@ import properties from './routes/properties';
 import {Client} from 'pg';
 require('dotenv').config();
 
-const client = new Client({
-   user: "postgres",
-   password: "Qwerty123@",
-   host: "localhost",
-   port: 5432,
-   database: "Property-Pro-Lite"
-})
-client.connect()
-.then(() => console.log("Connected successfully"))
-.catch(e => console.log)
-.finally(() => client.end());
-
 const app = express();
 
 app.use(bodyParser.json());

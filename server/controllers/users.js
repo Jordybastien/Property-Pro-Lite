@@ -8,8 +8,8 @@ import {Client} from 'pg';
 import dotenv from 'dotenv';
 dotenv.config();
 const{JWT_SECRET} = process.env;
-const {DB_URL} = process.env;
-const connectionString = DB_URL;
+const {DATABASE_URL} = process.env;
+const connectionString = DATABASE_URL;
 const client = new Client({
   connectionString
 })

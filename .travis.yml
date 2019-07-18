@@ -5,7 +5,25 @@ install: npm install
 cache:
   directories:
     - node_modules
+addons:
+  postgresql: "9.6"
+
+services:
+  - postgresql
+
+before_script:
+  - psql -c "CREATE DATABASE Property-Pro-Lite-test;" -U postgres
+  - npm i
+  - npm run copytest
+
+env:
+  global:
+    - DB_TEST=postgres://postgres@localhost/Property-Pro-Lite-test
+    - JWT_SECRET=rugumbira
+    - CLOUDINARY_NAME=dodfpnbik
+    - CLOUDINARY_API_KEY=971724881742777
+    - CLOUDINARY_API_SECRET=3lLaxezKTIQ55htecaqrUjV6Ehs
 script:
-  - npm test
+  - npm run test
 after_success:
 - npm run coveralls
