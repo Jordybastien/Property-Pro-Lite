@@ -140,18 +140,3 @@ it('It should not create a user if password is not valid', done => {
 });
 })
 });
-describe('POST /', () => {
-    it('User login, it should return 201', done => {
-        const user ={
-            email: 'user0@gmail.com',
-            password: '1234567',
-        };
-        chai.request(app)
-            .post('/api/v1/auth/signin')
-            .send(user)
-            .end((err, res) => {
-                expect(res.status).to.equal(201);
-              done();
-    });
-  })
-});

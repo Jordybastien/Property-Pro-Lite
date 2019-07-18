@@ -18,7 +18,7 @@ before_script:
 
 env:
   global:
-    - DB_TEST=postgres://postgres@localhost/Property_Pro_Lite_test
+    - DB_TEST="postgres://postgres@localhost/Property_Pro_Lite_test"
     - JWT_SECRET=rugumbira
     - CLOUDINARY_NAME=dodfpnbik
     - CLOUDINARY_API_KEY=971724881742777

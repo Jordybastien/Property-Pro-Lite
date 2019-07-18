@@ -125,7 +125,7 @@ export const createProperty = async(req, res) => {
       if (!recordprop){
         return responses.response(res, 404, 'Error running query',true);
       }else{
-        return responses.response(res, 201, tobeSent, false);
+        return responses.response(res, 201, 'Property recorded',tobeSent, false);
       done();
       }
       //End save to postgress
