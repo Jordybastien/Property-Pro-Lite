@@ -1,7 +1,6 @@
 import chai, {expect} from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../server/index';
-import users from '../server/models/user';
 import usersController from '../server/controllers/users';
 import propertiesValidator from '../server/middleware/properties';
 import Responding from '../server/helpers/responses';
