@@ -5,7 +5,7 @@ import connect from 'connect-multiparty';
 import passport from 'passport';
 
 import jwt from 'jsonwebtoken';
-import decode from '../middle/jwt';
+import decode from '../middleware/jwt';
 const verifyToken = decode.verifyToken
 import {
   getAllproperties,
@@ -16,7 +16,7 @@ import {
   updateProperty,
   getPropertiesByType,
 } from '../controllers/properties';
-import handleErrors from '../middle/errors';
+import handleErrors from '../middleware/errors';
 
 const router = express.Router();
 const connection = connect();

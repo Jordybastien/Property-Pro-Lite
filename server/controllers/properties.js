@@ -3,7 +3,7 @@ import moment from 'moment';
 import properties from '../models/Property';
 import propTypes from '../models/propertiesType';
 import users from '../models/User';
-import validatePropertyRegistration from '../middle/properties';
+import validatePropertyRegistration from '../middleware/properties';
 import responses from '../helpers/responses';
 import jwt from 'jsonwebtoken';
 import {Pool, Client} from 'pg';
