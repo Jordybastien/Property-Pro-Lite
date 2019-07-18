@@ -64,7 +64,7 @@ export const createUser = async (req, res) => {
                             'phoneNumber':req.body.phoneNumber,
                             'address':req.body.address,
                           }
-                          return responses.response(res,201,payload,false);  
+                          return responses.response(res,201,'Account created succesfully',payload,false);  
                         });      
                         //done();
                         
