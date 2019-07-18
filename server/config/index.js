@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-import { Client } from 'pg';
+import { Client, Pool } from 'pg';
 dotenv.config();
 
 if (process.env.NODE_ENV === 'development') {

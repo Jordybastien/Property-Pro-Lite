@@ -4,7 +4,7 @@ import users from '../models/User';
 import validateRegInput from '../middleware/userRegistration';
 import validateLogin from '../middleware/login';
 import responses from '../helpers/responses';
-import {Client} from 'pg';
+import {Client, Pool} from 'pg';
 import dotenv from 'dotenv';
 dotenv.config();
 const{JWT_SECRET} = process.env;
@@ -12,7 +12,7 @@ const {DATABASE_URL} = process.env;
 const connectionString = DATABASE_URL;
 const client = new Client({
   connectionString
-})
+});
 client.connect()
 // Signup
 export const createUser = async (req, res) => {

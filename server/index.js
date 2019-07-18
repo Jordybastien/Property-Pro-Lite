@@ -5,6 +5,7 @@ import bodyParser from 'body-parser';
 import users from './routes/users';
 import properties from './routes/properties';
 import {Client} from 'pg';
+
 require('dotenv').config();
 
 const app = express();

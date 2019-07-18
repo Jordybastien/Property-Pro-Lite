@@ -17,7 +17,7 @@
     "deletetest": "cross-env NODE_ENV=testing babel-node ./server/models/index.js tearDown",
     "build": "babel server --out-dir dist",
     "lint": "node_modules/.bin/eslint --fix",
-    "test": "npm run deletetest && npm run copytest && cross-env NODE_ENV=testing nyc --reporter=html --reporter=text mocha --no-timeout  --exit",
+    "test": "npm run deletedev && npm run copydev && cross-env NODE_ENV=testing nyc --reporter=html --reporter=text mocha --no-timeout  --exit",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
     "production": "nodemon --exec babel-node server/index.js",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install && npm run build"
