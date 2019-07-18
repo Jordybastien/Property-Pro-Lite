@@ -2,9 +2,9 @@
     "swagger": "2.0",
     "info": {
       "version": "1",
-      "title": "property-pro-lite APIs Documentation"
+      "title": " Property Pro Lite API Documentation v1"
     },
-    "host": "propertyprolitejordy.herokuapp.com",
+    "host": "localhost:3000",
     "basePath": "/api/v1",
     "jwtsecurity": {
       "type": "apiKey",

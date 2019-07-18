@@ -5,10 +5,16 @@ import bodyParser from 'body-parser';
 import users from './routes/users';
 import properties from './routes/properties';
 import {Client} from 'pg';
-
+import Sui from 'swagger-ui-express';
+import documentation from '../swagger.json';
+import Cors from 'cors';
 require('dotenv').config();
 
 const app = express();
+
+
+app.use('/documentation', Sui.serve, Sui.setup(documentation));
+app.use(Cors());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
