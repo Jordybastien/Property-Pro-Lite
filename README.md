@@ -100,6 +100,9 @@ https://propertyprolitejordy.herokuapp.com/api/v1/auth/signin
 ## 5.How it Works
 Just go to https://jordybastien.github.io/Property-Pro-Lite/UI/ on the homepage you will see a dialogue explaining how to proceed
 
+## 5.1 Swagger Documentation
+You can refer to this documentation also, it might be helpful
+https://propertyprolitejordy.herokuapp.com/documentation/
 
 -----------------------------------------------------
 
