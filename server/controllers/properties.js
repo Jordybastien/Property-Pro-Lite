@@ -79,7 +79,7 @@ export const createProperty = async(req, res) => {
     const { errors, isValid } = validatePropertyRegistration(req.body);
   // check validation
   if (!isValid) {
-    return responses.response(res, 400, errors);
+    return responses.response(res, 401, errors);
   }
   else{
             //Decoding token to receive Owner Id

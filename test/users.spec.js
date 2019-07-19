@@ -31,7 +31,7 @@ describe('User', () => {
                 .post('/api/v1/auth/signup')
                 .send(user)
                 .end((err, res) => {
-                    expect(res.status).to.equal(400);
+                    expect(res.status).to.equal(401);
                     expect(res.body.message.first_name).equals('First Name Field is required');
                   done();
         });
@@ -50,7 +50,7 @@ describe('User', () => {
                 .post('/api/v1/auth/signup')
                 .send(user)
                 .end((err, res) => {
-                    expect(res.status).to.equal(400);
+                    expect(res.status).to.equal(401);
                     expect(res.body.message.first_name).equals('First name must be a string');
                   done();
         });
@@ -69,7 +69,7 @@ describe('User', () => {
                 .post('/api/v1/auth/signup')
                 .send(user)
                 .end((err, res) => {
-                    expect(res.status).to.equal(400);        
+                    expect(res.status).to.equal(401);        
                     
                     expect(res.body.message.last_name).equals('Last Name Field is required');
                   done();
@@ -89,7 +89,7 @@ describe('User', () => {
                 .post('/api/v1/auth/signup')
                 .send(user)
                 .end((err, res) => {
-                    expect(res.status).to.equal(400);        
+                    expect(res.status).to.equal(401);        
                     
                     expect(res.body.message.last_name).equals('Last name must be a string');
                   done();
@@ -109,7 +109,7 @@ describe('User', () => {
                 .post('/api/v1/auth/signup')
                 .send(user)
                 .end((err, res) => {
-                    expect(res.status).to.equal(400);
+                    expect(res.status).to.equal(401);
                     expect(res.body.message.email).equals('Email is invalid');
                   done();
         });
@@ -128,7 +128,7 @@ describe('User', () => {
                 .post('/api/v1/auth/signup')
                 .send(user)
                 .end((err, res) => {
-                    expect(res.status).to.equal(400);
+                    expect(res.status).to.equal(401);
                     expect(res.body.message.email).equals('Email is invalid');
                   done();
         });
@@ -147,7 +147,7 @@ describe('User', () => {
                 .post('/api/v1/auth/signup')
                 .send(user)
                 .end((err, res) => {
-                    expect(res.status).to.equal(400);
+                    expect(res.status).to.equal(401);
                     expect(res.body.message.phoneNumber).equals('Phone must be numeric');
                   done();
         });
@@ -166,7 +166,7 @@ describe('User', () => {
                 .post('/api/v1/auth/signup')
                 .send(user)
                 .end((err, res) => {
-                    expect(res.status).to.equal(400);
+                    expect(res.status).to.equal(401);
                     expect(res.body.message.phoneNumber).equals('Phone must be numeric');
                   done();
         });
@@ -185,8 +185,7 @@ describe('User', () => {
                 .post('/api/v1/auth/signup')
                 .send(user)
                 .end((err, res) => {
-                    expect(res.status).to.equal(400);
-                    // expect(res.body.message.address).equals('Address Field is required');
+                    expect(res.status).to.equal(401);
                   done();
         });
         })
@@ -204,7 +203,7 @@ describe('User', () => {
                 .post('/api/v1/auth/signup')
                 .send(user)
                 .end((err, res) => {
-                    expect(res.status).to.equal(400);
+                    expect(res.status).to.equal(401);
                   done();
         });
         })
@@ -222,7 +221,7 @@ describe('User', () => {
                 .post('/api/v1/auth/signup')
                 .send(user)
                 .end((err, res) => {
-                    expect(res.status).to.equal(400);
+                    expect(res.status).to.equal(401);
                   done();
         });
         })
@@ -233,7 +232,8 @@ describe('User', () => {
                 last_name:'Jordy',
                 password: '123456',
                 phoneNumber: '0785634779',
-                address:'Kicukiro'
+                address:'Kicukiro',
+                is_admin:true
             };
         
             chai.request(app)
@@ -241,6 +241,25 @@ describe('User', () => {
                 .send(user)
                 .end((err, res) => {
                     expect(res.status).to.equal(201);
+                  done();
+        });
+        })
+        it('It should not create a user if he is already registered', done => {
+            const user ={
+                email: 'test@gmail.com',
+                first_name: 'Rugumbira',
+                last_name:'Jordy',
+                password: '123456',
+                phoneNumber: '0785634779',
+                address:'Kicukiro',
+                is_admin:true
+            };
+        
+            chai.request(app)
+                .post('/api/v1/auth/signup')
+                .send(user)
+                .end((err, res) => {
+                    expect(res.status).to.equal(409);
                   done();
         });
         })
@@ -269,7 +288,7 @@ describe('User', () => {
                 .post('/api/v1/auth/signin')
                 .send(user)
                 .end((err, res) => {
-                    expect(res.status).to.equal(400);
+                    expect(res.status).to.equal(401);
                   done();
         });
         })
@@ -301,7 +320,35 @@ describe('User', () => {
                   done();
         });
         })
-        it('It should sign in a user if he provides the right credenttials', done => {
+        it('It should not sign in a user if email is not filled in', done => {
+            const user ={
+                email: '',
+                password: '123456',
+            };
+        
+            chai.request(app)
+                .post('/api/v1/auth/signin')
+                .send(user)
+                .end((err, res) => {
+                    expect(res.status).to.equal(401);
+                  done();
+        });
+        })
+        it('It should not sign in a user if password is not filled in', done => {
+            const user ={
+                email: 'test@gmail.com',
+                password: '',
+            };
+        
+            chai.request(app)
+                .post('/api/v1/auth/signin')
+                .send(user)
+                .end((err, res) => {
+                    expect(res.status).to.equal(401);
+                  done();
+        });
+        })
+        it('It should sign in a user if he provides the right credentials', done => {
             const user ={
                 email: 'test@gmail.com',
                 password: '123456',
@@ -312,6 +359,20 @@ describe('User', () => {
                 .send(user)
                 .end((err, res) => {
                     expect(res.status).to.equal(201);
+                  done();
+        });
+        })
+        it('It should not sign in a user if the provided email is not registered', done => {
+            const user ={
+                email: 'test10@gmail.com',
+                password: '123456',
+            };
+        
+            chai.request(app)
+                .post('/api/v1/auth/signin')
+                .send(user)
+                .end((err, res) => {
+                    expect(res.status).to.equal(401);
                   done();
         });
         })
