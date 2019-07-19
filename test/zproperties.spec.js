@@ -493,33 +493,6 @@ describe('Property', () => {
                   done();
         });
         })
-        it('It should not update a property if the method is wrong', done => {
-
-            const image = '../Property-Pro-Lite/UI/img/properties/2.jpg';
-            const toBeSigned = {
-              id: 1,
-              email:'test@gmail.com',
-              first_name:'Rugumbira',
-              last_name:'Jordy',
-              phoneNumber:'0785634779',
-              address:'Kicukiro',
-              is_admin: false,
-            };
-            const userToken = 'Bearer ' + jwt.sign(toBeSigned, JWT_SECRET, { expiresIn: '24h' });
-            chai.request(app)
-                .post('/api/v1/updateProperty/1')
-                .set('Authorization',userToken)
-                .attach('image', image)
-                .field('price','100')
-                .field('state','Kigali')
-                .field('city','Kigali')
-                .field('address','Kicukiro')
-                .field('type','2 Bedroom')
-                .end((err, res) => {
-                    expect(res.status).to.equal(405);
-                  done();
-        });
-        })
         it('It should not mark as sold a property if the method is wrong', done => {            
             const toBeSigned = {
               id: 1,

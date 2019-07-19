@@ -15,12 +15,12 @@ const decode = {
            const user  = users.filter(user => user.email === email);
            req.user = user
            if (!user) {
-               responses.response(res,400,'invalid token please sign up',true)
+               responses.response(res,400,'invalid token please sign up')
            }
            next()
        }
        catch (error) {
-        responses.response(res,400,'Please provide a valid token',true)
+        responses.response(res,400,'Please provide a valid token')
        }
    }
 }

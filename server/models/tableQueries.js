@@ -20,7 +20,7 @@ CREATE TABLE
                 address TEXT NOT NULL,
                 type TEXT NOT NULL,
                 created_on DATE,
-                image_url TEXT NOT NULL,
+                image_url TEXT,
                 FOREIGN KEY(owner) REFERENCES users(id) ON DELETE CASCADE);
 CREATE TABLE
           flags(

@@ -63,8 +63,8 @@ export const getPropertiesByType = async(req, res) => {
       req.params.type,
     ]);
     
-    if(searchProperties.rows.length>0){
-      return responses.response(res, 200, searchProperties.rows);   
+    if(searchProperties.rows.length>0){   
+      return responses.response(res, 200,'By type', searchProperties.rows,false); 
     //Join table
   }
   else{

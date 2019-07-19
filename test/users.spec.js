@@ -32,7 +32,6 @@ describe('User', () => {
                 .send(user)
                 .end((err, res) => {
                     expect(res.status).to.equal(401);
-                    expect(res.body.message.first_name).equals('First Name Field is required');
                   done();
         });
         })
@@ -51,7 +50,6 @@ describe('User', () => {
                 .send(user)
                 .end((err, res) => {
                     expect(res.status).to.equal(401);
-                    expect(res.body.message.first_name).equals('First name must be a string');
                   done();
         });
         })
@@ -71,7 +69,6 @@ describe('User', () => {
                 .end((err, res) => {
                     expect(res.status).to.equal(401);        
                     
-                    expect(res.body.message.last_name).equals('Last Name Field is required');
                   done();
         });
         })
@@ -91,7 +88,6 @@ describe('User', () => {
                 .end((err, res) => {
                     expect(res.status).to.equal(401);        
                     
-                    expect(res.body.message.last_name).equals('Last name must be a string');
                   done();
         });
         })
@@ -110,7 +106,6 @@ describe('User', () => {
                 .send(user)
                 .end((err, res) => {
                     expect(res.status).to.equal(401);
-                    expect(res.body.message.email).equals('Email is invalid');
                   done();
         });
         })
@@ -129,7 +124,6 @@ describe('User', () => {
                 .send(user)
                 .end((err, res) => {
                     expect(res.status).to.equal(401);
-                    expect(res.body.message.email).equals('Email is invalid');
                   done();
         });
         })
@@ -148,7 +142,6 @@ describe('User', () => {
                 .send(user)
                 .end((err, res) => {
                     expect(res.status).to.equal(401);
-                    expect(res.body.message.phoneNumber).equals('Phone must be numeric');
                   done();
         });
         })
@@ -167,7 +160,6 @@ describe('User', () => {
                 .send(user)
                 .end((err, res) => {
                     expect(res.status).to.equal(401);
-                    expect(res.body.message.phoneNumber).equals('Phone must be numeric');
                   done();
         });
         })
