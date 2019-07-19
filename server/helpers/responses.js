@@ -3,7 +3,7 @@ class Responding {
       if (error) {
         return res.status(statusCode).json({
           status: statusCode,
-          error: data
+          error:mess
         });
       }
       return res.status(statusCode).json({
@@ -15,3 +15,8 @@ class Responding {
   }
   
   export default Responding;
+
+
+
+
+  

@@ -30,7 +30,7 @@ export const createUser = async (req, res) => {
     req.body.email, req.body.first_name, req.body.last_name, req.body.phoneNumber, req.body.address, req.body.is_admin,
   ]);
   if (userCheck.rows.length > 0) {
-    return responses.response(res,409,'User already registered',true);
+    return responses.response(res,409,'User already registered');
   }else{
 
         //   // Encrypt password
@@ -45,8 +45,11 @@ export const createUser = async (req, res) => {
 
                         //Constant to be signed in payload without password
                         //  Comeback later UserID to be signed
+                        let getId = await client.query('SELECT * FROM users WHERE email=$1 AND first_name=$2 AND last_name=$3 AND phonenumber=$4 AND address=$5 and is_admin=$6',[
+                          req.body.email, req.body.first_name, req.body.last_name, req.body.phoneNumber, req.body.address, req.body.is_admin,
+                        ]);
                           const toBeSigned = {
-                            id:1,
+                            id:getId.rows[0].id,
                             email,
                             first_name,
                             last_name,
@@ -123,10 +126,10 @@ export const loginUser = async (req, res) => {
                 'phoneNumber':emailCheck.rows[0].phoneNumber,
                 'address':emailCheck.rows[0].address,
               }
-              return responses.response(res,201,payload,false);  
+              return responses.response(res,201,'Account created succesfully',payload,false);  
             });
     } else {
-      return responses.response(res,401,'Wrong Password', true);
+      return responses.response(res,401,'Wrong Password');
     }
   }
   else {

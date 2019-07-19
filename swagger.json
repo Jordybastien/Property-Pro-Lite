@@ -4,7 +4,7 @@
       "version": "1",
       "title": " Property Pro Lite API Documentation v1"
     },
-    "host": "localhost:3000",
+    "host": "propertyprolitejordy.herokuapp.com",
     "basePath": "/api/v1",
     "jwtsecurity": {
       "type": "apiKey",
@@ -99,12 +99,12 @@
           "tags": [
             "Signup"
           ],
-          "description": "Creating a new account",
+          "description": "This is where users will be signing up their informations",
           "parameters": [
             {
               "name": "user",
               "in": "body",
-              "description": "For the new users to sign up",
+              "description": "This is for new users",
               "schema": {
                 "$ref": "#/definitions/signup"
               }
@@ -114,24 +114,15 @@
             "application/json"
           ],
           "responses": {}
-        },
-        "get": {
-          "tags": [
-            "Signup"
-          ],
-          "description": "Return all signed up users",
-          "produces": [
-            "application/json"
-          ],
-          "responses": {}
         }
+
       },
       "/auth/signin": {
         "post": {
           "tags": [
             "Signin"
           ],
-          "description": "User Log in",
+          "description": "This will allow users to login",
           "parameters": [
             {
               "name": "user",
@@ -153,7 +144,7 @@
           "tags": [
             "Property"
           ],
-          "description": "Add a property",
+          "description": "Create a new property",
           "parameters": [
             {
               "name": "Authorization",
@@ -187,7 +178,7 @@
           "responses": {}
         }
       },
-      "/property/{propertyId}": {
+      "/properties/{id}": {
         "get": {
           "tags": [
             "Property"
@@ -268,7 +259,7 @@
           "responses": {}
         }
       },
-      "/property/{propertyId}/sold": {
+      "/masProperty/{id}/sold": {
         "patch": {
           "tags": [
             "Property"
@@ -305,7 +296,7 @@
           "responses": {}
         }
       },
-      "/property/type/{propertyType}": {
+      "/getProperty/{type}": {
         "get": {
           "tags": [
             "Property"
